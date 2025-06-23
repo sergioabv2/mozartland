@@ -1,0 +1,453 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<script src="https://masonry.desandro.com/masonry.pkgd.min.js"></script>
+
+
+
+
+<style>
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,700,500italic,900,700italic,900italic);
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+* {
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+  transition:all 0.5s;
+  font-family:Roboto;
+}
+
+
+
+.main {
+  display: flex; 
+  flex-direction: column; 
+  flex-wrap: wrap;
+  height: 100vw;
+  background-color:#101010;
+  padding-top:30px;
+
+  background-color:#f2f2f2;
+}
+
+
+.title {
+  font-size:20px;
+  font-weight:300;
+  margin:0px;
+  color:#808080;
+}
+.name {
+  font-weight:700;
+  font-size:16px;
+  margin:0px;
+  color:#3B3B3B;
+}
+.subtle {
+  font-weight:300;
+  font-style:italic;
+  font-size:12px;
+  color:#808080;
+  margin:0px;
+}
+.intro {
+  font-weight:400;
+  font-size:14px;
+  color:#505050;
+  margin:0px;
+}
+button {
+  background-color:#2980B9;
+  border:0px;
+  padding:5px 5px;
+  font-size:14px;
+  font-weight:400;
+  color:#ffffff;
+  border-radius:5px;
+}
+button:hover {
+  background-color:#3498DB;
+}
+button:active {
+  background-color:#226C9C;
+}
+
+.left {
+  width:200px;
+  position:absolute;
+  left:20px;
+}
+.right {
+  width:100%;
+  padding-left:210px;
+}
+hr {
+  border:0px;
+  height:1px;
+  background-color:#e0e0e0;
+  margin:15px 0px;
+}
+.tableReport {
+  width:100%;
+  font-size:14px;
+}
+.tableReport th {
+  width:20%;
+  text-align:center;
+}
+.tableReport td {
+  text-align:center;
+}
+tr:nth-child(odd) {
+  background-color:#ECF0F1;
+}
+tr:nth-child(1) {
+  background-color:#CDD0D1;
+}
+
+.fa {
+    -webkit-transition: all 0.3s ease-out;  /* Chrome 1-25, Safari 3.2+ */
+     -moz-transition: all 0.3s ease-out;  /* Firefox 4-15 */
+       -o-transition: all 0.3s ease-out;  /* Opera 10.50–12.00 */
+          transition: all 0.3s ease-out;  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.50+ */
+}
+
+.box_rotate_clock {
+  -webkit-transform: rotate(90deg);  /* Chrome, Safari 3.1+ */
+    -moz-transform: rotate(90deg);  /* Firefox 3.5-15 */
+      -ms-transform: rotate(90deg);  /* IE 9 */
+        -o-transform: rotate(90deg);  /* Opera 10.50-12.00 */
+         transform: rotate(90deg);  /* Firefox 16+, IE 10+, Opera 12.50+ */
+}
+
+
+.item {
+  float: left;
+  position:relative;
+  background: #FFF;
+  border:1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow:  0 5px 12px 0px rgba(0,0,0,0.3);
+  margin: 5px;
+  width: 150px;
+  height: 150px;
+  overflow:hidden;
+   transition: .8s opacity;
+}
+.item.w2 { width: 310px; }
+.item.h2 { height: 310px; }
+#container {
+  margin: 0 auto;
+}
+
+.padding {
+  padding:20px;
+}
+.center {
+  text-align:center;
+}
+.callForAction {
+  position:absolute;
+  bottom:0px;
+  left:0px;
+  width:100%;
+  padding:20px;
+}
+.callForAction a {
+  color:#3498DB;
+  font-size:14px;
+  display:block;
+  height:100%;
+  width:100%;
+}
+
+.iconFa {
+  font-size:50px;
+  text-align:center;
+  padding:10px;
+  color:#808080;
+}
+
+
+.flip {
+  -webkit-perspective: 800;
+   position: relative;
+}
+.flip .card.flipped {
+  -webkit-transform: rotatey(-180deg);
+}
+.flip .card {
+  width: 100%;
+  height: 100%;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transition: 0.5s;
+  cursor:pointer;
+}
+.flip .card .face {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  -webkit-backface-visibility: hidden ;
+  z-index: 2;
+  
+}
+.flip .card .front {
+  position: absolute;
+  z-index: 1;
+}
+.flip .card .back {
+  -webkit-transform: rotatey(-180deg);
+    background: blue;
+    background: white;
+    color: black;
+    cursor: pointer;
+}
+.revisionTable {
+  width:100%;
+  text-align:center;
+}
+
+
+.post-image {
+  width: 100px; /* Ancho fijo para la imagen */
+  height: auto; /* Mantiene la proporción de la imagen */
+  border-radius: 8px; /* (Opcional) Bordes redondeados */
+}
+
+.subjectContainer {
+  position:absolute;
+  bottom:0px;
+  left:0px;
+  width:100%;
+  padding:5px;
+}
+
+.subject {
+  font-size:20px;
+  font-weight:300;
+  font-size: 15px;
+  color:#808080;
+}
+
+
+#container:hover .item {
+    opacity: 0.5; 
+  
+}
+
+#container:hover .item:hover {
+    opacity: 1; 
+  background: white;  
+  color: #343a40; 
+  cursor: pointer;
+}
+</style>
+
+
+    <div class="main">
+    <div id="container">
+
+<div class="item w2 h2 padding">
+        <span class="title">Revision Planner</span>
+        <hr>
+        <table class="revisionTable">
+          <tr>
+            <td>10000</td>
+            <td>Matematicas</td>
+          </tr>
+          <tr>
+            <td>10000</td>
+            <td>Física</td>
+          </tr>
+          <tr>
+            <td>10000</td>
+            <td>Química</td>
+          </tr>
+          <tr>
+            <td>10000</td>
+            <td>Biología</td>
+          </tr>
+          <tr>
+            <td>10000</td>
+            <td>Historia Universal</td>
+          </tr>
+          <tr>
+            <td>10000</td>
+            <td>Historia de México</td>
+          </tr>
+          <tr>
+            <td>10000</td>
+            <td>Geografía</td>
+          </tr>
+          <tr>
+            <td>10000</td>
+            <td>Literatura</td>
+          </tr>
+        </table>
+        <div class="callForAction">
+          <hr>
+          <a href="#">View Revision Planner</a>
+        </div>
+      </div>
+      
+         <div class="item w2 h2 padding">
+        <span class="title">Quick Quiz</span>
+        <hr/>
+        <div class="quiz">
+          <span class="intro">What type of medium would be used for transfering files?</span><br/><br/>
+            <span class="intro">
+              <input type="radio" name="quiz" value="A"/>Magnetic<br/>
+              <input type="radio" name="quiz" value="B"/>Solid State<br/>
+              <input type="radio" name="quiz" value="C"/>Email<br/>
+              <input type="radio" name="quiz" value="D"/>Letter
+            </span>
+          </form>
+        </div>
+        <div class="callForAction">
+          <hr/>
+          <a href="#">More Quizes</a>
+        </div>
+      </div>
+    
+        <div class="item w1 h1 iconFa">
+        <img src="https://lh3.googleusercontent.com/d/1SlQS68z4RaBn9ONKEucbCTd6oGK9H3sG"   class="post-image" />
+
+        <div class="subjectContainer">
+          <span class="subject" >Matemáticas</span>
+        </div>
+      </div>
+        <div class="item w1 h1 iconFa">
+        <img src="https://lh3.googleusercontent.com/d/1kyViPovZv0f6SHqLUm9C4AGCX-3io6oS"   class="post-image" />
+
+        <div class="subjectContainer">
+          <span class="subject" >Física</span>
+        </div>
+      </div>
+        <div class="item w1 h1 iconFa">
+        <img src="https://lh3.googleusercontent.com/d/1fFVtUvtx-5dK5n36MMoAfe300_Z5TKmB"   class="post-image" />
+
+        <div class="subjectContainer">
+          <span class="subject" >Química</span>
+        </div>
+      </div>
+        <div class="item w1 h1 iconFa">
+        <img src="https://lh3.googleusercontent.com/d/1eXBNcIEjZKd6fi4G-UJIzUpzJOMHMWBW"   class="post-image" />
+
+        <div class="subjectContainer">
+          <span class="subject" >Biología</span>
+        </div>
+      </div>
+      <div class="item w2 h2 padding center flip">
+        <div class="card"> 
+          <div class="face front center"> 
+            <span class="subtle">Random Flash Card - Click To Flip</span><br/><br/><br/><br/>
+            <span class="title">Define<br/>Half-Duplex Transmission</span>
+          </div> 
+          <div class="face back"> 
+            <span class="subtle">Remove Mouse To Flip The Card</span><br/><br/>
+            <span class="title">Data can be sent in both directions, but only one direction at a time</span>
+          </div> 
+        </div>
+      </div>
+        <div class="item w1 h1 iconFa">
+        <img src="https://lh3.googleusercontent.com/d/1kWzzM31tzH5hix9W4B2zZtsQH1XGwN4N"   class="post-image" />
+
+        <div class="subjectContainer">
+          <span class="subject" >Historia Universal</span>
+        </div>
+      </div>
+        <div class="item w1 h1 iconFa">
+        <img src="https://lh3.googleusercontent.com/d/1qkyyywleiUnnfurQ4PPz7bXV16a_PXhc"   class="post-image" />
+
+        <div class="subjectContainer">
+          <span class="subject" >Historia de México</span>
+        </div>
+      </div>
+        <div class="item w1 h1 iconFa">
+        <img src="https://lh3.googleusercontent.com/d/122KpDtD6F_FOaoBTpc5SATgGkj7wbINL"   class="post-image" />
+
+        <div class="subjectContainer">
+          <span class="subject" >Geografía</span>
+        </div>
+      </div>
+        <div class="item w1 h1 iconFa">
+        <img src="https://lh3.googleusercontent.com/d/1YAT2n2_kLWXQSFrN3FxvyhUe5EcFxn_O"   class="post-image" />
+
+        <div class="subjectContainer">
+          <span class="subject" >Literatura</span>
+        </div>
+      </div>
+      
+      
+      
+
+      
+        <div class="item w2 h2 padding">
+        <span class="title">Revision Planner</span>
+        <hr>
+        <span class="intro">You have not yet made a revision plan</span><br/><br/>
+        <span class="subtle">Making a revison plan is probably the most important part of revising!</span>
+        <div class="callForAction">
+          <hr>
+          <a href="#">Make A Revision Plan</a>
+        </div>
+      </div>
+      
+      
+      <div class="item w2 h2 padding">
+        <span class="title">Past Paper Tracker</span>
+        <hr>
+        <span class="intro">
+          <span class="subtle">Latest past paper scores</span><br/><br/>
+          Physics: 50%<br/>
+          Chemistry: 80%<br/>
+          Mathematics: 95%<br/>
+          Computing: 70%<br/>
+        <div class="callForAction">
+          <hr>
+          <a href="#">View Your Past Paper Tracker</a>
+        </div>
+      </div>
+      <div class="item w1 h1 iconFa">
+        <img src="https://lh3.googleusercontent.com/d/1h0PAuatp8mguH19cso6wh19mjMVa0K5V"   class="post-image" />
+
+        <div class="subjectContainer">
+          <span class="subject" >Revision Planner</span>
+        </div>
+      </div>
+      <div class="item w1 h1 iconFa">
+        <i class="fa fa-comment-o"></i>
+        <div class="callForAction">
+          <hr>
+          <a href="#">Add Flash Card</a>
+        </div>
+      </div>
+  
+    
+ 
+      
+      
+      
+      
+      
+    </div>
+  </div>
+
+
+
+<script>
+var container = document.querySelector('#container');
+var msnry = new Masonry( container, {
+  // options
+  columnWidth: 10,
+  rowHeight:10,
+  itemSelector: '.item',
+  isFitWidth: true
+});
+
+$(".flip").click(function() {
+  $(this).find('.card').addClass('flipped').mouseleave(function(){
+    $(this).removeClass('flipped');
+  });
+});
+
+</script>
