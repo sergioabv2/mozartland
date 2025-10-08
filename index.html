@@ -3128,9 +3128,10 @@ width: 200px; /* Ajusta según el tamaño deseado */
    <a href="#/menu/library" class="item" ng-class="(activeMenuClr=='library')?'menuSelectedColor':''" ng-click="activeMenuClr = 'library'" menu-toggle="left"><i class="ri-book-shelf-line" ></i>&nbsp&nbspBiblioteca</a>    
  
           <a href="#/menu/finder" class="item" ng-class="(activeMenuClr=='finder')?'menuSelectedColor':''" ng-click="activeMenuClr = 'finder'" menu-toggle="left"><img src="https://lh3.googleusercontent.com/d/1vMHUODAn781r96RNhefO3HWZrqtMM_0u=s96-c" style="height: 21px; width: 21px; margin-left: 1px; margin-right: 9px">&nbsp&nbspScores</a>  
+   <a href="#/menu/payment" class="item" menu-toggle="left"><i class="ri-bank-card-2-line" ></i>&nbsp&nbspSuscripción</a> 
 
          <hr>
-          <a href="#/menu/recordings" class="item" ng-class="(activeMenuClr=='recordings')?'menuSelectedColor':''" ng-click="activeMenuClr = 'recordings'" menu-toggle="left"><i class="ri-record-circle-line"></i>&nbsp&nbspGrabaciones</a>
+
      <a href="#/menu/reel" class="item" ng-class="(activeMenuClr=='reel')?'menuSelectedColor':''" ng-click="activeMenuClr = 'reel'" menu-toggle="left"><i class="ri-award-fill"></i>&nbsp&nbspMozart Gallery</a>  
 
 
@@ -3190,9 +3191,9 @@ width: 200px; /* Ajusta según el tamaño deseado */
    <a href="#/menu/library" class="item" ng-class="(activeMenuClr=='library')?'menuSelectedColor':''" ng-click="activeMenuClr = 'library'" menu-toggle="left"><i class="ri-book-shelf-line" ></i>&nbsp&nbspBiblioteca</a>    
  
           <a href="#/menu/finder" class="item" ng-class="(activeMenuClr=='finder')?'menuSelectedColor':''" ng-click="activeMenuClr = 'finder'" menu-toggle="left"><img src="https://lh3.googleusercontent.com/d/1vMHUODAn781r96RNhefO3HWZrqtMM_0u=s96-c" style="height: 21px; width: 21px; margin-left: 1px; margin-right: 9px">&nbsp&nbspScores</a>  
+           <a href="#/menu/payment" class="item" ng-class="(activeMenuClr=='payment')?'menuSelectedColor':''" ng-click="activeMenuClr = 'payment'" menu-toggle="left"><i class="ri-bank-card-2-line" ></i>&nbsp&nbspSuscripción</a> 
 
          <hr>
-          <a href="#/menu/recordings" class="item" ng-class="(activeMenuClr=='recordings')?'menuSelectedColor':''" ng-click="activeMenuClr = 'recordings'" menu-toggle="left"><i class="ri-record-circle-line"></i>&nbsp&nbspGrabaciones</a>
      <a href="#/menu/reel" class="item" ng-class="(activeMenuClr=='reel')?'menuSelectedColor':''" ng-click="activeMenuClr = 'reel'" menu-toggle="left"><i class="ri-award-fill"></i>&nbsp&nbspMozart Gallery</a>  
 
 
@@ -3267,37 +3268,25 @@ width: 200px; /* Ajusta según el tamaño deseado */
         <div class="dropdownContent" ng-show="isDropdownVisible" ng-click="$event.stopPropagation()">
      <div id="bannerRow">
       <div class="profile-avatar-container" style="transform: scale(0.9)">
-      <img src="{{userData.photo}}" class="profile-avatar">
+      <img src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL" class="profile-avatar">
       <div class="profile-level">Nivel {{userLvl}}</div>
     </div>
-      <p class="profileName">{{userData.name}}</p>
-      <p class="profileEmail">{{userData.mail}}</p>
+      <p class="profileName">Mozart Academy</p>
+        <p class="profileEmail">Inicia sesión</p>
     </div>
     <div class="dropdown-item" ng-click="goToAccount(); toggleDropdown()">
       <i class="ri-user-3-line"></i> Perfil
     </div>
      <div class="dropdown-item" ng-click="goToPayment(); toggleDropdown()">
       <i class="ri-bank-card-line"></i> Suscripción
-       <div class="pro-badge" ng-if="userData.status == 'ACTIVO'">
-        <i class="ri-vip-crown-fill"></i>
-       <span class="pro-text">        
-      Pro
-      </span>
-     </div>
-
-      <div class="free-badge" ng-if="userData.status != 'ACTIVO'">
-       <span class="free-text">        
-      Free
-      </span>
-      </div>
-
+    
 
     </div>
       <div class="dropdown-item" ng-click="goToAgenda(); toggleDropdown()">
       <i class="ri-calendar-view"></i> Calendario
     </div>
-      <div class="dropdown-item" ng-click="logout()">
-      <i class="ri-shut-down-line"></i> Cerrar sesión
+      <div class="dropdown-item" >
+      <i class="ri-login-box-line"></i> Inicia sesión
     </div>
   </div>
 
@@ -4914,7 +4903,7 @@ width: 200px; /* Ajusta según el tamaño deseado */
     </ion-nav-bar>
     
       <ion-content>
-        <div class="iframe-container"><iframe src="https://app.mozartacademy.mx/payment2" frameborder="0" allowfullscreen ></iframe></div> 
+        <div class="iframe-container"><iframe src="https://www.mozartacademy.online/pricing" frameborder="0" allowfullscreen ></iframe></div> 
       </ion-content>
     </ion-view>
   </script>
@@ -6908,6 +6897,11 @@ $scope.installApp = function () {
     $ionicSideMenuDelegate.toggleLeft();
       $scope.isDropdownVisible = false;
 };
+
+   $scope.isDropdownVisible = false;
+    $scope.toggleDropdown = function() {
+      $scope.isDropdownVisible = !$scope.isDropdownVisible;
+    };
 
 }])
 
