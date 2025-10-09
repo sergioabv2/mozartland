@@ -6881,6 +6881,10 @@ $scope.installApp = function () {
 
 .controller('MenuCtrl2', ['$scope', '$ionicSideMenuDelegate', function($scope, $ionicSideMenuDelegate) {
 
+   $scope.goToLogin = function() {
+  window.location.href = '/login';
+};
+
   $scope.toggleRight = function() {
     $('.item').removeClass('anim');
     setTimeout(function() {
