@@ -6,6 +6,10 @@
     <title>KeyNotes - Aprende Piano con Conexión MIDI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/tone@14.7.58"></script>
+<script src="https://cdn.jsdelivr.net/npm/@magenta/music@1.23.1/es6/core.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/focus-visible@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/html-midi-player@1.5.0"></script>
     <style>
         @keyframes float {
             0% { transform: translateY(0px); }
@@ -168,6 +172,167 @@
             background: rgba(0, 0, 0, 0.6);
         }
 
+        #video-modal {
+    transition: opacity 0.3s ease-in-out;
+}
+
+
+/* Pega este bloque completo dentro de tu etiqueta <style> */
+
+/* MODAL MEJORADO */
+
+/* --- AÑADE ESTAS CLASES PARA LAS TARJETAS DE EJERCICIOS --- */
+.exercise-card {
+    flex: 0 0 auto;
+    width: 280px; /* Más ancho que el book-card */
+    scroll-snap-align: start;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    position: relative;
+}
+.exercise-card:hover {
+    transform: translateY(-4px);
+}
+.exercise-cover {
+    width: 100%;
+    height: 158px; /* Menos alto para un aspecto 16:9 */
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+    border: 1px solid #f0f0f0;
+    margin-bottom: 12px;
+    display: block;
+}
+
+
+.midi-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.midi-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+.midi-modal-container {
+    width: 95%;
+    max-width: 900px;
+    background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1e 100%);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+.midi-modal-overlay.active .midi-modal-container {
+    transform: translateY(0) scale(1);
+}
+.midi-modal-header {
+    padding: 24px 28px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+    border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.midi-modal-title {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+.midi-modal-composer {
+    margin: 0;
+    color: #a78bfa;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 6px;
+}
+.midi-modal-close {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.midi-modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+.midi-modal-body {
+    padding: 0;
+    background: #0f0f1e;
+}
+.midi-player-wrapper {
+    padding: 20px 28px;
+    background: linear-gradient(180deg, #1a1a2e 0%, #16162a 100%);
+    border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+}
+midi-player {
+    width: 100%;
+    --player-bg: transparent;
+    --primary-color: #8b5cf6;
+    --secondary-color: #3b82f6;
+}
+.midi-visualizer-wrapper {
+    height: 400px;
+    position: relative;
+    background: linear-gradient(180deg, #0a0a14 0%, #050510 100%);
+    overflow: hidden;
+}
+.piano-keys {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(180deg, #1a1a1a 0%, #000000 100%);
+    border-top: 2px solid rgba(139, 92, 246, 0.3);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+midi-visualizer::part(note) {
+    background: linear-gradient(180deg, #8b5cf6 0%, #6366f1 100%);
+    border-radius: 4px 4px 0 0;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.6), 0 0 30px rgba(139, 92, 246, 0.3);
+    border: 1px solid rgba(139, 92, 246, 0.8);
+}
+midi-visualizer::part(note-sharp) {
+    background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.6), 0 0 30px rgba(59, 130, 246, 0.3);
+    border: 1px solid rgba(59, 130, 246, 0.8);
+}
+.progress-indicator {
+    position: absolute;
+    top: 0;
+    bottom: 80px;
+    left: 50%;
+    width: 2px;
+    background: linear-gradient(180deg, transparent 0%, rgba(139, 92, 246, 0.8) 30%, rgba(139, 92, 246, 1) 50%, rgba(139, 92, 246, 0.8) 70%, transparent 100%);
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.8), 0 0 20px rgba(139, 92, 246, 0.4);
+    z-index: 5;
+}
     </style>
 </head>
 <body class="bg-gradient-to-b from-blue-50 to-purple-50 font-sans">
@@ -270,23 +435,7 @@
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Explora Nuestras Lecciones</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8">
-            <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition duration-300 float-animation">
-                <div class="bg-pink-100 rounded-full p-4 inline-block mb-4"><i class="fas fa-graduation-cap text-3xl text-pink-500"></i></div><h3 class="text-lg font-semibold text-gray-800">Nivel Principiante</h3>
-            </div>
-            <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition duration-300 float-animation" style="animation-delay: 0.5s;">
-                <div class="bg-purple-100 rounded-full p-4 inline-block mb-4"><i class="fas fa-eye text-3xl text-purple-500"></i></div><h3 class="text-lg font-semibold text-gray-800">Lectura a Primera Vista</h3>
-            </div>
-            <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition duration-300 float-animation" style="animation-delay: 1s;">
-                <div class="bg-blue-100 rounded-full p-4 inline-block mb-4"><i class="fas fa-book-open text-3xl text-blue-500"></i></div><h3 class="text-lg font-semibold text-gray-800">Técnica y Teoría</h3>
-            </div>
-            <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition duration-300 float-animation" style="animation-delay: 1.5s;">
-                <div class="bg-green-100 rounded-full p-4 inline-block mb-4"><i class="fas fa-star text-3xl text-green-500"></i></div><h3 class="text-lg font-semibold text-gray-800">Piezas Populares</h3>
-            </div>
-        </div>
-    </div>
+ 
     
     <div class="bg-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -302,6 +451,58 @@
                 </div>
                 <button class="scroll-btn prev" onclick="scrollCarousel('repertorio-carousel', -1)"><i class="fas fa-chevron-left"></i></button>
                 <button class="scroll-btn next" onclick="scrollCarousel('repertorio-carousel', 1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold mb-8 text-gray-800">Ejercicios Interactivos</h2>
+        <div class="carousel-wrapper">
+            <div class="carousel" id="ejercicios-carousel">
+                <div class="exercise-card" onclick="openMidiModal('https://assets.codepen.io/81395/chopin.mid', 'Escalas de Do Mayor', 'Técnica')">
+                    <img src="https://via.placeholder.com/180x240/10B981/FFFFFF?text=Escalas" alt="Escalas" class="exercise-cover">
+                    <div class="book-title">Escalas de Do Mayor</div>
+                    <div class="book-author">Técnica</div>
+                </div>
+                <div class="exercise-card" onclick="openMidiModal('https://assets.codepen.io/81395/chopin.mid', 'Arpegios de Do Mayor', 'Técnica')">
+                    <img src="https://via.placeholder.com/180x240/3B82F6/FFFFFF?text=Arpegios" alt="Arpegios" class="exercise-cover">
+                    <div class="book-title">Arpegios de Do Mayor</div>
+                    <div class="book-author">Técnica</div>
+                </div>
+                <div class="exercise-card" onclick="openMidiModal('https://assets.codepen.io/81395/chopin.mid', 'Hanon No. 1', 'Destreza')">
+                    <img src="https://via.placeholder.com/180x240/EF4444/FFFFFF?text=Hanon" alt="Hanon" class="exercise-cover">
+                    <div class="book-title">Hanon No. 1</div>
+                    <div class="book-author">Destreza</div>
+                </div>
+                <div class="exercise-card ">
+                    <img src="https://via.placeholder.com/180x240/F97316/FFFFFF?text=Acordes" alt="Progresión de Acordes" class="exercise-cover">
+                    <div class="book-title">Progresión de Acordes</div>
+                    <div class="book-author">Armonía</div>
+                    <div class="locked-overlay"><i class="fas fa-lock"></i></div>
+                </div>
+            </div>
+            <button class="scroll-btn prev" onclick="scrollCarousel('ejercicios-carousel', -1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="scroll-btn next" onclick="scrollCarousel('ejercicios-carousel', 1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+</div>
+
+       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Explora Nuestras Lecciones</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8">
+            <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition duration-300 float-animation">
+                <div class="bg-pink-100 rounded-full p-4 inline-block mb-4"><i class="fas fa-graduation-cap text-3xl text-pink-500"></i></div><h3 class="text-lg font-semibold text-gray-800">Nivel Principiante</h3>
+            </div>
+            <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition duration-300 float-animation" style="animation-delay: 0.5s;">
+                <div class="bg-purple-100 rounded-full p-4 inline-block mb-4"><i class="fas fa-eye text-3xl text-purple-500"></i></div><h3 class="text-lg font-semibold text-gray-800">Lectura a Primera Vista</h3>
+            </div>
+            <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition duration-300 float-animation" style="animation-delay: 1s;">
+                <div class="bg-blue-100 rounded-full p-4 inline-block mb-4"><i class="fas fa-book-open text-3xl text-blue-500"></i></div><h3 class="text-lg font-semibold text-gray-800">Técnica y Teoría</h3>
+            </div>
+            <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition duration-300 float-animation" style="animation-delay: 1.5s;">
+                <div class="bg-green-100 rounded-full p-4 inline-block mb-4"><i class="fas fa-star text-3xl text-green-500"></i></div><h3 class="text-lg font-semibold text-gray-800">Piezas Populares</h3>
             </div>
         </div>
     </div>
@@ -345,6 +546,30 @@
         </div>
     </div>
 
+    <div id="midi-visualizer-modal" class="midi-modal-overlay">
+    <div class="midi-modal-container">
+        <div class="midi-modal-header">
+            <div>
+                <h4 id="midi-modal-title" class="midi-modal-title"></h4>
+                <p id="midi-modal-composer" class="midi-modal-composer"></p>
+            </div>
+            <button id="close-midi-modal-btn" class="midi-modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="midi-modal-body">
+            <div class="midi-player-wrapper">
+                <midi-player id="midi-player" sound-font visualizer="#midi-visualizer"></midi-player>
+            </div>
+            <div class="midi-visualizer-wrapper">
+                <div class="progress-indicator"></div>
+                <midi-visualizer id="midi-visualizer" type="waterfall"></midi-visualizer>
+                <div class="piano-keys"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
     <script>
         // Script para el carrusel
         function scrollCarousel(elementId, direction) {
@@ -355,30 +580,106 @@
             }
         }
 
-        // SCRIPT PARA EL MODAL DE VIDEO
-        const videoTrigger = document.getElementById('video-trigger');
-        const videoModal = document.getElementById('video-modal');
-        const closeModalBtn = document.getElementById('close-modal-btn');
-        const videoIframe = document.getElementById('video-iframe');
-        const videoUrl = "https://www.youtube.com/embed/p1L1eu_QjNA?autoplay=1&rel=0";
+      // SCRIPT PARA EL MODAL DE VIDEO (VERSIÓN MEJORADA)
+const videoTrigger = document.getElementById('video-trigger');
+const videoModal = document.getElementById('video-modal');
+const closeModalBtn = document.getElementById('close-modal-btn');
+const videoIframe = document.getElementById('video-iframe');
+// Asegúrate de que tu URL de YouTube incluye los parámetros para autoplay y sin videos relacionados.
+const videoUrl = "https://www.youtube.com/embed/p1L1eu_QjNA?autoplay=1&rel=0";
 
-        const openModal = () => {
-            videoIframe.src = videoUrl;
-            videoModal.classList.remove('hidden');
+// Oculta el modal al principio
+videoModal.style.opacity = '0';
+videoModal.style.pointerEvents = 'none';
+
+const openModal = () => {
+    videoIframe.src = videoUrl;
+    videoModal.classList.remove('hidden');
+    // Forzamos un reflow para que la transición funcione
+    void videoModal.offsetWidth; 
+    videoModal.style.opacity = '1';
+    videoModal.style.pointerEvents = 'auto';
+};
+
+const closeModal = () => {
+    videoIframe.src = "";
+    videoModal.style.opacity = '0';
+    videoModal.style.pointerEvents = 'none';
+    // Opcional: añade la clase 'hidden' después de que la transición termine
+    setTimeout(() => {
+      if (videoModal.style.opacity === '0') {
+         videoModal.classList.add('hidden');
+      }
+    }, 300); // 300ms, igual a la duración de la transición
+};
+
+videoTrigger.addEventListener('click', openModal);
+closeModalBtn.addEventListener('click', closeModal);
+videoModal.addEventListener('click', (event) => {
+    if (event.target === videoModal) {
+        closeModal();
+    }
+});
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && videoModal.style.opacity === '1') {
+        closeModal();
+    }
+});
+
+
+
+// ***** NUEVO: SCRIPT PARA EL MODAL DE MIDI VISUALIZER *****
+const midiModal = document.getElementById('midi-visualizer-modal');
+const closeMidiModalBtn = document.getElementById('close-midi-modal-btn');
+const midiPlayer = document.getElementById('midi-player');
+const midiVisualizer = document.getElementById('midi-visualizer');
+const midiModalTitle = document.getElementById('midi-modal-title');
+const midiModalComposer = document.getElementById('midi-modal-composer');
+
+// Función para abrir el modal MIDI
+function openMidiModal(url, title, composer) {
+    midiModalTitle.textContent = title;
+    midiModalComposer.textContent = composer;
+
+    // Usamos un pequeño delay para asegurar que los elementos estén listos
+    setTimeout(() => {
+        midiPlayer.src = url;
+        midiVisualizer.src = url;
+        midiVisualizer.config = {
+            noteHeight: 4,
+            pixelsPerTimeStep: 60,
+            noteSpacing: 2,
         };
+    }, 100);
+    
+    midiModal.classList.add('active');
+}
 
-        const closeModal = () => {
-            videoIframe.src = "";
-            videoModal.classList.add('hidden');
-        };
+// Función para cerrar el modal MIDI
+function closeMidiModal() {
+    if (midiModal.classList.contains('active')) {
+        midiPlayer.stop();
+        midiPlayer.src = "";
+        midiVisualizer.src = "";
+        midiModal.classList.remove('active');
+    }
+}
 
-        videoTrigger.addEventListener('click', openModal);
-        closeModalBtn.addEventListener('click', closeModal);
-        videoModal.addEventListener('click', (event) => {
-            if (event.target === videoModal) {
-                closeModal();
-            }
-        });
+// Event Listeners
+closeMidiModalBtn.addEventListener('click', closeMidiModal);
+midiModal.addEventListener('click', (event) => {
+    if (event.target === midiModal) {
+        closeMidiModal();
+    }
+});
+
+// Añadimos también el cierre con la tecla Escape para el nuevo modal
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && midiModal.classList.contains('active')) {
+        closeMidiModal();
+    }
+});
     </script>
 </body>
 </html>
