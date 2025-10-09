@@ -1,179 +1,19 @@
-
+<!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://lh3.googleusercontent.com/d/1k9LA88h-FVVn9EeryBRVBrtc5tPl92CK" type="image/x-icon">
-    <title>Mozart Academy - Precios</title>
-
+    <title>Planes de Piano</title>
     <style>
-        /* ESTILOS GENERALES */
-        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
-
-        html,
-        body {
-            height: 100%;
+        * {
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            font-family: 'Poppins', sans-serif;
-        }
-
-
-
-
-        .active-price {
-            font-weight: 600;
-            color: #FF7518 !important;
-            text-shadow: 0 0 15px #FFAA33;
-        }
-
-        .login-btn {
-            background-color: transparent;
-            border: 1px solid #343a40;
-            color: #343a40;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s;
-            white-space: nowrap;
-            margin-left: 15px;
-        }
-
-        .login-btn:hover {
-            background-color: #343a40;
-            color: white;
-        }
-
-        /* --- ESTILOS PARA MÓVIL --- */
-        #navbar-mobile {
-            display: none;
-            /* Oculto en escritorio */
-            width: 100%;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        #menu-toggle {
-            display: none;
-        }
-
-        .hamburger-menu {
-            cursor: pointer;
-            margin-right: 40px;
-        }
-
-        .hamburger-menu .bar {
-
-            display: block;
-            width: 25px;
-            height: 3px;
-            margin: 5px auto;
-            background-color: #333;
-            transition: all 0.3s ease-in-out;
-        }
-
-        /* --- ESTILOS RESPONSIVE --- */
-        @media (max-width: 992px) {
-            #navbar-desktop {
-                display: none;
-                /* Ocultar menú de escritorio */
-            }
-
-            .nav-links {
-                margin-left: 20px;
-            }
-
-            #navbar-mobile {
-                display: flex;
-                /* Mostrar menú de móvil */
-            }
-
-            .nav-menu-wrapper {
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background-color: #f8f9fa;
-                box-shadow: 0 4px 8px 0px rgba(0, 0, 0, 0.1);
-                display: none;
-                flex-direction: column;
-            }
-
-            #menu-toggle:checked~.nav-menu-wrapper {
-                display: flex;
-            }
-
-            #navbar-mobile .nav-links {
-                flex-direction: column;
-                width: 100%;
-                padding: 10px 0;
-            }
-
-            #navbar-mobile .nav-item {
-                width: 100%;
-                padding: 15px 20px;
-                border-top: 1px solid #e9ecef;
-            }
-
-            #navbar-mobile .login-btn-wrapper {
-                padding: 15px 20px;
-                width: 100%;
-                border-top: 1px solid #e9ecef;
-            }
-
-            #navbar-mobile .login-btn {
-                width: 100%;
-                text-align: center;
-                margin-left: 0;
-            }
-        }
-
-        /* --- NUEVO FOOTER SIN BOOTSTRAP --- */
-        .custom-footer {
-            background: black;
-            padding: 15px 25px;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1001;
-            /* Asegura que esté por encima del contenido y el CTA */
-        }
-
-        .footer-title {
-            font-size: 18px;
-            margin: 0;
-            line-height: 1;
-            color: #3a9fff;
-            font-family: Avenir, Helvetica, sans-serif;
-            font-weight: normal;
-        }
-
-        .footer-light {
-            color: #fff;
-        }
-
-
-        /* --- CONTENEDOR DEL CONTENIDO --- */
-        .site-content-container {
-            position: absolute;
-
-            left: 0;
-            right: 0;
-            overflow-y: auto;
-            background-color: #f7f9f9;
-        }
-
-        /* ESTILOS ESPECÍFICOS DE LA PÁGINA DE PRECIOS */
-        .pricing-page-body * {
             box-sizing: border-box;
         }
 
-        .pricing-page-body {
+        body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f7f9f9;
             color: #000;
             line-height: 1.4;
         }
@@ -258,7 +98,7 @@
             padding: 0 40px;
             justify-content: center;
             flex-wrap: wrap;
-            padding-bottom: 70px;
+            padding-bottom: 150px; 
         }
 
         .card {
@@ -268,7 +108,7 @@
             flex: 1;
             max-width: 290px;
             min-width: 270px;
-            min-height: 400px;
+            min-height: 420px;
             border: 2px solid transparent;
             transition: all 0.2s;
             cursor: pointer;
@@ -301,7 +141,7 @@
             color: #5b7083;
             font-size: 15px;
         }
-
+        
         .savings {
             color: #00ba7c;
             font-size: 13px;
@@ -309,7 +149,7 @@
             margin-top: 4px;
             min-height: 18px;
         }
-
+        
         .price-breakdown {
             font-size: 14px;
             color: #5b7083;
@@ -319,10 +159,8 @@
 
         .features {
             list-style: none;
-            padding-left: 20px;
-            /* Reemplaza el margin-left negativo */
             margin-bottom: 32px;
-            /* SE ELIMINÓ LA LÍNEA "margin-top: auto;" DE AQUÍ PARA CORREGIR EL CRECIMIENTO HACIA ARRIBA */
+            margin-top: auto; 
         }
 
         .feature {
@@ -376,15 +214,14 @@
 
         .cta-section {
             position: fixed;
-            bottom: 54px;
-            /* Posicionado justo encima del nuevo footer */
+            bottom: 0;
             left: 0;
             width: 100%;
             background-color: #fff;
             padding: 20px 40px;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
             border-top: 1px solid #eee;
-            z-index: 1000;
+            z-index: 100;
             display: none;
             align-items: center;
             justify-content: center;
@@ -430,7 +267,7 @@
             align-items: flex-start;
             padding-right: 20px;
         }
-
+        
         .selected-plan-name {
             font-size: 16px;
             font-weight: 700;
@@ -489,299 +326,167 @@
             text-decoration: underline;
         }
 
-        /* --- ESTILOS PARA EL NUEVO BANNER --- */
-        .registration-banner {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            padding: 20px 30px;
-            margin-top: 2px;
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            text-align: center;
-            border: 2px solid #ff7518;
-            /* Borde naranja llamativo */
-            box-shadow: 0 0 15px rgba(255, 117, 24, 0.6);
-        }
-
-        .banner-text {
-            flex: 1;
-            font-size: 18px;
-            font-weight: 500;
-            color: #333;
-            line-height: 1.5;
-        }
-
-        .strikethrough {
-            text-decoration: line-through;
-            color: #888;
-            margin-right: 8px;
-        }
-
-        .sale-price {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ff7518;
-        }
-
-        @media (min-width: 769px) {
-            .registration-banner {
-                margin: 24px 40px 40px;
-            }
-
-            .banner-text {
-                text-align: left;
-            }
-        }
-
         @media (max-width: 768px) {
             .main-container {
                 margin: 20px 10px;
             }
-
             .header {
                 padding: 40px 20px 20px;
             }
-
             .title {
                 font-size: 28px;
             }
-
             .pricing-cards {
                 flex-direction: column;
                 padding: 0 20px;
                 gap: 12px;
-                padding-bottom: 40px;
+                padding-bottom: 220px;
             }
-
             .card {
                 max-width: none;
                 min-height: auto;
             }
-
             .cta-section {
                 padding: 16px 20px;
             }
-
             .close-cta-btn {
                 top: -8px;
                 right: 0px;
             }
-
             .cta-content {
                 grid-template-columns: 1fr;
                 gap: 15px;
             }
-
             .selected-price-container {
                 padding-right: 0;
                 text-align: center;
                 align-items: center;
             }
-
             .cta-right-box {
                 min-width: auto;
                 width: 100%;
-            }
-
-            .registration-banner {
-                margin: 24px 20px 40px;
-                flex-direction: column;
-                gap: 15px;
             }
         }
     </style>
 </head>
 <body>
-  
-    <div class="site-content-container">
-        <div class="pricing-page-body">
-            <div class="main-container">
-                <div class="header">
-                    <h1 class="title">Elige tu plan de Piano</h1>
-                    <p class="subtitle">
-                        Comienza tu formación hoy. Elige el plan que mejor se adapte a tu ritmo de trabajo y la velocidad con la que quieres aprender.
-                    </p>
-                    <p style="font-size: 14px; color: #5b7083; margin-top: 20px;">
-                        *Costo por clase sin plan: $150 MXN. Todos los planes ofrecen un ahorro con respecto a este precio.
-                    </p>
+
+    <div class="main-container">
+        <div class="header">
+            <h1 class="title">Elige tu Plan de Piano</h1>
+            <p class="subtitle">
+                Comienza tu viaje musical. Elige el plan que mejor se adapte a tu ritmo y al de tu familia para desbloquear todo tu potencial.
+            </p>
+        </div>
+
+        <div class="billing-toggle">
+            <button class="toggle-btn active" onclick="switchBilling('individual')">Individual</button>
+            <button class="toggle-btn" onclick="switchBilling('pareja')">En pareja</button>
+            <button class="toggle-btn" onclick="switchBilling('familia')">
+                Familiar (4)
+                <span class="best-offer">Mejor oferta</span>
+            </button>
+        </div>
+
+        <div class="pricing-cards">
+            <div class="card premium" id="plan1-card" onclick="selectPlan('plan1')">
+                <div class="radio-container">
+                    <h3 class="plan-name">Plan 1</h3>
+                    <div class="radio-input checked"></div>
                 </div>
-
-                <div class="billing-toggle">
-                    <button class="toggle-btn active" onclick="switchBilling('mensual')">Mensual</button>
-                    <button class="toggle-btn" onclick="switchBilling('trimestral')">
-                        Trimestral
-                        <span class="best-offer">Mejor oferta</span>
-                    </button>
+                <div class="card-header">
+                    <div class="price price-individual">650,00 MXN <span class="price-period">/ mes</span></div>
+                    <div class="price price-pareja" style="display: none;">850,00 MXN <span class="price-period">/ mes</span></div>
+                    <div class="price price-familia" style="display: none;">1.499,00 MXN <span class="price-period">/ mes</span></div>
+                    
+                    <div class="price-breakdown breakdown-pareja" style="display: none;">$425 por persona</div>
+                    <div class="price-breakdown breakdown-familia" style="display: none;">$375 por persona</div>
+                    
+                    <div class="savings savings-individual"></div>
+                    <div class="savings savings-pareja" style="display: none;">AHORRA UN 35%</div>
+                    <div class="savings savings-familia" style="display: none;">AHORRA UN 42%</div>
                 </div>
-
-                <div class="pricing-cards">
-                    <div class="card" id="plan1-card" onclick="selectPlan('plan1')">
-                        <div class="radio-container">
-                            <h3 class="plan-name">Plan 1</h3>
-                            <div class="radio-input"></div>
-                        </div>
-                        <div class="card-header">
-                            <div class="price price-mensual">499,00 MXN <span class="price-period">/ mes</span>
-                            </div>
-                            <div class="price price-trimestral" style="display: none;">1.200,00 MXN <span
-                                    class="price-period">/ 3 meses</span></div>
-
-                            <div class="price-breakdown breakdown-mensual">$112.25 por clase</div>
-                            <div class="price-breakdown breakdown-trimestral" style="display: none;">$400 por mes
-                            </div>
-
-                            <div class="savings savings-mensual">AHORRA UN 17%</div>
-                            <div class="savings savings-trimestral" style="display: none;">AHORRA UN 33%</div>
-                        </div>
-                        <ul class="features">
-                            <li class="feature">4 clases al mes</li>
-                            <li class="feature">Acceso a contenido en la plataforma</li>
-                            <li class="feature">Participación en recitales y eventos en auditorios</li>
-                        </ul>
-                    </div>
-
-                    <div class="card" id="plan2-card" onclick="selectPlan('plan2')">
-                        <div class="radio-container">
-                            <h3 class="plan-name">Plan 2</h3>
-                            <div class="radio-input"></div>
-                        </div>
-                        <div class="card-header">
-                            <div class="price price-mensual">799,00 MXN <span class="price-period">/ mes</span>
-                            </div>
-                            <div class="price price-trimestral" style="display: none;">2.100,00 MXN <span
-                                    class="price-period">/ 3 meses</span></div>
-
-                            <div class="price-breakdown breakdown-mensual">$99.88 por clase</div>
-                            <div class="price-breakdown breakdown-trimestral" style="display: none;">$700 por mes
-                            </div>
-
-                            <div class="savings savings-mensual">AHORRA UN 33%</div>
-                            <div class="savings savings-trimestral" style="display: none;">AHORRA UN 41%</div>
-                        </div>
-                        <ul class="features">
-                            <li class="feature">8 clases al mes</li>
-                            <li class="feature">Acceso a contenido en la plataforma</li>
-                            <li class="feature">Participación en recitales y eventos en auditorios</li>
-                            <li class="feature">Acceso a pianos para practicar</li>
-                        </ul>
-                    </div>
-
-                    <div class="card premium" id="intensivo-card" onclick="selectPlan('intensivo')">
-                        <div class="radio-container">
-                            <h3 class="plan-name">Intensivo</h3>
-                            <div class="radio-input checked"></div>
-                        </div>
-                        <div class="card-header">
-                            <div class="price price-mensual">1.399,00 MXN <span class="price-period">/ mes</span>
-                            </div>
-                            <div class="price price-trimestral" style="display: none;">3.450,00 MXN <span
-                                    class="price-period">/ 3 meses</span></div>
-
-                            <div class="price-breakdown breakdown-mensual">$87.5 por clase</div>
-                            <div class="price-breakdown breakdown-trimestral" style="display: none;">$1150 por mes
-                            </div>
-
-                            <div class="savings savings-mensual">AHORRA UN 41%</div>
-                            <div class="savings savings-trimestral" style="display: none;">AHORRA UN 55%</div>
-                        </div>
-                        <ul class="features">
-                            <li class="feature">16 clases al mes</li>
-                            <li class="feature">Acceso a contenido en la plataforma</li>
-                            <li class="feature">Participación en recitales y eventos</li>
-                            <li class="feature">Acceso a pianos para practicar</li>
-                            <li class="feature">Seguimiento en línea</li>
-                            <li class="feature">Flexibilidad para reprogramar clases</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="registration-banner">
-                    <span class="banner-text">
-                        <span class="strikethrough">Cuota de Inscripción: 399 MXN</span><br>
-                        ¡Inscríbete en <strong id="current-month"></strong> y paga solo <span class="sale-price">10
-                            MXN</span> de inscripción!
-                    </span>
-                </div>
+               <ul class="features">
+                    <li class="feature">4 clases al mes</li>
+                    <li class="feature">1 clase por semana</li>
+                </ul>
             </div>
 
-            <div class="cta-section">
-                <div class="cta-content">
-                    <button class="close-cta-btn" onclick="closeCta()">×</button>
-                    <div class="selected-price-container">
-                        <div class="selected-plan-name">Intensivo</div>
-                        <div class="selected-price" id="selected-price-amount">1.399,00 MXN</div>
-                        <div class="selected-price-period" id="selected-price-period">/ mes</div>
-                    </div>
-                    <div class="cta-right-box">
-                        <button class="subscribe-btn" onclick="subscribe()">Inscribirse y pagar</button>
-                        <div class="terms">
-                            Si te suscribes, aceptas los <a href="#">Términos de servicio</a>. Las suscripciones se
-                            renuevan automáticamente hasta que se cancelan.
-                            <a>Cancela en cualquier momento</a>.
-                        </div>
-                    </div>
+            <div class="card" id="plan2-card" onclick="selectPlan('plan2')">
+                <div class="radio-container">
+                    <h3 class="plan-name">Plan 2</h3>
+                    <div class="radio-input"></div>
+                </div>
+                <div class="card-header">
+                    <div class="price price-individual">999,00 MXN <span class="price-period">/ mes</span></div>
+                    <div class="price price-pareja" style="display: none;">1.499,00 MXN <span class="price-period">/ mes</span></div>
+                    
+                    <div class="price-breakdown breakdown-individual">$125 por clase</div>
+                    <div class="price-breakdown breakdown-pareja" style="display: none;">$749.5 por persona</div>
+
+                    <div class="savings savings-individual" style="display: none;">AHORRA UN 23%</div>
+                    <div class="savings savings-pareja" style="display: none;">AHORRA UN 42%</div>
+                </div>
+                <ul class="features">
+                    <li class="feature">8 clases al mes</li>
+                    <li class="feature">Material didáctico incluido</li>
+                    <li class="feature">Acceso a recitales</li>
+                </ul>
+            </div>
+
+            <div class="card" id="intensivo-card" onclick="selectPlan('intensivo')">
+                <div class="radio-container">
+                    <h3 class="plan-name">Intensivo</h3>
+                    <div class="radio-input"></div>
+                </div>
+                <div class="card-header">
+                    <div class="price price-individual">1.499,00 MXN <span class="price-period">/ mes</span></div>
+                    <div class="price-breakdown breakdown-individual">$94 por clase</div>
+                    <div class="savings savings-individual" style="display: none;">AHORRA UN 42%</div>
+                </div>
+                <ul class="features">
+                    <li class="feature">16 clases al mes</li>
+                    <li class="feature">Horarios flexibles</li>
+                    <li class="feature">Clase magistral trimestral</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="cta-section">
+        <div class="cta-content">
+            <button class="close-cta-btn" onclick="closeCta()">×</button>
+            <div class="selected-price-container">
+                <div class="selected-plan-name">Plan 1</div>
+                <div class="selected-price" id="selected-price-amount">650,00 MXN</div>
+                <div class="selected-price-period" id="selected-price-period">/ mes</div>
+            </div>
+            <div class="cta-right-box">
+                <button class="subscribe-btn" onclick="subscribe()">Suscribirse y pagar</button>
+                <div class="terms">
+                    Si te suscribes, aceptas los <a href="#">Términos de servicio</a>. Las suscripciones se renuevan automáticamente hasta que se cancelan. 
+                    <a href="#">Cancela en cualquier momento</a>.
                 </div>
             </div>
         </div>
     </div>
 
-
-
     <script>
-        // --- SCRIPT PARA PÁGINA DE PRECIOS ---
         const pricingData = {
-            'plan1': {
-                name: 'Básico',
-                mensual: {
-                    amount: '499,00 MXN',
-                    period: '/ mes'
-                },
-                trimestral: {
-                    amount: '1.200,00 MXN',
-                    period: '/ 3 meses'
-                }
-            },
-            'plan2': {
-                name: 'Standard',
-                mensual: {
-                    amount: '799,00 MXN',
-                    period: '/ mes'
-                },
-                trimestral: {
-                    amount: '1.899,00 MXN',
-                    period: '/ 3 meses'
-                }
-            },
-            'intensivo': {
-                name: 'Intensivo',
-                mensual: {
-                    amount: '1.399,00 MXN',
-                    period: '/ mes'
-                },
-                trimestral: {
-                    amount: '3.350,00 MXN',
-                    period: '/ 3 meses'
-                }
-            }
+            'plan1': { name: 'Plan 1', individual: { amount: '650,00 MXN', period: '/ mes' }, pareja: { amount: '850,00 MXN', period: '/ mes' }, familia: { amount: '1.499,00 MXN', period: '/ mes' } },
+            'plan2': { name: 'Plan 2', individual: { amount: '999,00 MXN', period: '/ mes' }, pareja: { amount: '1.499,00 MXN', period: '/ mes' } },
+            'intensivo': { name: 'Intensivo', individual: { amount: '1.499,00 MXN', period: '/ mes' } }
         };
 
-        let selectedPlan = 'intensivo';
-        let billingType = 'mensual';
+        let selectedPlan = 'plan1';
+        let billingType = 'individual';
 
         document.addEventListener('DOMContentLoaded', () => {
-            selectPlan('intensivo');
-            switchBilling('mensual');
+            selectPlan('plan1');
+            switchBilling('individual');
             document.querySelector('.cta-section').style.display = 'none';
-
-            const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-            const mesActual = meses[new Date().getMonth()];
-            document.getElementById('current-month').textContent = mesActual;
         });
-
+        
         function closeCta() {
             document.querySelector('.cta-section').style.display = 'none';
         }
@@ -790,44 +495,66 @@
             selectedPlan = plan;
             document.querySelectorAll('.radio-input').forEach(input => input.classList.remove('checked'));
             document.querySelectorAll('.card').forEach(card => card.classList.remove('premium'));
-
-            const cardId = `${plan}-card`;
-            const selectedCard = document.getElementById(cardId);
             
-            if (selectedCard) {
-                selectedCard.classList.add('premium');
-                selectedCard.querySelector('.radio-input').classList.add('checked');
+            const cardMap = { 'plan1': 0, 'plan2': 1, 'intensivo': 2 };
+            const index = cardMap[plan];
+            if (index !== undefined) {
+                document.querySelectorAll('.card')[index].classList.add('premium');
+                document.querySelectorAll('.radio-input')[index].classList.add('checked');
             }
-
+            
             updateCtaPrice();
             document.querySelector('.cta-section').style.display = 'flex';
         }
 
         function switchBilling(type) {
             billingType = type;
-
+            
             document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
-            if (type === 'mensual') {
-                document.querySelectorAll('.toggle-btn')[0].classList.add('active');
-            } else {
-                document.querySelectorAll('.toggle-btn')[1].classList.add('active');
-            }
+            
+            const elementsToShow = {
+                prices: `.price-${type}`,
+                breakdowns: `.breakdown-${type}`,
+                savings: `.savings-${type}`
+            };
 
             ['price', 'breakdown', 'savings'].forEach(prefix => {
                 document.querySelectorAll(`[class*="${prefix}-"]`).forEach(el => el.style.display = 'none');
             });
+            
+            document.querySelectorAll(elementsToShow.prices).forEach(el => el.style.display = 'block');
+            document.querySelectorAll(elementsToShow.breakdowns).forEach(el => el.style.display = 'block');
+            document.querySelectorAll(elementsToShow.savings).forEach(el => el.style.display = 'block');
 
-            document.querySelectorAll(`.price-${type}`).forEach(el => el.style.display = 'block');
-            document.querySelectorAll(`.breakdown-${type}`).forEach(el => el.style.display = 'block');
-            document.querySelectorAll(`.savings-${type}`).forEach(el => el.style.display = 'block');
+            const intensivoCard = document.getElementById('intensivo-card');
+            const plan2Card = document.getElementById('plan2-card');
 
+            if (type === 'individual') {
+                document.querySelectorAll('.toggle-btn')[0].classList.add('active');
+                intensivoCard.style.display = 'flex';
+                plan2Card.style.display = 'flex';
+            } else {
+                intensivoCard.style.display = 'none';
+                if (selectedPlan === 'intensivo') {
+                    selectPlan('plan1');
+                }
+                
+                if (type === 'pareja') {
+                    document.querySelectorAll('.toggle-btn')[1].classList.add('active');
+                    plan2Card.style.display = 'flex'; // Show Plan 2 for couples
+                } else { // familia
+                    document.querySelectorAll('.toggle-btn')[2].classList.add('active');
+                    plan2Card.style.display = 'none'; // Hide Plan 2 for family
+                    if (selectedPlan === 'plan2') {
+                        selectPlan('plan1'); // Default to Plan 1 if Plan 2 was selected
+                    }
+                }
+            }
             updateCtaPrice();
         }
 
         function updateCtaPrice() {
-            if (!pricingData[selectedPlan] || !pricingData[selectedPlan][billingType]) {
-                return;
-            }
+            if (!pricingData[selectedPlan] || !pricingData[selectedPlan][billingType]) { return; }
             const planInfo = pricingData[selectedPlan];
             const priceData = planInfo[billingType];
             document.getElementById('selected-price-amount').textContent = priceData.amount;
@@ -836,9 +563,12 @@
         }
 
         function subscribe() {
-            const paymentUrl = `https://www.mozartacademy.mx/checkout?plan=${selectedPlan}&type=${billingType}`;
-            window.location.href = paymentUrl;
-        }
+            const planName = pricingData[selectedPlan].name;
+            let billingName = billingType;
+            if (billingType === 'pareja') billingName = 'en parejas';
 
+            alert(`¡Gracias por suscribirte al ${planName} en la modalidad ${billingName}!`);
+        }
     </script>
 </body>
+</html>
