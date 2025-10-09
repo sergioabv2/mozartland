@@ -3075,6 +3075,48 @@ width: 200px; /* Ajusta según el tamaño deseado */
             }
         }
 
+
+      .btn2 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+          transform: scale(0.8);
+            padding: 5px 30px !important;
+
+            font-size: 17px !important;
+            font-weight: 600 !important;
+            border: 1px solid #000 ;
+    display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-login {
+           margin-right: -10px;
+            background: #fff;
+            color: #000;
+        }
+
+        .btn-login:hover {
+            background: #f5f5f5;
+        }
+
+        .btn-register {
+          margin-right: 15px;
+            background: #e91e63;
+            color: #fff;
+            border: 1px solid #e91e63;
+        }
+
+        .btn-register:hover {
+            background: #d81b60;
+            border-color: #d81b60;
+        }
+
+        .btn2:active {
+            transform: scale(0.98);
+        }
 </style>
 
 <body>
@@ -3235,26 +3277,8 @@ width: 200px; /* Ajusta según el tamaño deseado */
 
   
 
-
- <button  class="upgrade-btn-modern" ng-click="goToPayment()" ng-if="userData.status != 'ACTIVO'">
-            Upgrade
-          </button>
-
-
- <button class="button button-clear" ng-class="{ 'barImage': btnBar}" ng-click="toggleDropdown()" style="font-size: 18px; font-weight: 550; font-family: 'Poppins', sans-serif; margin-right: 10px;">
-    <div style="display: flex; align-items: center;">
-     <!--   <div class="user-info" style="text-align: right; margin-right: 5px; margin-left: -7px" ng-if="userData.status == 'ACTIVO'">
-                    <div style="font-size: 13px; font-weight: 600; color: #333; line-height: 1.2;">{{userData.name}}</div>
-                    <div style="font-size: 11px; color: #777; line-height: 1.1;" ng-if="userLvl == 0">Preparatorio</div>
-                    <div style="font-size: 11px; color: #777; line-height: 1.1;" ng-if="userLvl != 0">Nivel {{userLvl}}</div>
-        </div> -->
- <div style="position: relative;" class="profilImg">
-            <img class="profile-avatar2" src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL=s96-c" width="30" height="30" />
-        </div>
-    </div>
-</button>  
-
-
+ <button class="btn2 btn-login" ng-click="goToLogin()">Iniciar sesión</button>
+    <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button>
     
   </ion-nav-buttons>
 
@@ -3263,35 +3287,6 @@ width: 200px; /* Ajusta según el tamaño deseado */
           <button class="button button-clear" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
            
         </ion-nav-buttons>  
-
-       
-        <div class="dropdownContent" ng-show="isDropdownVisible" ng-click="$event.stopPropagation()">
-     <div id="bannerRow">
-      <div class="profile-avatar-container" style="transform: scale(0.9)">
-      <img src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL" class="profile-avatar">
-      <div class="profile-level">Nivel {{userLvl}}</div>
-    </div>
-      <p class="profileName">Mozart Academy</p>
-        <p class="profileEmail">Inicia sesión</p>
-    </div>
-    <div class="dropdown-item" ng-click="goToAccount(); toggleDropdown()">
-      <i class="ri-user-3-line"></i> Perfil
-    </div>
-     <div class="dropdown-item" ng-click="goToPayment(); toggleDropdown()">
-      <i class="ri-bank-card-line"></i> Suscripción
-    
-
-    </div>
-      <div class="dropdown-item" ng-click="goToAgenda(); toggleDropdown()">
-      <i class="ri-calendar-view"></i> Calendario
-    </div>
-      <div class="dropdown-item" >
-      <i class="ri-login-box-line"></i> Inicia sesión
-    </div>
-  </div>
-
-  
- 
 
 
 
@@ -6773,8 +6768,8 @@ function cleanInput() {
   $scope.goToStats = function() {
   window.location.href = '#/menu/statistics';
 };
-      $scope.goToAgenda = function() {
-  window.location.href = '#/menu/agenda';
+      $scope.goToLogin = function() {
+  window.location.href = '/login';
 };
 $scope.goToPayment = function() {
    window.location.href = '#/menu/payment';
