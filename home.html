@@ -333,13 +333,25 @@ midi-visualizer::part(note-sharp) {
     box-shadow: 0 0 10px rgba(139, 92, 246, 0.8), 0 0 20px rgba(139, 92, 246, 0.4);
     z-index: 5;
 }
+
+@keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
     </style>
 </head>
 <body class="bg-gradient-to-b from-blue-50 to-purple-50 font-sans">
     
  
 
-    <div class="relative overflow-hidden">
+     <div class="relative overflow-hidden" >
         <div class="absolute inset-0 z-0">
             <div class="absolute top-20 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
             <div class="absolute top-40 right-20 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
@@ -349,12 +361,16 @@ midi-visualizer::part(note-sharp) {
             <div class="text-center">
                 <h1 class="text-5xl font-extrabold mb-4 text-gray-800">Domina el Piano, una Nota a la Vez</h1>
                 <p class="text-xl mb-8 text-gray-600">Tu camino interactivo para leer partituras y tocar tus canciones favoritas.</p>
+                
                 <div class="max-w-3xl mx-auto relative">
-                    <input type="text" placeholder="¿Qué canción quieres aprender hoy?" class="w-full px-6 py-4 rounded-full text-gray-900 bg-white shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+                    <input type="text" id="searchInput" placeholder="¿Qué canción quieres aprender hoy?" class="w-full px-6 py-4 rounded-full text-gray-900 bg-white shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
                     <button class="absolute right-3 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 py-2 rounded-full hover:from-pink-600 hover:to-purple-600 transition duration-300">
                         Buscar
                     </button>
+                    <div id="suggestionsContainer" class="absolute left-0 right-0 mt-2 bg-white rounded-lg shadow-xl z-20 overflow-hidden text-left" >
+                        </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -366,14 +382,7 @@ midi-visualizer::part(note-sharp) {
                 <p class="text-lg text-gray-600 mt-2">Te escuchamos tocar y te guiamos nota por nota.</p>
             </div>
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div id="video-trigger" class="relative aspect-video rounded-lg shadow-2xl overflow-hidden cursor-pointer group">
-                    <img src="https://lh3.googleusercontent.com/d/1ddzBB0_dKU4RiL6C1qwtOhx42Osv7kAv" alt="Video demostrativo de KeyNotes" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center transition-opacity duration-300 group-hover:bg-opacity-30">
-                        <div class="bg-white bg-opacity-90 rounded-full w-20 h-20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                            <i class="fas fa-play text-4xl text-pink-500 pl-2"></i>
-                        </div>
-                    </div>
-                </div>
+               
                 <div class="space-y-8">
                     <div class="flex items-start">
                         <div class="flex-shrink-0 w-12 h-12 bg-pink-500 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-md">1</div>
@@ -394,6 +403,14 @@ midi-visualizer::part(note-sharp) {
                         <div class="ml-6">
                             <h3 class="text-xl font-semibold text-gray-800">Toca y Recibe Feedback</h3>
                             <p class="mt-1 text-gray-600">La partitura cobrará vida. Toca las notas en tu piano y nuestra plataforma te indicará si vas bien y esperará por ti si te equivocas.</p>
+                        </div>
+                    </div>
+                </div>
+                 <div id="video-trigger" class="relative aspect-video rounded-lg shadow-2xl overflow-hidden cursor-pointer group">
+                    <img src="https://lh3.googleusercontent.com/d/1ddzBB0_dKU4RiL6C1qwtOhx42Osv7kAv" alt="Video demostrativo de KeyNotes" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center transition-opacity duration-300 group-hover:bg-opacity-30">
+                        <div class="bg-white bg-opacity-90 rounded-full w-20 h-20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                            <i class="fas fa-play text-4xl text-pink-500 pl-2"></i>
                         </div>
                     </div>
                 </div>
@@ -462,22 +479,22 @@ midi-visualizer::part(note-sharp) {
         <div class="carousel-wrapper">
             <div class="carousel" id="ejercicios-carousel">
                 <div class="exercise-card" onclick="openMidiModal('https://assets.codepen.io/81395/chopin.mid', 'Escalas de Do Mayor', 'Técnica')">
-                    <img src="https://via.placeholder.com/180x240/10B981/FFFFFF?text=Escalas" alt="Escalas" class="exercise-cover">
+                    <img src="https://lh3.googleusercontent.com/d/1b8uhUqybBb-2ycfH-vyDtPMXM__h79wh" alt="Escalas" class="exercise-cover">
                     <div class="book-title">Escalas de Do Mayor</div>
                     <div class="book-author">Técnica</div>
                 </div>
                 <div class="exercise-card" onclick="openMidiModal('https://assets.codepen.io/81395/chopin.mid', 'Arpegios de Do Mayor', 'Técnica')">
-                    <img src="https://via.placeholder.com/180x240/3B82F6/FFFFFF?text=Arpegios" alt="Arpegios" class="exercise-cover">
+                    <img src="https://lh3.googleusercontent.com/d/1b8uhUqybBb-2ycfH-vyDtPMXM__h79wh" alt="Arpegios" class="exercise-cover">
                     <div class="book-title">Arpegios de Do Mayor</div>
                     <div class="book-author">Técnica</div>
                 </div>
                 <div class="exercise-card" onclick="openMidiModal('https://assets.codepen.io/81395/chopin.mid', 'Hanon No. 1', 'Destreza')">
-                    <img src="https://via.placeholder.com/180x240/EF4444/FFFFFF?text=Hanon" alt="Hanon" class="exercise-cover">
+                    <img src="https://lh3.googleusercontent.com/d/1b8uhUqybBb-2ycfH-vyDtPMXM__h79wh" alt="Hanon" class="exercise-cover">
                     <div class="book-title">Hanon No. 1</div>
                     <div class="book-author">Destreza</div>
                 </div>
                 <div class="exercise-card ">
-                    <img src="https://via.placeholder.com/180x240/F97316/FFFFFF?text=Acordes" alt="Progresión de Acordes" class="exercise-cover">
+                    <img src="https://lh3.googleusercontent.com/d/1b8uhUqybBb-2ycfH-vyDtPMXM__h79wh" alt="Progresión de Acordes" class="exercise-cover">
                     <div class="book-title">Progresión de Acordes</div>
                     <div class="book-author">Armonía</div>
                     <div class="locked-overlay"><i class="fas fa-lock"></i></div>
@@ -680,6 +697,68 @@ document.addEventListener('keydown', (event) => {
         closeMidiModal();
     }
 });
+
+
+
+ const searchInput = document.getElementById('searchInput');
+    const suggestionsContainer = document.getElementById('suggestionsContainer');
+
+    // 2. Simulamos una base de datos de canciones
+    const songDatabase = [
+        'Claro de Luna - Debussy',
+        'Canon en Re Mayor - Pachelbel',
+        'Para Elisa - Beethoven',
+        'Nocturno Op. 9 No. 2 - Chopin',
+        'Marcha Turca - Mozart',
+        'Gymnopédie No. 1 - Satie',
+        'El Vals del Minuto - Chopin',
+        'Rapsodia Húngara No. 2 - Liszt',
+        'La Campanella - Liszt',
+        'Interstellar - Tema Principal',
+        'Bohemian Rhapsody - Queen',
+        'Comptine d’un autre été - Yann Tiersen',
+        'Bolero - Ravel'
+    ];
+
+    // 3. Añadimos un "escuchador" al campo de búsqueda
+    searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase();
+        
+        // Limpiamos sugerencias anteriores
+        suggestionsContainer.innerHTML = '';
+
+        if (!query) {
+            return;
+        }
+
+        // ▼▼▼ ¡ESTA ES LA LÍNEA CON LA NUEVA LÓGICA! ▼▼▼
+        const filteredSongs = songDatabase.filter(song => {
+            // Dividimos el título en palabras y verificamos si ALGUNA de ellas
+            // comienza con el texto de búsqueda.
+            return song.toLowerCase().split(' ').some(word => word.startsWith(query));
+        });
+        
+        // Creamos y mostramos cada sugerencia
+        filteredSongs.forEach(song => {
+            const suggestionItem = document.createElement('div');
+            suggestionItem.className = 'px-6 py-3 cursor-pointer hover:bg-pink-100 text-gray-700';
+            suggestionItem.textContent = song;
+            
+            suggestionItem.addEventListener('click', () => {
+                searchInput.value = song;
+                suggestionsContainer.innerHTML = '';
+            });
+
+            suggestionsContainer.appendChild(suggestionItem);
+        });
+    });
+
+    // Opcional: Cerrar las sugerencias si se hace clic fuera del buscador
+    document.addEventListener('click', (event) => {
+        if (!searchInput.contains(event.target)) {
+            suggestionsContainer.innerHTML = '';
+        }
+    });
     </script>
 </body>
 </html>
