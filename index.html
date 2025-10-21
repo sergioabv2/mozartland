@@ -662,6 +662,15 @@ font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
     height: 55px;
     margin: 10px 2px 0 10px; /* Ajusta los márgenes */
 }
+
+.profile-user-data .circle2 {
+    flex-shrink: 0; /* Evita que el contenedor de la imagen se reduzca */
+    border-radius: 25% !important;
+    overflow: hidden; 
+    width: 40px;
+    height: 40px;
+    margin: 10px 2px 0 10px; /* Ajusta los márgenes */
+}
 .profile-user-data img { margin-right: 10px; max-width: 100%;}
 .profile-user-data .main-data {
     flex-grow: 1; /* Permite que el contenedor de texto use el espacio restante */
@@ -3117,6 +3126,57 @@ width: 200px; /* Ajusta según el tamaño deseado */
         .btn2:active {
             transform: scale(0.78);
         }
+
+
+
+
+/* --- 1. Ocultar el nuevo menú horizontal por defecto (móvil) --- */
+.nav-bar-horizontal-menu {
+    display: none;
+}
+
+
+/* --- 2. Estilo elegante para el menú horizontal (desktop) --- */
+@media (min-width: 850px) {
+
+    /* Contenedor del menú horizontal */
+    .nav-bar-horizontal-menu {
+        display: flex;
+        align-items: center; 
+        height: 100%;
+        margin-left: 20px; /* Aumentamos el margen izquierdo */
+    }
+
+    /* Estilo base para CADA botón del menú */
+    .nav-bar-horizontal-menu .button {
+        font-size: 14px;
+        font-weight: 400; 
+        color: #555 !important;   
+        padding-left: 19px !important; 
+        padding-right: 19px !important;
+        
+        /* Reseteo para un look limpio */
+        border: none;
+        border-radius: 0; /* Sin esquinas redondeadas */
+        background: transparent;
+        box-shadow: none;
+        border-bottom: 2px solid transparent; 
+        height: 100%; 
+        display: flex;
+        align-items: center;
+        
+        /* Transición suave para elegancia */
+        transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    /* Efecto HOVER para botones INACTIVOS */
+    .nav-bar-horizontal-menu .button:not(.menuSelectedColor):hover {
+         color: #111; /* Color de texto más oscuro */
+         border-bottom-color: #ccc; /* Borde gris sutil al pasar el mouse */
+    }
+
+}
+
 </style>
 
 <body>
@@ -3144,57 +3204,10 @@ width: 200px; /* Ajusta según el tamaño deseado */
 
 
 
-
-<script id="main.html" type="text/ng-template">
-    <ion-side-menus >
- <ion-side-menu side="left" width='280'> 
-       
-        <ion-content >
-
-  <div class="profile-user-data clearfix" >
-
-          <div class="circle">
-              <img class="profile-pic" src="https://lh3.googleusercontent.com/d/1BZhdPgLilUQ5AuDGMHTgwu2TysXIKbe4">
-          </div>
-          <div class="main-data" style="margin-top: 22px;" >
-            <h4 class="userLvl" >Mozart <br>Academy</h4>
-          </div>  
-  </div>
- 
- <ul class="list">
-    <a href="#/menu/lessons" class="item" ng-class="(activeMenuClr=='lessons')?'menuSelectedColor':''" ng-click="activeMenuClr = 'lessons'" menu-toggle="left"><i class="ri-presentation-line" ></i>&nbsp&nbspClassroom</a>   
-      <hr>    
- <a href="#/menu/workspace" class="item" ng-class="(activeMenuClr=='workspace')?'menuSelectedColor':''" ng-click="activeMenuClr = 'workspace'" menu-toggle="left"><i class="ri-macbook-line"></i>&nbsp&nbspWorkspace</a>   
-   <a href="#/menu/library" class="item" ng-class="(activeMenuClr=='library')?'menuSelectedColor':''" ng-click="activeMenuClr = 'library'" menu-toggle="left"><i class="ri-book-read-line" ></i>&nbsp&nbspReader</a>    
-          <a href="#/menu/finder" class="item" ng-class="(activeMenuClr=='finder')?'menuSelectedColor':''" ng-click="activeMenuClr = 'finder'" menu-toggle="left"><img src="https://lh3.googleusercontent.com/d/1vMHUODAn781r96RNhefO3HWZrqtMM_0u=s96-c" style="height: 21px; width: 21px; margin-left: 1px; margin-right: 9px">&nbsp&nbspPlayer</a>  
-         <hr>
-     <a href="#/menu/reel" class="item" ng-class="(activeMenuClr=='reel')?'menuSelectedColor':''" ng-click="activeMenuClr = 'reel'" menu-toggle="left"><i class="ri-earth-line"></i>&nbsp&nbspMozart Now</a>  
- <a href="#/menu/payment" class="item" menu-toggle="left"><i class="ri-bank-card-2-line" ></i>&nbsp&nbspCostos</a> 
-          </ul>
-
-  
-        </ion-content>
- <ion-footer-bar style="z-index: 999 !important;">
-  <button class="button pull-right" ng-click="goToLogin()"><i class="icon ri-login-circle-line"></i>Inicia sesión</button>
-</ion-footer-bar>
-
-      </ion-side-menu>
-      <ion-side-menu-content >        
-        <ion-nav-view name="menuContent"></ion-nav-view>
-      </ion-side-menu-content>
-
-    </ion-side-menus>
-  </script>     
-    
-
-
-
-
-
     
  <script id="menu.html" type="text/ng-template">
     <ion-side-menus >
- <ion-side-menu side="left" width='280'  expose-aside-when="large"> 
+ <ion-side-menu side="left" width='270' > 
        
         <ion-content >
   <div class="profile-user-data clearfix" ng-click="goToHome()">
@@ -3205,26 +3218,49 @@ width: 200px; /* Ajusta según el tamaño deseado */
             <h4 class="userLvl" >Mozart <br>Academy</h4>
           </div>  
   </div>
- 
- <ul class="list">
-                     
-   
-       
-    <a href="#/menu/lessons" class="item" ng-class="(activeMenuClr=='lessons')?'menuSelectedColor':''" ng-click="activeMenuClr = 'lessons'" menu-toggle="left"><i class="ri-presentation-line" ></i>&nbsp&nbspClassroom</a>   
-      <hr>    
- <a href="#/menu/workspace" class="item" ng-class="(activeMenuClr=='workspace')?'menuSelectedColor':''" ng-click="activeMenuClr = 'workspace'" menu-toggle="left"><i class="ri-macbook-line"></i>&nbsp&nbspWorkspace</a>   
-   <a href="#/menu/library" class="item" ng-class="(activeMenuClr=='library')?'menuSelectedColor':''" ng-click="activeMenuClr = 'library'" menu-toggle="left"><i class="ri-book-read-line" ></i>&nbsp&nbspReader</a>    
- 
-          <a href="#/menu/finder" class="item" ng-class="(activeMenuClr=='finder')?'menuSelectedColor':''" ng-click="activeMenuClr = 'finder'" menu-toggle="left"><img src="https://lh3.googleusercontent.com/d/1vMHUODAn781r96RNhefO3HWZrqtMM_0u=s96-c" style="height: 21px; width: 21px; margin-left: 1px; margin-right: 9px">&nbsp&nbspPlayer</a>  
-      
-
-         <hr>
-     <a href="#/menu/reel" class="item" ng-class="(activeMenuClr=='reel')?'menuSelectedColor':''" ng-click="activeMenuClr = 'reel'" menu-toggle="left"><i class="ri-earth-line"></i>&nbsp&nbspMozart Now</a>  
-     <a href="#/menu/payment" class="item" ng-class="(activeMenuClr=='payment')?'menuSelectedColor':''" ng-click="activeMenuClr = 'payment'" menu-toggle="left"><i class="ri-bank-card-2-line" ></i>&nbsp&nbspCostos</a> 
 
 
-    
-          </ul>
+<ul class="list">
+    <a ui-sref="menu.lessons" 
+       ui-sref-active="menuSelectedColor" 
+       class="item" 
+       menu-toggle="left">
+        <i class="ri-presentation-line"></i> &nbspClassroom
+    </a>
+    <hr>
+    <a ui-sref="menu.workspace" 
+       ui-sref-active="menuSelectedColor" 
+       class="item" 
+       menu-toggle="left">
+        <i class="ri-macbook-line"></i> &nbspWorkSpace
+    </a>
+    <a ui-sref="menu.library" 
+       ui-sref-active="menuSelectedColor" 
+       class="item" 
+       menu-toggle="left">
+        <i class="ri-book-read-line"></i> &nbspSightReader
+    </a>
+    <a ui-sref="menu.finder" 
+       ui-sref-active="menuSelectedColor" 
+       class="item" 
+       menu-toggle="left">
+        <img src="https://lh3.googleusercontent.com/d/1vMHUODAn781r96RNhefO3HWZrqtMM_0u=s96-c" style="height: 21px; width: 21px; margin-left: 1px; margin-right: 9px"> &nbspPianoHero
+    </a>
+    <hr>
+    <a ui-sref="menu.reel" 
+       ui-sref-active="menuSelectedColor" 
+       class="item" 
+       menu-toggle="left">
+        <i class="ri-earth-line"></i> &nbspComunidades
+    </a>
+     <a ui-sref="menu.payment" 
+       ui-sref-active="menuSelectedColor" 
+       class="item" 
+       menu-toggle="left">
+        <i class="ri-bank-card-2-line"></i> &nbspCostos
+    </a>
+</ul>
+
 
   
         </ion-content>
@@ -3257,7 +3293,49 @@ width: 200px; /* Ajusta según el tamaño deseado */
     <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> 
   </ion-nav-buttons>
         <ion-nav-buttons side="left">
-          <button class="button button-clear" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
+          <button class="button button-clear menubtn" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
+
+      <div class="nav-bar-horizontal-menu">
+              <div class="profile-user-data clearfix" style="margin-left: -10px !important;">
+          <div class="circle2">
+              <img class="profile-pic" src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL=s96-c">
+          </div>
+          <div class="main-data" style="margin-top: 35px;" >
+            <h5 class="userLvl" >Mozart <br>Academy</h5>
+          </div>  
+    </div>
+    <a ui-sref="menu.lessons" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Classroom
+    </a>
+    <a ui-sref="menu.workspace" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Workspace
+    </a>
+    <a ui-sref="menu.library" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Reader
+    </a>
+    <a ui-sref="menu.finder" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Player
+    </a>
+    <a ui-sref="menu.reel" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Mozart Now
+    </a>
+      <a ui-sref="menu.payment" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Costos
+    </a>
+</div>
+
         </ion-nav-buttons>  
     </ion-nav-bar>
 
@@ -3286,7 +3364,48 @@ width: 200px; /* Ajusta según el tamaño deseado */
     <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> 
   </ion-nav-buttons>
         <ion-nav-buttons side="left">
-          <button class="button button-clear" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
+          <button class="button button-clear menubtn" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
+
+       <div class="nav-bar-horizontal-menu">
+              <div class="profile-user-data clearfix" style="margin-left: -10px !important;">
+          <div class="circle2">
+              <img class="profile-pic" src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL=s96-c">
+          </div>
+          <div class="main-data" style="margin-top: 35px;" >
+            <h5 class="userLvl" >Mozart <br>Academy</h5>
+          </div>  
+    </div>
+    <a ui-sref="menu.lessons" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Classroom
+    </a>
+    <a ui-sref="menu.workspace" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Workspace
+    </a>
+    <a ui-sref="menu.library" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Reader
+    </a>
+    <a ui-sref="menu.finder" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Player
+    </a>
+    <a ui-sref="menu.reel" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Mozart Now
+    </a>
+      <a ui-sref="menu.payment" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Costos
+    </a>
+</div>         
         </ion-nav-buttons>  
     </ion-nav-bar>
 
@@ -3318,7 +3437,48 @@ width: 200px; /* Ajusta según el tamaño deseado */
     <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> 
   </ion-nav-buttons>
         <ion-nav-buttons side="left">
-          <button class="button button-clear" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
+          <button class="button button-clear menubtn" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
+
+       <div class="nav-bar-horizontal-menu">
+              <div class="profile-user-data clearfix" style="margin-left: -10px !important;">
+          <div class="circle2">
+              <img class="profile-pic" src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL=s96-c">
+          </div>
+          <div class="main-data" style="margin-top: 35px;" >
+            <h5 class="userLvl" >Mozart <br>Academy</h5>
+          </div>  
+    </div>
+    <a ui-sref="menu.lessons" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Classroom
+    </a>
+    <a ui-sref="menu.workspace" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Workspace
+    </a>
+    <a ui-sref="menu.library" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Reader
+    </a>
+    <a ui-sref="menu.finder" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Player
+    </a>
+    <a ui-sref="menu.reel" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Mozart Now
+    </a>
+      <a ui-sref="menu.payment" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Costos
+    </a>
+</div>         
         </ion-nav-buttons>  
     </ion-nav-bar>
 
@@ -3348,7 +3508,48 @@ width: 200px; /* Ajusta según el tamaño deseado */
     <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> 
   </ion-nav-buttons>
         <ion-nav-buttons side="left">
-          <button class="button button-clear" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
+          <button class="button button-clear menubtn" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
+
+       <div class="nav-bar-horizontal-menu">
+              <div class="profile-user-data clearfix" style="margin-left: -10px !important;">
+          <div class="circle2">
+              <img class="profile-pic" src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL=s96-c">
+          </div>
+          <div class="main-data" style="margin-top: 35px;" >
+            <h5 class="userLvl" >Mozart <br>Academy</h5>
+          </div>  
+    </div>
+    <a ui-sref="menu.lessons" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Classroom
+    </a>
+    <a ui-sref="menu.workspace" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Workspace
+    </a>
+    <a ui-sref="menu.library" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Reader
+    </a>
+    <a ui-sref="menu.finder" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Player
+    </a>
+    <a ui-sref="menu.reel" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Mozart Now
+    </a>
+      <a ui-sref="menu.payment" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Costos
+    </a>
+</div>         
         </ion-nav-buttons>  
     </ion-nav-bar>
 
@@ -3372,12 +3573,55 @@ width: 200px; /* Ajusta según el tamaño deseado */
          <script id="payment.html" type="text/ng-template">
     <ion-view >
 
-     <ion-nav-bar class="bar-light">
-      <ion-nav-buttons side="left">
-        <button class="button button-clear" ng-click="goBack()">
-          <i class="ri-arrow-left-s-line"></i> regresar
-        </button>
-      </ion-nav-buttons>
+   <ion-nav-bar class="bar-light" >      
+        <ion-nav-buttons side="right">
+ <button class="btn2 btn-login" ng-click="goToLogin()">Iniciar sesión</button>
+    <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> 
+  </ion-nav-buttons>
+        <ion-nav-buttons side="left">
+          <button class="button button-clear menubtn" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
+
+       <div class="nav-bar-horizontal-menu">
+              <div class="profile-user-data clearfix" style="margin-left: -10px !important;">
+          <div class="circle2">
+              <img class="profile-pic" src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL=s96-c">
+          </div>
+          <div class="main-data" style="margin-top: 35px;" >
+            <h5 class="userLvl" >Mozart <br>Academy</h5>
+          </div>  
+    </div>
+    <a ui-sref="menu.lessons" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Classroom
+    </a>
+    <a ui-sref="menu.workspace" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Workspace
+    </a>
+    <a ui-sref="menu.library" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Reader
+    </a>
+    <a ui-sref="menu.finder" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Player
+    </a>
+    <a ui-sref="menu.reel" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Mozart Now
+    </a>
+      <a ui-sref="menu.payment" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Costos
+    </a>
+</div>         
+        </ion-nav-buttons>  
     </ion-nav-bar>
     
       <ion-content>
@@ -3402,7 +3646,48 @@ width: 200px; /* Ajusta según el tamaño deseado */
     <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> 
   </ion-nav-buttons>
         <ion-nav-buttons side="left">
-          <button class="button button-clear" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
+          <button class="button button-clear menubtn" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
+
+       <div class="nav-bar-horizontal-menu">
+              <div class="profile-user-data clearfix" style="margin-left: -10px !important;">
+          <div class="circle2">
+              <img class="profile-pic" src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL=s96-c">
+          </div>
+          <div class="main-data" style="margin-top: 35px;" >
+            <h5 class="userLvl" >Mozart <br>Academy</h5>
+          </div>  
+    </div>
+    <a ui-sref="menu.lessons" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Classroom
+    </a>
+    <a ui-sref="menu.workspace" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Workspace
+    </a>
+    <a ui-sref="menu.library" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Reader
+    </a>
+    <a ui-sref="menu.finder" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Player
+    </a>
+    <a ui-sref="menu.reel" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Mozart Now
+    </a>
+      <a ui-sref="menu.payment" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Costos
+    </a>
+</div>         
         </ion-nav-buttons>  
     </ion-nav-bar>
 
@@ -3433,7 +3718,48 @@ width: 200px; /* Ajusta según el tamaño deseado */
     <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> 
   </ion-nav-buttons>
         <ion-nav-buttons side="left">
-          <button class="button button-clear" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
+          <button class="button button-clear menubtn" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
+
+    <div class="nav-bar-horizontal-menu">
+              <div class="profile-user-data clearfix" style="margin-left: -10px !important;">
+          <div class="circle2">
+              <img class="profile-pic" src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL=s96-c">
+          </div>
+          <div class="main-data" style="margin-top: 35px;" >
+            <h5 class="userLvl" >Mozart <br>Academy</h5>
+          </div>  
+    </div>
+    <a ui-sref="menu.lessons" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Classroom
+    </a>
+    <a ui-sref="menu.workspace" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Workspace
+    </a>
+    <a ui-sref="menu.library" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Reader
+    </a>
+    <a ui-sref="menu.finder" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Player
+    </a>
+    <a ui-sref="menu.reel" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Mozart Now
+    </a>
+      <a ui-sref="menu.payment" 
+       ui-sref-active="menuSelectedColor" 
+       class="button button-clear">
+        Costos
+    </a>
+</div>            
         </ion-nav-buttons>  
     </ion-nav-bar>
 
@@ -3487,27 +3813,21 @@ app
 
    $stateProvider
 
-  .state('main', {
+
+
+    .state('menu', {
       url: "",
       abstract: true,
-      templateUrl: "main.html",
-      controller: "MenuCtrl2"
+      templateUrl: "menu.html",
+      controller: 'MenuCtrl'
     })
-   .state('main.home', {
+   .state('menu.home', {
       url: "",
       views: {
         'menuContent': {
           templateUrl: "home.html"
         }
       }
-    })
-
-
-    .state('menu', {
-      url: "/menu",
-      abstract: true,
-      templateUrl: "menu.html",
-      controller: 'MenuCtrl'
     })
  
 
@@ -3659,32 +3979,6 @@ $scope.goBack = function() {
 
 
 
-.controller('MenuCtrl2', ['$scope', '$ionicSideMenuDelegate', function($scope, $ionicSideMenuDelegate) {
-
-   $scope.goToLogin = function() {
-  window.location.href = '/login';
-};
-
-  $scope.toggleRight = function() {
-    $('.item').removeClass('anim');
-    setTimeout(function() {
-        $('.item').each(function(index) {
-            $(this).addClass('anim').css('animation-delay', (index * 0.1) + 's');
-        });
-    }, 10);
-
-    $ionicSideMenuDelegate.toggleLeft();
-      $scope.isDropdownVisible = false;
-};
-
-   $scope.isDropdownVisible = false;
-    $scope.toggleDropdown = function() {
-      $scope.isDropdownVisible = !$scope.isDropdownVisible;
-    };
-
-}])
-
-    
  
 
     </script>
