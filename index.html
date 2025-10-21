@@ -11,17 +11,15 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.3.3/angular-locale_es-mx.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/simple-peer@9.11.1/simplepeer.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
  <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js" charset="utf-8"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css" rel="stylesheet" type="text/css"> 
+  <meta name="google-signin-client_id" content="613538890545-o4p4ft7oji6uhimgh0inqn5l5cgv1gnm.apps.googleusercontent.com">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
  <link rel="manifest" href="/manifest.json">
 </head>
@@ -3102,7 +3100,7 @@ width: 200px; /* Ajusta según el tamaño deseado */
         }
 
         .btn-login {
-           margin-right: -10px;
+           margin-right: 10px;
             background: #fff;
             color: #000;
         }
@@ -3232,32 +3230,32 @@ width: 200px; /* Ajusta según el tamaño deseado */
        ui-sref-active="menuSelectedColor" 
        class="item" 
        menu-toggle="left">
-        <i class="ri-macbook-line"></i> &nbspWorkSpace
+        <i class="ri-video-chat-line"></i> &nbspLive Sessions
     </a>
     <a ui-sref="menu.library" 
        ui-sref-active="menuSelectedColor" 
        class="item" 
        menu-toggle="left">
-        <i class="ri-book-read-line"></i> &nbspSightReader
+        <i class="ri-book-read-line"></i> &nbspSight Reading
     </a>
     <a ui-sref="menu.finder" 
        ui-sref-active="menuSelectedColor" 
        class="item" 
        menu-toggle="left">
-        <img src="https://lh3.googleusercontent.com/d/1vMHUODAn781r96RNhefO3HWZrqtMM_0u=s96-c" style="height: 21px; width: 21px; margin-left: 1px; margin-right: 9px"> &nbspPianoHero
+        <img src="https://lh3.googleusercontent.com/d/1vMHUODAn781r96RNhefO3HWZrqtMM_0u=s96-c" style="height: 21px; width: 21px; margin-left: 1px; margin-right: 9px"> &nbspPiano Hero
     </a>
     <hr>
     <a ui-sref="menu.reel" 
        ui-sref-active="menuSelectedColor" 
        class="item" 
        menu-toggle="left">
-        <i class="ri-earth-line"></i> &nbspComunidades
+        <i class="ri-earth-line"></i> &nbspMozart Now
     </a>
      <a ui-sref="menu.payment" 
        ui-sref-active="menuSelectedColor" 
        class="item" 
        menu-toggle="left">
-        <i class="ri-bank-card-2-line"></i> &nbspCostos
+        <i class="ri-bank-card-2-line"></i> &nbspPricing
     </a>
 </ul>
 
@@ -3289,14 +3287,14 @@ width: 200px; /* Ajusta según el tamaño deseado */
  
    <ion-nav-bar class="bar-light" >      
         <ion-nav-buttons side="right">
- <button class="btn2 btn-login" ng-click="goToLogin()">Iniciar sesión</button>
-    <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> 
+ <button class="btn2 btn-login" ng-click="goToLogin()">Sign in</button>
+   <!-- <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button>  -->
   </ion-nav-buttons>
         <ion-nav-buttons side="left">
           <button class="button button-clear menubtn" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
 
       <div class="nav-bar-horizontal-menu">
-              <div class="profile-user-data clearfix" style="margin-left: -10px !important;">
+     <div class="profile-user-data clearfix" style="margin-left: -10px !important; cursor: pointer;" ng-click="goToHome()">
           <div class="circle2">
               <img class="profile-pic" src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL=s96-c">
           </div>
@@ -3306,33 +3304,33 @@ width: 200px; /* Ajusta según el tamaño deseado */
     </div>
     <a ui-sref="menu.lessons" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
+       class="button button-clear" style="font-weight: 400;">
         Classroom
     </a>
     <a ui-sref="menu.workspace" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Workspace
+       class="button button-clear" style="font-weight: 400;">
+        Live Sessions
     </a>
     <a ui-sref="menu.library" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Reader
+       class="button button-clear" style="font-weight: 400;">
+        Sight Reading
     </a>
     <a ui-sref="menu.finder" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Player
+       class="button button-clear" style="font-weight: 400;">
+        Piano Hero
     </a>
     <a ui-sref="menu.reel" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
+       class="button button-clear" style="font-weight: 400;">
         Mozart Now
     </a>
       <a ui-sref="menu.payment" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Costos
+       class="button button-clear" style="font-weight: 400;">
+        Pricing
     </a>
 </div>
 
@@ -3360,14 +3358,14 @@ width: 200px; /* Ajusta según el tamaño deseado */
  
        <ion-nav-bar class="bar-light" >      
         <ion-nav-buttons side="right">
- <button class="btn2 btn-login" ng-click="goToLogin()">Iniciar sesión</button>
-    <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> 
+ <button class="btn2 btn-login" ng-click="goToLogin()">Sign in</button>
+  <!--  <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button>  -->
   </ion-nav-buttons>
         <ion-nav-buttons side="left">
           <button class="button button-clear menubtn" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
 
-       <div class="nav-bar-horizontal-menu">
-              <div class="profile-user-data clearfix" style="margin-left: -10px !important;">
+       <div class="nav-bar-horizontal-menu" >
+              <div class="profile-user-data clearfix" style="margin-left: -10px !important; cursor: pointer;" ng-click="goToHome()">
           <div class="circle2">
               <img class="profile-pic" src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL=s96-c">
           </div>
@@ -3377,35 +3375,35 @@ width: 200px; /* Ajusta según el tamaño deseado */
     </div>
     <a ui-sref="menu.lessons" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
+       class="button button-clear" style="font-weight: 400;">
         Classroom
     </a>
     <a ui-sref="menu.workspace" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Workspace
+       class="button button-clear" style="font-weight: 400;">
+        Live Sessions
     </a>
     <a ui-sref="menu.library" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Reader
+       class="button button-clear" style="font-weight: 400;">
+        Sight Reading
     </a>
     <a ui-sref="menu.finder" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Player
+       class="button button-clear" style="font-weight: 400;">
+        Piano Hero
     </a>
     <a ui-sref="menu.reel" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
+       class="button button-clear" style="font-weight: 400;">
         Mozart Now
     </a>
       <a ui-sref="menu.payment" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Costos
+       class="button button-clear" style="font-weight: 400;">
+        Pricing
     </a>
-</div>         
+</div>       
         </ion-nav-buttons>  
     </ion-nav-bar>
 
@@ -3433,52 +3431,52 @@ width: 200px; /* Ajusta según el tamaño deseado */
   <ion-view>
         <ion-nav-bar class="bar-light" >      
         <ion-nav-buttons side="right">
- <button class="btn2 btn-login" ng-click="goToLogin()">Iniciar sesión</button>
-    <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> 
+ <button class="btn2 btn-login" ng-click="goToLogin()">Sign in</button>
+  <!--  <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button>  -->
   </ion-nav-buttons>
         <ion-nav-buttons side="left">
           <button class="button button-clear menubtn" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
 
        <div class="nav-bar-horizontal-menu">
-              <div class="profile-user-data clearfix" style="margin-left: -10px !important;">
+     <div class="profile-user-data clearfix" style="margin-left: -10px !important; cursor: pointer;" ng-click="goToHome()">
           <div class="circle2">
               <img class="profile-pic" src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL=s96-c">
           </div>
           <div class="main-data" style="margin-top: 35px;" >
             <h5 class="userLvl" >Mozart <br>Academy</h5>
           </div>  
-    </div>
+ </div>
     <a ui-sref="menu.lessons" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
+       class="button button-clear" style="font-weight: 400;">
         Classroom
     </a>
     <a ui-sref="menu.workspace" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Workspace
+       class="button button-clear" style="font-weight: 400;">
+        Live Sessions
     </a>
     <a ui-sref="menu.library" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Reader
+       class="button button-clear" style="font-weight: 400;">
+        Sight Reading
     </a>
     <a ui-sref="menu.finder" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Player
+       class="button button-clear" style="font-weight: 400;">
+        Piano Hero
     </a>
     <a ui-sref="menu.reel" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
+       class="button button-clear" style="font-weight: 400;">
         Mozart Now
     </a>
       <a ui-sref="menu.payment" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Costos
+       class="button button-clear" style="font-weight: 400;">
+        Pricing
     </a>
-</div>         
+</div>       
         </ion-nav-buttons>  
     </ion-nav-bar>
 
@@ -3504,14 +3502,14 @@ width: 200px; /* Ajusta según el tamaño deseado */
       
         <ion-nav-bar class="bar-light" >      
         <ion-nav-buttons side="right">
- <button class="btn2 btn-login" ng-click="goToLogin()">Iniciar sesión</button>
-    <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> 
+ <button class="btn2 btn-login" ng-click="goToLogin()">Sign in</button>
+  <!--  <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> -->
   </ion-nav-buttons>
         <ion-nav-buttons side="left">
           <button class="button button-clear menubtn" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
 
        <div class="nav-bar-horizontal-menu">
-              <div class="profile-user-data clearfix" style="margin-left: -10px !important;">
+     <div class="profile-user-data clearfix" style="margin-left: -10px !important; cursor: pointer;" ng-click="goToHome()">
           <div class="circle2">
               <img class="profile-pic" src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL=s96-c">
           </div>
@@ -3519,35 +3517,35 @@ width: 200px; /* Ajusta según el tamaño deseado */
             <h5 class="userLvl" >Mozart <br>Academy</h5>
           </div>  
     </div>
-    <a ui-sref="menu.lessons" 
+   <a ui-sref="menu.lessons" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
+       class="button button-clear" style="font-weight: 400;">
         Classroom
     </a>
     <a ui-sref="menu.workspace" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Workspace
+       class="button button-clear" style="font-weight: 400;">
+        Live Sessions
     </a>
     <a ui-sref="menu.library" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Reader
+       class="button button-clear" style="font-weight: 400;">
+        Sight Reading
     </a>
     <a ui-sref="menu.finder" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Player
+       class="button button-clear" style="font-weight: 400;">
+        Piano Hero
     </a>
     <a ui-sref="menu.reel" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
+       class="button button-clear" style="font-weight: 400;">
         Mozart Now
     </a>
       <a ui-sref="menu.payment" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Costos
+       class="button button-clear" style="font-weight: 400;">
+        Pricing
     </a>
 </div>         
         </ion-nav-buttons>  
@@ -3575,14 +3573,14 @@ width: 200px; /* Ajusta según el tamaño deseado */
 
    <ion-nav-bar class="bar-light" >      
         <ion-nav-buttons side="right">
- <button class="btn2 btn-login" ng-click="goToLogin()">Iniciar sesión</button>
-    <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> 
+ <button class="btn2 btn-login" ng-click="goToLogin()">Sign in</button>
+  <!--  <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button>  -->
   </ion-nav-buttons>
         <ion-nav-buttons side="left">
           <button class="button button-clear menubtn" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
 
        <div class="nav-bar-horizontal-menu">
-              <div class="profile-user-data clearfix" style="margin-left: -10px !important;">
+     <div class="profile-user-data clearfix" style="margin-left: -10px !important; cursor: pointer;" ng-click="goToHome()">
           <div class="circle2">
               <img class="profile-pic" src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL=s96-c">
           </div>
@@ -3592,33 +3590,33 @@ width: 200px; /* Ajusta según el tamaño deseado */
     </div>
     <a ui-sref="menu.lessons" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
+       class="button button-clear" style="font-weight: 400;">
         Classroom
     </a>
     <a ui-sref="menu.workspace" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Workspace
+       class="button button-clear" style="font-weight: 400;">
+        Live Sessions
     </a>
     <a ui-sref="menu.library" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Reader
+       class="button button-clear" style="font-weight: 400;">
+        Sight Reading
     </a>
     <a ui-sref="menu.finder" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Player
+       class="button button-clear" style="font-weight: 400;">
+        Piano Hero
     </a>
     <a ui-sref="menu.reel" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
+       class="button button-clear" style="font-weight: 400;">
         Mozart Now
     </a>
       <a ui-sref="menu.payment" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Costos
+       class="button button-clear" style="font-weight: 400;">
+        Pricing
     </a>
 </div>         
         </ion-nav-buttons>  
@@ -3642,14 +3640,14 @@ width: 200px; /* Ajusta según el tamaño deseado */
 
         <ion-nav-bar class="bar-light" >      
         <ion-nav-buttons side="right">
- <button class="btn2 btn-login" ng-click="goToLogin()">Iniciar sesión</button>
-    <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> 
+ <button class="btn2 btn-login" ng-click="goToLogin()">Sign in</button>
+   <!-- <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> -->
   </ion-nav-buttons>
         <ion-nav-buttons side="left">
           <button class="button button-clear menubtn" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
 
        <div class="nav-bar-horizontal-menu">
-              <div class="profile-user-data clearfix" style="margin-left: -10px !important;">
+    <div class="profile-user-data clearfix" style="margin-left: -10px !important; cursor: pointer;" ng-click="goToHome()">
           <div class="circle2">
               <img class="profile-pic" src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL=s96-c">
           </div>
@@ -3659,33 +3657,33 @@ width: 200px; /* Ajusta según el tamaño deseado */
     </div>
     <a ui-sref="menu.lessons" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
+       class="button button-clear" style="font-weight: 400;">
         Classroom
     </a>
     <a ui-sref="menu.workspace" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Workspace
+       class="button button-clear" style="font-weight: 400;">
+        Live Sessions
     </a>
     <a ui-sref="menu.library" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Reader
+       class="button button-clear" style="font-weight: 400;">
+        Sight Reading
     </a>
     <a ui-sref="menu.finder" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Player
+       class="button button-clear" style="font-weight: 400;">
+        Piano Hero
     </a>
     <a ui-sref="menu.reel" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
+       class="button button-clear" style="font-weight: 400;">
         Mozart Now
     </a>
       <a ui-sref="menu.payment" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Costos
+       class="button button-clear" style="font-weight: 400;">
+        Pricing
     </a>
 </div>         
         </ion-nav-buttons>  
@@ -3714,14 +3712,14 @@ width: 200px; /* Ajusta según el tamaño deseado */
 
        <ion-nav-bar class="bar-light" >      
         <ion-nav-buttons side="right">
- <button class="btn2 btn-login" ng-click="goToLogin()">Iniciar sesión</button>
-    <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> 
+ <button class="btn2 btn-login" ng-click="goToLogin()">Sign in</button>
+  <!--  <button class="btn2 btn-register" ng-click="goToLogin()">Regístrate</button> -->
   </ion-nav-buttons>
         <ion-nav-buttons side="left">
           <button class="button button-clear menubtn" ng-click="toggleRight()"><i class="button button-icon ion-navicon"></i>menu</button>
 
     <div class="nav-bar-horizontal-menu">
-              <div class="profile-user-data clearfix" style="margin-left: -10px !important;">
+ <div class="profile-user-data clearfix" style="margin-left: -10px !important; cursor: pointer;" ng-click="goToHome()">
           <div class="circle2">
               <img class="profile-pic" src="https://lh3.googleusercontent.com/d/1CHGXJ18BuHLclo_XrGyqq-SnV1j6sZXL=s96-c">
           </div>
@@ -3729,35 +3727,35 @@ width: 200px; /* Ajusta según el tamaño deseado */
             <h5 class="userLvl" >Mozart <br>Academy</h5>
           </div>  
     </div>
-    <a ui-sref="menu.lessons" 
+     <a ui-sref="menu.lessons" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
+       class="button button-clear" style="font-weight: 400;">
         Classroom
     </a>
     <a ui-sref="menu.workspace" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Workspace
+       class="button button-clear" style="font-weight: 400;">
+        Live Sessions
     </a>
     <a ui-sref="menu.library" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Reader
+       class="button button-clear" style="font-weight: 400;">
+        Sight Reading
     </a>
     <a ui-sref="menu.finder" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Player
+       class="button button-clear" style="font-weight: 400;">
+        Piano Hero
     </a>
     <a ui-sref="menu.reel" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
+       class="button button-clear" style="font-weight: 400;">
         Mozart Now
     </a>
       <a ui-sref="menu.payment" 
        ui-sref-active="menuSelectedColor" 
-       class="button button-clear">
-        Costos
+       class="button button-clear" style="font-weight: 400;">
+        Pricing
     </a>
 </div>            
         </ion-nav-buttons>  
