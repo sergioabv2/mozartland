@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planes de Piano</title>
+    <title>Planes - Mozart Academy</title>
     <style>
         * {
             margin: 0;
@@ -99,6 +99,7 @@
             justify-content: center;
             flex-wrap: wrap;
             padding-bottom: 150px; 
+            min-height: 480px; /* Para evitar saltos de layout */
         }
 
         .card {
@@ -136,26 +137,23 @@
             font-weight: 800;
             margin-bottom: 4px;
         }
+        
+        .price-from {
+            font-size: 16px;
+            font-weight: 500;
+            color: #5b7083;
+            margin-bottom: -10px;
+        }
 
         .price-period {
             color: #5b7083;
             font-size: 15px;
         }
         
-        .savings {
-            color: #00ba7c;
-            font-size: 13px;
-            font-weight: 700;
-            margin-top: 4px;
-            min-height: 18px;
-        }
-        
-        .price-breakdown {
-            font-size: 14px;
-            color: #5b7083;
-            margin-top: -4px;
-            min-height: 20px;
-        }
+        /* Estos ya no son necesarios con la nueva lógica, pero los dejo por si acaso */
+        .savings { min-height: 18px; }
+        .price-breakdown { min-height: 20px; }
+
 
         .features {
             list-style: none;
@@ -341,6 +339,7 @@
                 padding: 0 20px;
                 gap: 12px;
                 padding-bottom: 220px;
+                min-height: auto;
             }
             .card {
                 max-width: none;
@@ -373,83 +372,94 @@
 
     <div class="main-container">
         <div class="header">
-            <h1 class="title">Elige tu Plan de Piano</h1>
+            <h1 class="title">Elige tu Plan</h1>
             <p class="subtitle">
-                Comienza tu viaje musical. Elige el plan que mejor se adapte a tu ritmo y al de tu familia para desbloquear todo tu potencial.
+                Ya sea que prefieras aprender a tu propio ritmo o con la guía de un maestro, tenemos el plan perfecto para ti.
             </p>
         </div>
 
         <div class="billing-toggle">
-            <button class="toggle-btn active" onclick="switchBilling('individual')">Individual</button>
-            <button class="toggle-btn" onclick="switchBilling('pareja')">En pareja</button>
-            <button class="toggle-btn" onclick="switchBilling('familia')">
-                Familiar (4)
-                <span class="best-offer">Mejor oferta</span>
+            <button class="toggle-btn active" onclick="switchCategory('autodidacta')">Autodidacta</button>
+            <button class="toggle-btn" onclick="switchCategory('online')">
+                Online (con Maestro)
+                <span class="best-offer">Recomendado</span>
             </button>
         </div>
 
         <div class="pricing-cards">
-            <div class="card premium" id="plan1-card" onclick="selectPlan('plan1')">
+            
+            <div class="card autodidacta-plan" id="basico-card" onclick="selectPlan('basico')">
                 <div class="radio-container">
-                    <h3 class="plan-name">Plan 1</h3>
+                    <h3 class="plan-name">Básico</h3>
+                    <div class="radio-input"></div>
+                </div>
+                <div class="card-header">
+                    <div class="price">199,00 MXN <span class="price-period">/ mes</span></div>
+                    <div class="price-breakdown"></div>
+                    <div class="savings"></div>
+                </div>
+               <ul class="features">
+                    <li class="feature">Acceso a "Classroom"</li>
+                    <li class="feature">Lecciones y cursos grabados</li>
+                    <li class="feature">Seguimiento de progreso</li>
+                </ul>
+            </div>
+
+            <div class="card premium autodidacta-plan" id="pro-card" onclick="selectPlan('pro')">
+                <div class="radio-container">
+                    <h3 class="plan-name">Pro</h3>
                     <div class="radio-input checked"></div>
                 </div>
                 <div class="card-header">
-                    <div class="price price-individual">650,00 MXN <span class="price-period">/ mes</span></div>
-                    <div class="price price-pareja" style="display: none;">850,00 MXN <span class="price-period">/ mes</span></div>
-                    <div class="price price-familia" style="display: none;">1.499,00 MXN <span class="price-period">/ mes</span></div>
-                    
-                    <div class="price-breakdown breakdown-pareja" style="display: none;">$425 por persona</div>
-                    <div class="price-breakdown breakdown-familia" style="display: none;">$375 por persona</div>
-                    
-                    <div class="savings savings-individual"></div>
-                    <div class="savings savings-pareja" style="display: none;">AHORRA UN 35%</div>
-                    <div class="savings savings-familia" style="display: none;">AHORRA UN 42%</div>
+                    <div class="price">399,00 MXN <span class="price-period">/ mes</span></div>
+                    <div class="price-breakdown"></div>
+                    <div class="savings"></div>
                 </div>
                <ul class="features">
-                    <li class="feature">4 clases al mes</li>
-                    <li class="feature">1 clase por semana</li>
+                    <li class="feature">Todo lo del plan Básico</li>
+                    <li class="feature">Acceso completo a "Piano Hero"</li>
+                    <li class="feature">Acceso completo a "Sight Reading"</li>
+                    <li class="feature">Biblioteca de partituras interactivas</li>
                 </ul>
             </div>
 
-            <div class="card" id="plan2-card" onclick="selectPlan('plan2')">
+            <div class="card online-plan" id="asincrono-card" onclick="selectPlan('asincrono')" style="display: none;">
                 <div class="radio-container">
-                    <h3 class="plan-name">Plan 2</h3>
+                    <h3 class="plan-name">Asíncrono</h3>
                     <div class="radio-input"></div>
                 </div>
                 <div class="card-header">
-                    <div class="price price-individual">999,00 MXN <span class="price-period">/ mes</span></div>
-                    <div class="price price-pareja" style="display: none;">1.499,00 MXN <span class="price-period">/ mes</span></div>
-                    
-                    <div class="price-breakdown breakdown-individual">$125 por clase</div>
-                    <div class="price-breakdown breakdown-pareja" style="display: none;">$749.5 por persona</div>
-
-                    <div class="savings savings-individual" style="display: none;">AHORRA UN 23%</div>
-                    <div class="savings savings-pareja" style="display: none;">AHORRA UN 42%</div>
+                    <div class="price">499,00 MXN <span class="price-period">/ mes</span></div>
+                    <div class="price-breakdown"></div>
+                    <div class="savings"></div>
                 </div>
                 <ul class="features">
-                    <li class="feature">8 clases al mes</li>
-                    <li class="feature">Material didáctico incluido</li>
-                    <li class="feature">Acceso a recitales</li>
+                    <li class="feature">Acceso a la plataforma PRO</li>
+                    <li class="feature">Feedback de un maestro</li>
+                    <li class="feature">Envío de audios y videos</li>
+                    <li class="feature">Respuestas por chat o video</li>
                 </ul>
             </div>
 
-            <div class="card" id="intensivo-card" onclick="selectPlan('intensivo')">
+            <div class="card premium online-plan" id="sesiones-card" onclick="selectPlan('sesiones')" style="display: none;">
                 <div class="radio-container">
-                    <h3 class="plan-name">Intensivo</h3>
+                    <h3 class="plan-name">Sesiones Live</h3>
                     <div class="radio-input"></div>
                 </div>
                 <div class="card-header">
-                    <div class="price price-individual">1.499,00 MXN <span class="price-period">/ mes</span></div>
-                    <div class="price-breakdown breakdown-individual">$94 por clase</div>
-                    <div class="savings savings-individual" style="display: none;">AHORRA UN 42%</div>
+                    <div class="price-from">Desde</div>
+                    <div class="price">999,00 MXN <span class="price-period">/ mes</span></div>
+                    <div class="price-breakdown">Plan de 4 sesiones/mes</div>
+                    <div class="savings"></div>
                 </div>
                 <ul class="features">
-                    <li class="feature">16 clases al mes</li>
-                    <li class="feature">Horarios flexibles</li>
-                    <li class="feature">Clase magistral trimestral</li>
+                    <li class="feature">Todo lo del plan Asíncrono</li>
+                    <li class="feature">Sesiones 1-a-1 en vivo</li>
+                    <li class="feature">Plataforma de videollamada integrada</li>
+                    <li class="feature">Guía en tiempo real</li>
                 </ul>
             </div>
+
         </div>
     </div>
     
@@ -457,8 +467,8 @@
         <div class="cta-content">
             <button class="close-cta-btn" onclick="closeCta()">×</button>
             <div class="selected-price-container">
-                <div class="selected-plan-name">Plan 1</div>
-                <div class="selected-price" id="selected-price-amount">650,00 MXN</div>
+                <div class="selected-plan-name">Pro</div>
+                <div class="selected-price" id="selected-price-amount">399,00 MXN</div>
                 <div class="selected-price-period" id="selected-price-period">/ mes</div>
             </div>
             <div class="cta-right-box">
@@ -472,18 +482,20 @@
     </div>
 
     <script>
+        // Nueva estructura de datos. Simple, 4 planes.
         const pricingData = {
-            'plan1': { name: 'Plan 1', individual: { amount: '650,00 MXN', period: '/ mes' }, pareja: { amount: '850,00 MXN', period: '/ mes' }, familia: { amount: '1.499,00 MXN', period: '/ mes' } },
-            'plan2': { name: 'Plan 2', individual: { amount: '999,00 MXN', period: '/ mes' }, pareja: { amount: '1.499,00 MXN', period: '/ mes' } },
-            'intensivo': { name: 'Intensivo', individual: { amount: '1.499,00 MXN', period: '/ mes' } }
+            'basico': { name: 'Básico', amount: '199,00 MXN', period: '/ mes' },
+            'pro': { name: 'Pro', amount: '399,00 MXN', period: '/ mes' },
+            'asincrono': { name: 'Asíncrono', amount: '499,00 MXN', period: '/ mes' },
+            'sesiones': { name: 'Sesiones Live', amount: '999,00 MXN', period: '/ mes' }
         };
 
-        let selectedPlan = 'plan1';
-        let billingType = 'individual';
+        let selectedPlan = 'pro'; // Default al plan 'Pro'
+        let currentCategory = 'autodidacta';
 
         document.addEventListener('DOMContentLoaded', () => {
-            selectPlan('plan1');
-            switchBilling('individual');
+            switchCategory('autodidacta'); // Inicia en la categoría 'autodidacta'
+            selectPlan('pro');           // Pre-selecciona el plan 'Pro'
             document.querySelector('.cta-section').style.display = 'none';
         });
         
@@ -493,81 +505,73 @@
 
         function selectPlan(plan) {
             selectedPlan = plan;
+            
+            // Actualiza visualmente las tarjetas y radios
             document.querySelectorAll('.radio-input').forEach(input => input.classList.remove('checked'));
             document.querySelectorAll('.card').forEach(card => card.classList.remove('premium'));
             
-            const cardMap = { 'plan1': 0, 'plan2': 1, 'intensivo': 2 };
-            const index = cardMap[plan];
-            if (index !== undefined) {
-                document.querySelectorAll('.card')[index].classList.add('premium');
-                document.querySelectorAll('.radio-input')[index].classList.add('checked');
+            const selectedCard = document.getElementById(`${plan}-card`);
+            if (selectedCard) {
+                selectedCard.classList.add('premium');
+                selectedCard.querySelector('.radio-input').classList.add('checked');
             }
             
             updateCtaPrice();
             document.querySelector('.cta-section').style.display = 'flex';
         }
 
-        function switchBilling(type) {
-            billingType = type;
+        function switchCategory(category) {
+            currentCategory = category;
             
+            // Resetea el botón activo
             document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
             
-            const elementsToShow = {
-                prices: `.price-${type}`,
-                breakdowns: `.breakdown-${type}`,
-                savings: `.savings-${type}`
-            };
+            const autodidactaPlans = document.querySelectorAll('.autodidacta-plan');
+            const onlinePlans = document.querySelectorAll('.online-plan');
 
-            ['price', 'breakdown', 'savings'].forEach(prefix => {
-                document.querySelectorAll(`[class*="${prefix}-"]`).forEach(el => el.style.display = 'none');
-            });
-            
-            document.querySelectorAll(elementsToShow.prices).forEach(el => el.style.display = 'block');
-            document.querySelectorAll(elementsToShow.breakdowns).forEach(el => el.style.display = 'block');
-            document.querySelectorAll(elementsToShow.savings).forEach(el => el.style.display = 'block');
-
-            const intensivoCard = document.getElementById('intensivo-card');
-            const plan2Card = document.getElementById('plan2-card');
-
-            if (type === 'individual') {
+            if (category === 'autodidacta') {
                 document.querySelectorAll('.toggle-btn')[0].classList.add('active');
-                intensivoCard.style.display = 'flex';
-                plan2Card.style.display = 'flex';
-            } else {
-                intensivoCard.style.display = 'none';
-                if (selectedPlan === 'intensivo') {
-                    selectPlan('plan1');
-                }
-                
-                if (type === 'pareja') {
-                    document.querySelectorAll('.toggle-btn')[1].classList.add('active');
-                    plan2Card.style.display = 'flex'; // Show Plan 2 for couples
-                } else { // familia
-                    document.querySelectorAll('.toggle-btn')[2].classList.add('active');
-                    plan2Card.style.display = 'none'; // Hide Plan 2 for family
-                    if (selectedPlan === 'plan2') {
-                        selectPlan('plan1'); // Default to Plan 1 if Plan 2 was selected
-                    }
-                }
+                autodidactaPlans.forEach(card => card.style.display = 'flex');
+                onlinePlans.forEach(card => card.style.display = 'none');
+                selectPlan('pro'); // Selecciona 'Pro' por defecto
+            
+            } else { // category === 'online'
+                document.querySelectorAll('.toggle-btn')[1].classList.add('active');
+                autodidactaPlans.forEach(card => card.style.display = 'none');
+                onlinePlans.forEach(card => card.style.display = 'flex');
+                selectPlan('sesiones'); // Selecciona 'Sesiones Live' por defecto
             }
-            updateCtaPrice();
         }
 
         function updateCtaPrice() {
-            if (!pricingData[selectedPlan] || !pricingData[selectedPlan][billingType]) { return; }
+            if (!pricingData[selectedPlan]) { return; }
+            
             const planInfo = pricingData[selectedPlan];
-            const priceData = planInfo[billingType];
+            const priceData = planInfo; // Ya no hay sub-objetos
+            
             document.getElementById('selected-price-amount').textContent = priceData.amount;
             document.getElementById('selected-price-period').textContent = priceData.period;
             document.querySelector('.selected-plan-name').textContent = planInfo.name;
+
+            // Lógica especial para el "Desde"
+            if (selectedPlan === 'sesiones') {
+                document.getElementById('selected-price-amount').innerHTML = `Desde ${priceData.amount}`;
+            }
         }
 
         function subscribe() {
             const planName = pricingData[selectedPlan].name;
-            let billingName = billingType;
-            if (billingType === 'pareja') billingName = 'en parejas';
+            let message = `¡Gracias por suscribirte al ${planName}!`;
 
-            alert(`¡Gracias por suscribirte al ${planName} en la modalidad ${billingName}!`);
+            if (selectedPlan === 'sesiones') {
+                message = `¡Excelente! Siguiente paso: elegir tu frecuencia de clases para el plan ${planName}.`;
+                alert(message);
+                // Aquí podrías redirigir a otra página:
+                // window.location.href = '/checkout-live-sessions';
+            } else {
+                 alert(message);
+                // Aquí iría la lógica de pago
+            }
         }
     </script>
 </body>
