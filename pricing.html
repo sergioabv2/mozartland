@@ -94,22 +94,22 @@
 
         .pricing-cards {
             display: flex;
-            /* Ajuste para 5 tarjetas */
-            gap: 16px;
+            gap: 24px;
             padding: 0 40px;
             justify-content: center;
             flex-wrap: wrap;
             padding-bottom: 150px; 
+            min-height: 480px; /* Evita saltos de layout */
         }
 
         .card {
             background-color: #f7f7f7;
             border-radius: 16px;
-            /* Ajuste para 5 tarjetas */
-            padding: 24px 16px;
+            padding: 32px 24px;
             flex: 1;
-            max-width: 212px;
-            min-width: 200px;
+            /* Ajuste para 4 tarjetas */
+            max-width: 280px;
+            min-width: 260px;
             min-height: 420px;
             border: 2px solid transparent;
             transition: all 0.2s;
@@ -137,8 +137,6 @@
             font-size: 32px;
             font-weight: 800;
             margin-bottom: 4px;
-            /* Para que 'Gratis' no sea tan grande */
-            font-size: clamp(24px, 5vw, 32px);
         }
         
         .price-from {
@@ -343,12 +341,7 @@
 
         @media (max-width: 1200px) {
             .pricing-cards {
-                /* Permite que se reordenen 3+2 en tablets */
                 justify-content: center;
-            }
-             .card {
-                max-width: 350px;
-                min-width: 300px;
             }
         }
 
@@ -416,38 +409,20 @@
 
         <div class="pricing-cards">
             
-            <div class="card" id="gratuito-card" onclick="selectPlan('gratuito')">
-                <div class="radio-container">
-                    <h3 class="plan-name">Gratuito</h3>
-                    <div class="radio-input"></div>
-                </div>
-                <div class="card-header">
-                    <div class="price" id="gratuito-price">Gratis</div>
-                    <span class="price-period" id="gratuito-period">Para siempre</span>
-                    <div class="price-breakdown" id="gratuito-breakdown">Funciones limitadas</div>
-                    <div class="savings" id="gratuito-savings"></div>
-                </div>
-               <ul class="features">
-                    <li class="feature">Acceso limitado a "Classroom"</li>
-                    <li class="feature">Lecciones para principiantes</li>
-                </ul>
-            </div>
-
             <div class="card" id="basico-card" onclick="selectPlan('basico')">
                 <div class="radio-container">
                     <h3 class="plan-name">Básico</h3>
                     <div class="radio-input"></div>
                 </div>
                 <div class="card-header">
-                    <div class="price" id="basico-price">199,00 MXN</div>
-                    <span class="price-period" id="basico-period">/ mes</span>
-                    <div class="price-breakdown" id="basico-breakdown"></div>
+                    <div class="price" id="basico-price">Gratis</div>
+                    <span class="price-period" id="basico-period">con anuncios</span>
+                    <div class="price-breakdown" id="basico-breakdown">Funciones limitadas</div>
                     <div class="savings" id="basico-savings"></div>
                 </div>
                <ul class="features">
-                    <li class="feature">Acceso completo a "Classroom"</li>
-                    <li class="feature">Todos los cursos grabados</li>
-                    <li class="feature">Seguimiento de progreso</li>
+                    <li class="feature">Acceso limitado a "Classroom"</li>
+                    <li class="feature">Lecciones para principiantes</li>
                 </ul>
             </div>
 
@@ -457,29 +432,29 @@
                     <div class="radio-input checked"></div>
                 </div>
                 <div class="card-header">
-                    <div class="price" id="pro-price">399,00 MXN</div>
+                    <div class="price" id="pro-price">150,00 MXN</div>
                     <span class="price-period" id="pro-period">/ mes</span>
                     <div class="price-breakdown" id="pro-breakdown"></div>
                     <div class="savings" id="pro-savings"></div>
                 </div>
                <ul class="features">
-                    <li class="feature">Todo en plan Básico</li>
+                    <li class="feature">Acceso completo a "Classroom"</li>
                     <li class="feature">Acceso a "Piano Hero"</li>
                     <li class="feature">Acceso a "Sight Reading"</li>
                     <li class="feature">Biblioteca de partituras</li>
                 </ul>
             </div>
 
-            <div class="card" id="asincrono-card" onclick="selectPlan('asincrono')">
+            <div class="card" id="proplus-card" onclick="selectPlan('proplus')">
                 <div class="radio-container">
-                    <h3 class="plan-name">Asíncrono</h3>
+                    <h3 class="plan-name">Pro+</h3>
                     <div class="radio-input"></div>
                 </div>
                 <div class="card-header">
-                    <div class="price" id="asincrono-price">499,00 MXN</div>
-                    <span class="price-period" id="asincrono-period">/ mes</span>
-                    <div class="price-breakdown" id="asincrono-breakdown"></div>
-                    <div class="savings" id="asincrono-savings"></div>
+                    <div class="price" id="proplus-price">499,00 MXN</div>
+                    <span class="price-period" id="proplus-period">/ mes</span>
+                    <div class="price-breakdown" id="proplus-breakdown"></div>
+                    <div class="savings" id="proplus-savings"></div>
                 </div>
                 <ul class="features">
                     <li class="feature">Acceso a plataforma PRO</li>
@@ -501,7 +476,7 @@
                     <div class="savings" id="onetoone-savings"></div>
                 </div>
                 <ul class="features">
-                    <li class="feature">Todo en plan Asíncrono</li>
+                    <li class="feature">Todo en plan Pro+</li>
                     <li class="feature">Sesiones 1-a-1 en vivo</li>
                     <li class="feature">Plataforma videollamada</li>
                     <li class="feature">Guía en tiempo real</li>
@@ -516,7 +491,7 @@
             <button class="close-cta-btn" onclick="closeCta()">×</button>
             <div class="selected-price-container">
                 <div class="selected-plan-name">Pro</div>
-                <div class="selected-price" id="selected-price-amount">399,00 MXN</div>
+                <div class="selected-price" id="selected-price-amount">150,00 MXN</div>
                 <div class="selected-price-period" id="selected-price-period">/ mes</div>
             </div>
             <div class="cta-right-box">
@@ -530,42 +505,89 @@
     </div>
 
     <script>
-        // Nueva estructura de datos con los 5 planes
+        // --- NUEVA ESTRUCTURA DE DATOS ---
         const pricingData = {
-            'gratuito': {
-                name: 'Gratuito',
-                amount: 'Gratis', // Estático
-                period: 'Para siempre' // Estático
-            },
             'basico': {
                 name: 'Básico',
-                mensual: { amount: '199,00 MXN', period: '/ mes', breakdown: '', savings: '' },
-                trimestral: { amount: '549,00 MXN', period: '/ trimestre', breakdown: '$183 al mes', savings: 'Ahorra 8%' },
-                semestral: { amount: '995,00 MXN', period: '/ semestre', breakdown: '$165.83 al mes', savings: 'Ahorra 16.6%' }
+                amount: 'Gratis',
+                period: 'con anuncios'
             },
-            'pro': {
+            'pro': { // era Pro+ @ 399, ahora Pro @ 150
                 name: 'Pro',
-                mensual: { amount: '399,00 MXN', period: '/ mes', breakdown: '', savings: '' },
-                trimestral: { amount: '1099,00 MXN', period: '/ trimestre', breakdown: '$366.33 al mes', savings: 'Ahorra 8%' },
-                semestral: { amount: '1995,00 MXN', period: '/ semestre', breakdown: '$332.50 al mes', savings: 'Ahorra 16.6%' }
+                mensual: {
+                    amount: '150,00 MXN', // Precio mensual
+                    period: '/ mes',
+                    breakdown: '', 
+                    savings: ''
+                },
+                trimestral: {
+                    amount: '140,00 MXN', // Precio mensual equivalente
+                    period: '/ mes',
+                    breakdown: 'Pago único de $420,00 MXN', // Precio total
+                    savings: 'Ahorra 6.6%'
+                },
+                semestral: {
+                    amount: '125,00 MXN', // Precio mensual equivalente
+                    period: '/ mes',
+                    breakdown: 'Pago único de $750,00 MXN', // Precio total
+                    savings: 'Ahorra 16.6%'
+                }
             },
-            'asincrono': {
-                name: 'Asíncrono',
-                mensual: { amount: '499,00 MXN', period: '/ mes', breakdown: '', savings: '' },
-                trimestral: { amount: '1349,00 MXN', period: '/ trimestre', breakdown: '$449.66 al mes', savings: 'Ahorra 10%' },
-                semestral: { amount: '2495,00 MXN', period: '/ semestre', breakdown: '$415.83 al mes', savings: 'Ahorra 16.6%' }
+            'proplus': { // era Asincrono @ 499
+                name: 'Pro+',
+                mensual: {
+                    amount: '499,00 MXN',
+                    period: '/ mes',
+                    breakdown: '',
+                    savings: ''
+                },
+                trimestral: {
+                    amount: '449,00 MXN',
+                    period: '/ mes',
+                    breakdown: 'Pago único de $1347,00 MXN',
+                    savings: 'Ahorra 10%'
+                },
+                semestral: {
+                    amount: '415,00 MXN',
+                    period: '/ mes',
+                    breakdown: 'Pago único de $2490,00 MXN',
+                    savings: 'Ahorra 16.8%'
+                }
             },
-            'onetoone': {
+            'onetoone': { // era 1 to 1 @ 1299
                 name: '1 to 1',
-                mensual: { amount: '1299,00 MXN', period: '/ mes', breakdown: 'Desde 4 sesiones/mes', savings: '' },
-                trimestral: { amount: '3699,00 MXN', period: '/ trimestre', breakdown: 'Desde $1233 al mes', savings: 'Ahorra 7.7%' },
-                semestral: { amount: '6995,00 MXN', period: '/ semestre', breakdown: 'Desde $1165.83 al mes', savings: 'Ahorra 13%' }
+                mensual: {
+                    amount: '1299,00 MXN',
+                    period: '/ mes',
+                    breakdown: 'Desde 4 sesiones/mes',
+                    savings: ''
+                },
+                trimestral: {
+                    amount: '1235,00 MXN',
+                    period: '/ mes',
+                    breakdown: 'Pago único de $3705,00 MXN',
+                    savings: 'Ahorra 5%'
+                },
+                semestral: { // Datos para el plan semestral (aunque se ocultará)
+                    amount: '1169,00 MXN',
+                    period: '/ mes',
+                    breakdown: 'Pago único de $7014,00 MXN',
+                    savings: 'Ahorra 10%'
+                }
             }
         };
 
 
         let selectedPlan = 'pro'; // Default al plan 'Pro'
         let billingType = 'mensual'; // Default a 'Mensual'
+
+        // Guardar referencias a las tarjetas
+        const cardElements = {
+            basico: document.getElementById('basico-card'),
+            pro: document.getElementById('pro-card'),
+            proplus: document.getElementById('proplus-card'),
+            onetoone: document.getElementById('onetoone-card')
+        };
 
         document.addEventListener('DOMContentLoaded', () => {
             switchBilling('mensual'); // Inicia en 'mensual'
@@ -580,7 +602,6 @@
         function selectPlan(plan) {
             selectedPlan = plan;
             
-            // Actualiza visualmente las tarjetas y radios
             document.querySelectorAll('.radio-input').forEach(input => input.classList.remove('checked'));
             document.querySelectorAll('.card').forEach(card => card.classList.remove('premium'));
             
@@ -597,33 +618,57 @@
         function switchBilling(type) {
             billingType = type;
             
-            // Resetea el botón activo
-            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            // --- LÓGICA PARA MOSTRAR/OCULTAR TARJETAS ---
             if (type === 'mensual') {
+                cardElements.basico.style.display = 'flex';
+                cardElements.pro.style.display = 'flex';
+                cardElements.proplus.style.display = 'flex';
+                cardElements.onetoone.style.display = 'flex';
                 document.querySelectorAll('.toggle-btn')[0].classList.add('active');
-            } else if (type === 'trimestral') {
-                document.querySelectorAll('.toggle-btn')[1].classList.add('active');
-            } else {
-                document.querySelectorAll('.toggle-btn')[2].classList.add('active');
-            }
 
-            // Itera sobre los planes y actualiza su precio
-            for (const planId in pricingData) {
-                // *** IMPORTANTE: Salta el plan gratuito ***
-                if (planId === 'gratuito') {
-                    continue;
+            } else if (type === 'trimestral') {
+                cardElements.basico.style.display = 'none'; // Oculta Básico
+                cardElements.pro.style.display = 'flex';
+                cardElements.proplus.style.display = 'flex';
+                cardElements.onetoone.style.display = 'flex';
+                document.querySelectorAll('.toggle-btn')[1].classList.add('active');
+                if (selectedPlan === 'basico') {
+                    selectPlan('pro'); // Cambia la selección si Básico estaba activo
                 }
 
+            } else { // semestral
+                cardElements.basico.style.display = 'none'; // Oculta Básico
+                cardElements.pro.style.display = 'flex';
+                cardElements.proplus.style.display = 'flex';
+                cardElements.onetoone.style.display = 'none'; // Oculta 1 to 1
+                document.querySelectorAll('.toggle-btn')[2].classList.add('active');
+                if (selectedPlan === 'basico' || selectedPlan === 'onetoone') {
+                    selectPlan('pro'); // Cambia la selección si Básico o 1to1 estaban activos
+                }
+            }
+
+            // Resetea el botón activo
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            if (type === 'mensual') document.querySelectorAll('.toggle-btn')[0].classList.add('active');
+            else if (type === 'trimestral') document.querySelectorAll('.toggle-btn')[1].classList.add('active');
+            else document.querySelectorAll('.toggle-btn')[2].classList.add('active');
+
+
+            // --- LÓGICA PARA ACTUALIZAR PRECIOS ---
+            for (const planId in pricingData) {
+                if (planId === 'basico') continue; // Salta el plan básico (gratuito)
+
                 const priceInfo = pricingData[planId][type];
-                
+                if (!priceInfo) continue; // Salta si el plan no tiene ese billingType (aunque todos deberían)
+
                 const priceEl = document.getElementById(`${planId}-price`);
                 const periodEl = document.getElementById(`${planId}-period`);
                 const breakdownEl = document.getElementById(`${planId}-breakdown`);
                 const savingsEl = document.getElementById(`${planId}-savings`);
                 
                 if (priceEl) {
-                    // Manejo especial para el "Desde"
                     let priceHtml = priceInfo.amount;
+                    // Manejo especial para el "Desde"
                     if (planId === 'onetoone') {
                         priceHtml = `<span class="price-from">Desde</span> ${priceInfo.amount}`;
                     }
@@ -635,8 +680,7 @@
                 }
             }
             
-            // Actualiza el CTA con la nueva info de precios
-            updateCtaPrice();
+            updateCtaPrice(); // Actualiza el CTA con la nueva info
         }
 
         function updateCtaPrice() {
@@ -644,13 +688,13 @@
             const subscribeBtn = document.querySelector('.subscribe-btn');
             const priceContainer = document.querySelector('.selected-price-container');
 
-            if (selectedPlan === 'gratuito') {
-                // Lógica para el plan Gratuito
+            if (selectedPlan === 'basico') {
+                // Lógica para el plan Básico (Gratuito)
                 document.getElementById('selected-price-amount').innerHTML = planInfo.amount;
                 document.getElementById('selected-price-period').textContent = planInfo.period;
                 document.querySelector('.selected-plan-name').textContent = planInfo.name;
                 subscribeBtn.textContent = 'Comenzar gratis';
-                priceContainer.style.display = 'block'; // Asegúrate de que se vea
+                priceContainer.style.display = 'block';
 
             } else {
                 // Lógica para todos los planes de pago
@@ -664,19 +708,25 @@
                 }
 
                 document.getElementById('selected-price-amount').innerHTML = ctaPrice;
-                document.getElementById('selected-price-period').textContent = priceData.period;
+                // El CTA sí debe mostrar el precio total, no el mensual
+                if (billingType === 'mensual') {
+                     document.getElementById('selected-price-period').textContent = priceData.period;
+                } else {
+                    // Muestra el desglose (precio total) en el CTA
+                    document.getElementById('selected-price-period').textContent = priceData.breakdown;
+                }
+                
                 document.querySelector('.selected-plan-name').textContent = planInfo.name;
                 subscribeBtn.textContent = 'Suscribirse y pagar';
-                priceContainer.style.display = 'block'; // Asegúrate de que se vea
+                priceContainer.style.display = 'block';
             }
         }
 
         function subscribe() {
             const planName = pricingData[selectedPlan].name;
 
-            if (selectedPlan === 'gratuito') {
+            if (selectedPlan === 'basico') {
                 alert(`¡Gracias por registrarte al ${planName}!`);
-                // window.location.href = '/registro-gratis';
                 return;
             }
 
