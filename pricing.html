@@ -103,7 +103,7 @@
         }
 
         .card {
-            background-color: #f7f7f7;
+            background-color: #fff; /* CAMBIO: Fondo a blanco */
             border-radius: 16px;
             padding: 32px 24px;
             flex: 1;
@@ -111,7 +111,7 @@
             max-width: 280px;
             min-width: 260px;
             min-height: 420px;
-            border: 2px solid transparent;
+            border: 1px solid #000; /* CAMBIO: Borde negro 1px (menor width) */
             transition: all 0.2s;
             cursor: pointer;
             display: flex;
@@ -120,7 +120,8 @@
 
         .card.premium {
             border-color: #1d9bf0;
-            background-color: #e6f5ff;
+            background-color: #fff; /* CAMBIO: Fondo a blanco (seleccionado) */
+            border-width: 2px; /* CAMBIO: Borde más grueso al seleccionar */
         }
 
         .card-header {
@@ -411,11 +412,11 @@
             
             <div class="card" id="basico-card" onclick="selectPlan('basico')">
                 <div class="radio-container">
-                    <h3 class="plan-name">Básico</h3>
+                    <h3 class="plan-name">Básico</h3> 
                     <div class="radio-input"></div>
                 </div>
                 <div class="card-header">
-                    <div class="price" id="basico-price">Gratis</div>
+                    <div class="price" id="basico-price">Gratis</div> 
                     <span class="price-period" id="basico-period">con anuncios</span>
                     <div class="price-breakdown" id="basico-breakdown">Funciones limitadas</div>
                     <div class="savings" id="basico-savings"></div>
@@ -432,7 +433,7 @@
                     <div class="radio-input checked"></div>
                 </div>
                 <div class="card-header">
-                    <div class="price" id="pro-price">150,00 MXN</div>
+                     <div class="price" id="pro-price">150 MXN</div>
                     <span class="price-period" id="pro-period">/ mes</span>
                     <div class="price-breakdown" id="pro-breakdown"></div>
                     <div class="savings" id="pro-savings"></div>
@@ -451,7 +452,7 @@
                     <div class="radio-input"></div>
                 </div>
                 <div class="card-header">
-                    <div class="price" id="proplus-price">499,00 MXN</div>
+                    <div class="price" id="proplus-price">499 MXN</div>
                     <span class="price-period" id="proplus-period">/ mes</span>
                     <div class="price-breakdown" id="proplus-breakdown"></div>
                     <div class="savings" id="proplus-savings"></div>
@@ -470,7 +471,7 @@
                     <div class="radio-input"></div>
                 </div>
                 <div class="card-header">
-                    <div class="price" id="onetoone-price"><span class="price-from">Desde</span> 1299,00 MXN</div>
+                    <div class="price" id="onetoone-price">1299 MXN</div>
                     <span class="price-period" id="onetoone-period">/ mes</span>
                     <div class="price-breakdown" id="onetoone-breakdown">Plan de 4 sesiones/mes</div>
                     <div class="savings" id="onetoone-savings"></div>
@@ -491,8 +492,8 @@
             <button class="close-cta-btn" onclick="closeCta()">×</button>
             <div class="selected-price-container">
                 <div class="selected-plan-name">Pro</div>
-                <div class="selected-price" id="selected-price-amount">150,00 MXN</div>
-                <div class="selected-price-period" id="selected-price-period">/ mes</div>
+                 <div class="selected-price" id="selected-price-amount">150 MXN</div>
+                 <div class="selected-price-period" id="selected-price-period">/ mes</div>
             </div>
             <div class="cta-right-box">
                 <button class="subscribe-btn" onclick="subscribe()">Suscribirse y pagar</button>
@@ -506,6 +507,7 @@
 
     <script>
         // --- NUEVA ESTRUCTURA DE DATOS ---
+        // CAMBIO: Se eliminaron las comas (,00) y se ajustó el precio de Pro mensual
         const pricingData = {
             'basico': {
                 name: 'Básico',
@@ -515,63 +517,63 @@
             'pro': { // era Pro+ @ 399, ahora Pro @ 150
                 name: 'Pro',
                 mensual: {
-                    amount: '150,00 MXN', // Precio mensual
+                    amount: '150 MXN', // CAMBIO: Precio ajustado
                     period: '/ mes',
                     breakdown: '', 
                     savings: ''
                 },
                 trimestral: {
-                    amount: '140,00 MXN', // Precio mensual equivalente
+                    amount: '140 MXN', // CAMBIO: sin coma
                     period: '/ mes',
-                    breakdown: 'Pago único de $420,00 MXN', // Precio total
+                    breakdown: 'Pago único de $420 MXN', // CAMBIO: sin coma
                     savings: 'Ahorra 6.6%'
                 },
                 semestral: {
-                    amount: '125,00 MXN', // Precio mensual equivalente
+                    amount: '125 MXN', // CAMBIO: sin coma
                     period: '/ mes',
-                    breakdown: 'Pago único de $750,00 MXN', // Precio total
+                    breakdown: 'Pago único de $750 MXN', // CAMBIO: sin coma
                     savings: 'Ahorra 16.6%'
                 }
             },
             'proplus': { // era Asincrono @ 499
                 name: 'Pro+',
                 mensual: {
-                    amount: '499,00 MXN',
+                    amount: '499 MXN', // CAMBIO: sin coma
                     period: '/ mes',
                     breakdown: '',
                     savings: ''
                 },
                 trimestral: {
-                    amount: '449,00 MXN',
+                    amount: '449 MXN', // CAMBIO: sin coma
                     period: '/ mes',
-                    breakdown: 'Pago único de $1347,00 MXN',
+                    breakdown: 'Pago único de $1347 MXN', // CAMBIO: sin coma
                     savings: 'Ahorra 10%'
                 },
                 semestral: {
-                    amount: '415,00 MXN',
+                    amount: '415 MXN', // CAMBIO: sin coma
                     period: '/ mes',
-                    breakdown: 'Pago único de $2490,00 MXN',
+                    breakdown: 'Pago único de $2490 MXN', // CAMBIO: sin coma
                     savings: 'Ahorra 16.8%'
                 }
             },
             'onetoone': { // era 1 to 1 @ 1299
                 name: '1 to 1',
                 mensual: {
-                    amount: '1299,00 MXN',
+                    amount: '1299 MXN', // CAMBIO: sin coma
                     period: '/ mes',
-                    breakdown: 'Desde 4 sesiones/mes',
+                    breakdown: '4 sesiones/mes',
                     savings: ''
                 },
                 trimestral: {
-                    amount: '1235,00 MXN',
+                    amount: '1235 MXN', // CAMBIO: sin coma
                     period: '/ mes',
-                    breakdown: 'Pago único de $3705,00 MXN',
+                    breakdown: 'Pago único de $3705 MXN', // CAMBIO: sin coma
                     savings: 'Ahorra 5%'
                 },
                 semestral: { // Datos para el plan semestral (aunque se ocultará)
-                    amount: '1169,00 MXN',
+                    amount: '1169 MXN', // CAMBIO: sin coma
                     period: '/ mes',
-                    breakdown: 'Pago único de $7014,00 MXN',
+                    breakdown: 'Pago único de $7014 MXN', // CAMBIO: sin coma
                     savings: 'Ahorra 10%'
                 }
             }
@@ -591,7 +593,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             switchBilling('mensual'); // Inicia en 'mensual'
-            selectPlan('pro');        // Pre-selecciona el plan 'Pro'
+            selectPlan('pro');      // Pre-selecciona el plan 'Pro'
             document.querySelector('.cta-section').style.display = 'none';
         });
         
@@ -667,11 +669,7 @@
                 const savingsEl = document.getElementById(`${planId}-savings`);
                 
                 if (priceEl) {
-                    let priceHtml = priceInfo.amount;
-                    // Manejo especial para el "Desde"
-                    if (planId === 'onetoone') {
-                        priceHtml = `<span class="price-from">Desde</span> ${priceInfo.amount}`;
-                    }
+                
                     
                     priceEl.innerHTML = priceHtml;
                     periodEl.textContent = priceInfo.period;
