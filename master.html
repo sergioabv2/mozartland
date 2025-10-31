@@ -152,24 +152,20 @@
         });
 
         // 4. (ARREGLO 3) Evento del botón "Continuar" (con depuración)
-        continueButton.addEventListener('click', () => {
-            console.log('Botón "Continuar" presionado.'); // <-- REVISA ESTO EN CONSOLA
-            
-            // Ocultar el modal
-            finishedModal.style.display = 'none';
-            console.log('Modal de "terminado" oculto.');
-            
-            // Ocultar el reproductor de video
-            playerDiv.style.display = 'none';
-            console.log('Div del reproductor oculto.');
-
-            // Cargar y mostrar el iframe con src2.html
-            contentFrame.src = 'slave2.html';
-            contentFrame.style.display = 'block';
-
-            // Opcional: Cambiar el borde del contenedor
-            document.getElementById('contentContainer').style.borderColor = '#5cb85c';
-        });
+      continueButton.addEventListener('click', () => {
+    finishedModal.style.display = 'none';
+    
+    // Ocultar TODO el contenedor
+    document.getElementById('contentContainer').style.display = 'none';
+    
+    // Mostrar el iframe en su lugar (fuera del contenedor)
+    contentFrame.src = 'slave2.html';
+    contentFrame.style.display = 'block';
+    contentFrame.style.width = '800px';
+    contentFrame.style.height = '450px';
+    contentFrame.style.margin = '20px auto';
+    contentFrame.style.border = '3px solid #5cb85c';
+});
     </script>
 
 </body>
