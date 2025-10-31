@@ -3,29 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control de Video en Página Padre</title>
+    <title>Control de Video en Página Padre (Corregido)</title>
     <style>
         body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; text-align: center; }
         h1 { color: #333; }
         
-        /* Contenedor para el video o el iframe */
         #contentContainer {
-            border: 3px solid #007bff;
-            width: 800px; /* Ancho fijo */
-            height: 450px; /* Alto fijo (16:9) */
-            margin: 20px auto;
-            background-color: #000;
+            border: 3px solid #007bff; width: 800px; height: 450px;
+            margin: 20px auto; background-color: #000;
         }
 
-        /* El iframe para el src2 */
         #contentFrame {
-            display: none; /* Oculto al inicio */
-            width: 100%;
-            height: 100%;
-            border: none;
+            display: none; width: 100%; height: 100%; border: none;
         }
 
-        /* --- Estilos para el Modal (Iguales que antes) --- */
+        /* --- Estilos para el Modal --- */
         .modal {
             display: none; position: fixed; z-index: 1; left: 0; top: 0;
             width: 100%; height: 100%; overflow: auto; 
@@ -39,9 +31,15 @@
         }
         .modal-content h2 { color: #d9534f; margin-bottom: 20px; }
         .modal-content.success h2 { color: #5cb85c; }
+        
         .modal-content button {
             background-color: #007bff; color: white; padding: 10px 20px;
             border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 15px;
+        }
+        /* (NUEVO) Estilo para el botón de cerrar pausa */
+        .modal-content button.btn-close {
+            background-color: #f0ad4e;
+            margin-left: 10px;
         }
     </style>
 </head>
@@ -52,7 +50,6 @@
 
     <div id="contentContainer">
         <div id="player"></div>
-        
         <iframe id="contentFrame" src="about:blank"></iframe>
     </div>
 
@@ -60,6 +57,7 @@
         <div class="modal-content">
             <h2>¡Atención!</h2>
             <p>Debes terminar de ver el video para poder avanzar. Por favor, reanuda el video.</p>
+            <button id="closePauseButton" class="btn-close">Cerrar y Reanudar</button>
         </div>
     </div>
     
@@ -80,18 +78,23 @@
         const continueButton = document.getElementById('continueButton');
         const playerDiv = document.getElementById('player');
         const contentFrame = document.getElementById('contentFrame');
+        
+        // (NUEVO) Botón de cerrar modal de pausa
+        const closePauseButton = document.getElementById('closePauseButton');
 
         var player;
         var videoHasEnded = false; // Bandera para saber si el video ya terminó
+        
+        // (NUEVO) Temporizador para evitar el falso positivo de pausa
+        var pauseTimer = null;
 
-        // 5. La API llama a esta función cuando está lista
+        // 1. La API llama a esta función cuando está lista
         function onYouTubeIframeAPIReady() {
             console.log('API de YouTube lista.');
             player = new YT.Player('player', {
-                height: '450', // Alto del contenedor
-                width: '800',  // Ancho del contenedor
-                // Video ID de ejemplo (corto)
-                videoId: '5M9AkkFlroI', 
+                height: '450',
+                width: '800',
+                videoId: '5M9AkkFlroI', // Video de ejemplo (corto)
                 playerVars: {
                     'playsinline': 1,
                 },
@@ -101,41 +104,71 @@
             });
         }
 
-        // 6. Esta función se llama cada vez que el estado del video cambia
+        // 2. Esta función se llama cada vez que el estado del video cambia
         function onPlayerStateChange(event) {
             console.log('Nuevo estado:', event.data);
+
+            // Limpiamos el temporizador de pausa cada vez que hay un cambio
+            clearTimeout(pauseTimer);
 
             switch (event.data) {
                 case YT.PlayerState.PLAYING:
                     pauseModal.style.display = 'none'; // Ocultar modal de pausa
                     break;
+                
                 case YT.PlayerState.PAUSED:
-                    // Si se pausa Y AÚN NO HA TERMINADO, mostrar modal
+                    // (ARREGLO 2) Si se pausa Y AÚN NO HA TERMINADO...
                     if (!videoHasEnded) {
-                        pauseModal.style.display = 'flex';
+                        // ...iniciamos un temporizador.
+                        pauseTimer = setTimeout(() => {
+                            // Si después de 250ms sigue pausado, MOSTRAMOS el modal.
+                            // Esto evita que el "scrubbing" (mover la barra) lo active.
+                            if (player.getPlayerState() === YT.PlayerState.PAUSED) {
+                                pauseModal.style.display = 'flex';
+                            }
+                        }, 250); // 250 milisegundos de espera
                     }
                     break;
+                
                 case YT.PlayerState.ENDED:
                     videoHasEnded = true;
-                    pauseModal.style.display = 'none'; // Ocultar modal de pausa (si acaso)
-                    finishedModal.style.display = 'flex'; // Mostrar modal de "terminado"
+                    pauseModal.style.display = 'none'; 
+                    finishedModal.style.display = 'flex';
+                    break;
+
+                case YT.PlayerState.BUFFERING:
+                    // Si está cargando (buffer), nos aseguramos de que el timer se cancele
+                    // y el modal no se muestre.
+                    clearTimeout(pauseTimer);
                     break;
             }
         }
 
-        // 7. Evento del botón "Continuar"
+        // 3. (ARREGLO 1) Evento del nuevo botón "Cerrar y Reanudar"
+        closePauseButton.addEventListener('click', () => {
+            console.log('Botón "Cerrar y Reanudar" presionado.');
+            pauseModal.style.display = 'none'; // Ocultar modal
+            player.playVideo(); // Reanudar el video
+        });
+
+        // 4. (ARREGLO 3) Evento del botón "Continuar" (con depuración)
         continueButton.addEventListener('click', () => {
+            console.log('Botón "Continuar" presionado.'); // <-- REVISA ESTO EN CONSOLA
+            
             // Ocultar el modal
             finishedModal.style.display = 'none';
+            console.log('Modal de "terminado" oculto.');
             
             // Ocultar el reproductor de video
             playerDiv.style.display = 'none';
+            console.log('Div del reproductor oculto.');
 
             // Cargar y mostrar el iframe con src2.html
             contentFrame.src = 'src2.html';
             contentFrame.style.display = 'block';
+            console.log('Iframe src2 cargado y mostrado.');
 
-            // Opcional: Cambiar el borde del contenedor para que se vea el cambio
+            // Opcional: Cambiar el borde del contenedor
             document.getElementById('contentContainer').style.borderColor = '#5cb85c';
         });
     </script>
