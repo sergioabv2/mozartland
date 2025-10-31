@@ -1,1 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Página 1 (Hijo)</title>
+    <style>
+        body { font-family: sans-serif; background-color: #e6f7ff; padding: 15px; }
+        button { font-size: 16px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Contenido del Iframe: PÁGINA 1</h2>
+    <p>Este es el primer documento cargado en el iframe.</p>
+    
+    <button id="btnNavegar">Ir a Página 2</button>
 
+    <script>
+        document.getElementById('btnNavegar').addEventListener('click', () => {
+            window.parent.postMessage('navegarAPagina2', 'https://www.mozartacademy.online/master');
+        });
+    </script>
+</body>
+</html>
