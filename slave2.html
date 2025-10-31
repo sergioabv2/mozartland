@@ -1,1 +1,25 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Página 2 (Hijo)</title>
+    <style>
+        body { font-family: sans-serif; background-color: #fffbe6; padding: 15px; }
+        button { font-size: 16px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Contenido del Iframe: PÁGINA 2</h2>
+    <p>¡Has navegado al segundo documento!</p>
+    
+    <button id="btnVolver">Volver a Página 1</button>
+
+    <script>
+        document.getElementById('btnVolver').addEventListener('click', () => {
+            // Enviamos un mensaje de vuelta al padre
+            window.parent.postMessage('navegarAPagina1', 'https://www.mozartacademy.online');
+        });
+    </script>
+</body>
+</html>
