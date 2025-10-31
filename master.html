@@ -3,32 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Principal (Padre)</title>
+    <title>Control de Video en Página Padre</title>
     <style>
-        body { font-family: sans-serif; margin: 20px; }
-        iframe { border: 2px solid #007bff; width: 100%; height: 300px; }
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; text-align: center; }
+        h1 { color: #333; }
+        
+        /* Contenedor para el video o el iframe */
+        #contentContainer {
+            border: 3px solid #007bff;
+            width: 800px; /* Ancho fijo */
+            height: 450px; /* Alto fijo (16:9) */
+            margin: 20px auto;
+            background-color: #000;
+        }
+
+        /* El iframe para el src2 */
+        #contentFrame {
+            display: none; /* Oculto al inicio */
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* --- Estilos para el Modal (Iguales que antes) --- */
+        .modal {
+            display: none; position: fixed; z-index: 1; left: 0; top: 0;
+            width: 100%; height: 100%; overflow: auto; 
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe; margin: auto; padding: 30px;
+            border: 1px solid #888; width: 80%; max-width: 500px;
+            text-align: center; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .modal-content h2 { color: #d9534f; margin-bottom: 20px; }
+        .modal-content.success h2 { color: #5cb85c; }
+        .modal-content button {
+            background-color: #007bff; color: white; padding: 10px 20px;
+            border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 15px;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Página Principal (Contenedor)</h1>
-    <p>El iframe de abajo cambiará su contenido dinámicamente.</p>
+    <h1>Control de Video en el Padre</h1>
+    <p>Mira el video para poder avanzar al siguiente contenido.</p>
 
-    <iframe id="myDynamicFrame" src="slave1.html"></iframe>
+    <div id="contentContainer">
+        <div id="player"></div>
+        
+        <iframe id="contentFrame" src="about:blank"></iframe>
+    </div>
+
+    <div id="pauseModal" class="modal">
+        <div class="modal-content">
+            <h2>¡Atención!</h2>
+            <p>Debes terminar de ver el video para poder avanzar. Por favor, reanuda el video.</p>
+        </div>
+    </div>
+    
+    <div id="finishedModal" class="modal">
+        <div class="modal-content success">
+            <h2>¡Video Terminado!</h2>
+            <p>Has completado el video. ¡Ahora puedes continuar!</p>
+            <button id="continueButton">Continuar</button>
+        </div>
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
-        // 1. Obtenemos la referencia al iframe
-        const iframe = document.getElementById('myDynamicFrame');
-        window.addEventListener('message', (event) => {
+        // Referencias a elementos del DOM
+        const pauseModal = document.getElementById('pauseModal');
+        const finishedModal = document.getElementById('finishedModal');
+        const continueButton = document.getElementById('continueButton');
+        const playerDiv = document.getElementById('player');
+        const contentFrame = document.getElementById('contentFrame');
 
-            console.log('Mensaje recibido del iframe:', event.data);
+        var player;
+        var videoHasEnded = false; // Bandera para saber si el video ya terminó
 
-            // 3. Actuamos según el mensaje recibido
-            if (event.data === 'navegarAPagina2') {
-                iframe.src = 'slave2.html';
-            } else if (event.data === 'navegarAPagina1') {
-                iframe.src = 'slave1.html';
+        // 5. La API llama a esta función cuando está lista
+        function onYouTubeIframeAPIReady() {
+            console.log('API de YouTube lista.');
+            player = new YT.Player('player', {
+                height: '450', // Alto del contenedor
+                width: '800',  // Ancho del contenedor
+                // Video ID de ejemplo (corto)
+                videoId: 'M7lc1qf-pgk', 
+                playerVars: {
+                    'playsinline': 1,
+                    'autoplay': 1 // Intentar auto-reproducir
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // 6. Esta función se llama cada vez que el estado del video cambia
+        function onPlayerStateChange(event) {
+            console.log('Nuevo estado:', event.data);
+
+            switch (event.data) {
+                case YT.PlayerState.PLAYING:
+                    pauseModal.style.display = 'none'; // Ocultar modal de pausa
+                    break;
+                case YT.PlayerState.PAUSED:
+                    // Si se pausa Y AÚN NO HA TERMINADO, mostrar modal
+                    if (!videoHasEnded) {
+                        pauseModal.style.display = 'flex';
+                    }
+                    break;
+                case YT.PlayerState.ENDED:
+                    videoHasEnded = true;
+                    pauseModal.style.display = 'none'; // Ocultar modal de pausa (si acaso)
+                    finishedModal.style.display = 'flex'; // Mostrar modal de "terminado"
+                    break;
             }
+        }
+
+        // 7. Evento del botón "Continuar"
+        continueButton.addEventListener('click', () => {
+            // Ocultar el modal
+            finishedModal.style.display = 'none';
+            
+            // Ocultar el reproductor de video
+            playerDiv.style.display = 'none';
+
+            // Cargar y mostrar el iframe con src2.html
+            contentFrame.src = 'src2.html';
+            contentFrame.style.display = 'block';
+
+            // Opcional: Cambiar el borde del contenedor para que se vea el cambio
+            document.getElementById('contentContainer').style.borderColor = '#5cb85c';
         });
     </script>
 
