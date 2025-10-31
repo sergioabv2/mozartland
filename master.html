@@ -41,6 +41,14 @@
             background-color: #f0ad4e;
             margin-left: 10px;
         }
+
+        #contentFrame {
+    display: none; 
+    width: 800px; 
+    height: 450px; 
+    border: 3px solid #5cb85c;
+    margin: 20px auto;
+}
     </style>
 </head>
 <body>
@@ -50,8 +58,9 @@
 
     <div id="contentContainer">
         <div id="player"></div>
-        <iframe id="contentFrame" src="about:blank"></iframe>
     </div>
+
+      <iframe id="contentFrame" src="about:blank"></iframe>
 
     <div id="pauseModal" class="modal">
         <div class="modal-content">
@@ -152,19 +161,15 @@
         });
 
         // 4. (ARREGLO 3) Evento del botón "Continuar" (con depuración)
-      continueButton.addEventListener('click', () => {
+ continueButton.addEventListener('click', () => {
     finishedModal.style.display = 'none';
     
-    // Ocultar TODO el contenedor
+    // Ocultar el contenedor del video
     document.getElementById('contentContainer').style.display = 'none';
     
-    // Mostrar el iframe en su lugar (fuera del contenedor)
+    // Mostrar el iframe
     contentFrame.src = 'slave2.html';
     contentFrame.style.display = 'block';
-    contentFrame.style.width = '800px';
-    contentFrame.style.height = '450px';
-    contentFrame.style.margin = '20px auto';
-    contentFrame.style.border = '3px solid #5cb85c';
 });
     </script>
 
