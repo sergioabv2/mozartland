@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jardín de Constancia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #f7fafc;
+            border-radius: 10px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #718096;
+            margin-top: 5px;
+        }
+
+        .plants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .plant-card {
+            background: linear-gradient(135deg, #f6f8fb 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+
+        .plant-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .plant-icon {
+            font-size: 4em;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .plant-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .plant-status {
+            text-align: center;
+            font-size: 0.9em;
+            color: #718096;
+            margin-bottom: 15px;
+        }
+
+        .health-bar-container {
+            background: #e2e8f0;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .health-bar {
+            height: 100%;
+            transition: width 0.5s, background 0.5s;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .health-high { background: linear-gradient(90deg, #48bb78, #38a169); }
+        .health-medium { background: linear-gradient(90deg, #ecc94b, #d69e2e); }
+        .health-low { background: linear-gradient(90deg, #f56565, #e53e3e); }
+
+        .water-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .water-btn:hover:not(:disabled) {
+            transform: scale(1.05);
+        }
+
+        .water-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .add-plant-btn {
+            width: 100%;
+            padding: 15px;
+            background: #48bb78;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .add-plant-btn:hover {
+            background: #38a169;
+        }
+
+        .message {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .message.success {
+            background: #c6f6d5;
+            color: #22543d;
+            display: block;
+        }
+
+        .message.warning {
+            background: #feebc8;
+            color: #7c2d12;
+            display: block;
+        }
+
+        .last-visit {
+            text-align: center;
+            color: #718096;
+            font-size: 0.85em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌱 Jardín de Constancia</h1>
+        <p class="subtitle">Riega tus plantas cada día para mantenerlas vivas</p>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value" id="streak">0</div>
+                <div class="stat-label">Racha actual</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="totalPlants">0</div>
+                <div class="stat-label">Plantas vivas</div>
+            </div>
+        </div>
+
+        <div class="message" id="message"></div>
+
+        <div class="plants-grid" id="plantsGrid"></div>
+
+        <button class="add-plant-btn" onclick="addPlant()">+ Añadir Nueva Planta</button>
+
+        <div class="last-visit" id="lastVisit"></div>
+    </div>
+
+    <script>
+        const plantTypes = [
+            { name: 'Cactus', icon: '🌵' },
+            { name: 'Rosa', icon: '🌹' },
+            { name: 'Girasol', icon: '🌻' },
+            { name: 'Tulipán', icon: '🌷' },
+            { name: 'Palmera', icon: '🌴' },
+            { name: 'Bonsái', icon: '🌳' }
+        ];
+
+        let gameState = {
+            plants: [],
+            lastVisit: null,
+            streak: 0,
+            todayWatered: false
+        };
+
+        function init() {
+            loadGameState();
+            checkDaysPassed();
+            updateUI();
+        }
+
+        function loadGameState() {
+            const saved = localStorage.getItem('plantGameState');
+            if (saved) {
+                gameState = JSON.parse(saved);
+                if (gameState.plants.length === 0) {
+                    addInitialPlant();
+                }
+            } else {
+                addInitialPlant();
+            }
+        }
+
+        function addInitialPlant() {
+            const randomPlant = plantTypes[Math.floor(Math.random() * plantTypes.length)];
+            gameState.plants.push({
+                id: Date.now(),
+                ...randomPlant,
+                health: 100,
+                lastWatered: new Date().toISOString()
+            });
+            saveGameState();
+        }
+
+        function saveGameState() {
+            localStorage.setItem('plantGameState', JSON.stringify(gameState));
+        }
+
+        function checkDaysPassed() {
+            const now = new Date();
+            const today = now.toDateString();
+
+            if (gameState.lastVisit) {
+                const lastVisitDate = new Date(gameState.lastVisit);
+                const lastVisitDay = lastVisitDate.toDateString();
+
+                if (today !== lastVisitDay) {
+                    const daysDiff = Math.floor((now - lastVisitDate) / (1000 * 60 * 60 * 24));
+                    
+                    if (daysDiff >= 2) {
+                        gameState.plants.forEach(plant => {
+                            const plantLastWatered = new Date(plant.lastWatered);
+                            const daysWithoutWater = Math.floor((now - plantLastWatered) / (1000 * 60 * 60 * 24));
+                            
+                            if (daysWithoutWater >= 2) {
+                                const damage = (daysWithoutWater - 1) * 20;
+                                plant.health = Math.max(0, plant.health - damage);
+                            }
+                        });
+                        
+                        gameState.streak = 0;
+                        showMessage(`¡Han pasado ${daysDiff} días! Tus plantas perdieron vida 💔`, 'warning');
+                    } else if (daysDiff === 1 && gameState.todayWatered) {
+                        gameState.streak++;
+                    }
+                    
+                    gameState.todayWatered = false;
+                    gameState.plants = gameState.plants.filter(p => p.health > 0);
+                }
+            }
+
+            gameState.lastVisit = now.toISOString();
+            saveGameState();
+        }
+
+        function waterPlant(plantId) {
+            const plant = gameState.plants.find(p => p.id === plantId);
+            if (!plant) return;
+
+            plant.health = Math.min(100, plant.health + 10);
+            plant.lastWatered = new Date().toISOString();
+            
+            if (!gameState.todayWatered) {
+                gameState.todayWatered = true;
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                const lastVisit = new Date(gameState.lastVisit);
+                
+                if (lastVisit.toDateString() === yesterday.toDateString()) {
+                    gameState.streak++;
+                }
+            }
+
+            saveGameState();
+            showMessage(`¡${plant.name} regada! +10 vida 💧`, 'success');
+            updateUI();
+        }
+
+        function addPlant() {
+            if (gameState.plants.length >= 6) {
+                showMessage('Ya tienes el máximo de plantas (6) 🌱', 'warning');
+                return;
+            }
+
+            const randomPlant = plantTypes[Math.floor(Math.random() * plantTypes.length)];
+            gameState.plants.push({
+                id: Date.now(),
+                ...randomPlant,
+                health: 100,
+                lastWatered: new Date().toISOString()
+            });
+
+            saveGameState();
+            showMessage(`¡Nueva ${randomPlant.name} añadida! 🎉`, 'success');
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('streak').textContent = gameState.streak;
+            document.getElementById('totalPlants').textContent = gameState.plants.length;
+
+            const grid = document.getElementById('plantsGrid');
+            grid.innerHTML = '';
+
+            gameState.plants.forEach(plant => {
+                const card = document.createElement('div');
+                card.className = 'plant-card';
+
+                const now = new Date();
+                const lastWatered = new Date(plant.lastWatered);
+                const hoursSince = Math.floor((now - lastWatered) / (1000 * 60 * 60));
+                const canWater = hoursSince >= 1;
+
+                const healthClass = plant.health > 60 ? 'health-high' : 
+                                  plant.health > 30 ? 'health-medium' : 'health-low';
+
+                card.innerHTML = `
+                    <div class="plant-icon">${plant.icon}</div>
+                    <div class="plant-name">${plant.name}</div>
+                    <div class="plant-status">
+                        ${canWater ? '¡Listo para regar!' : `Regado hace ${hoursSince}h`}
+                    </div>
+                    <div class="health-bar-container">
+                        <div class="health-bar ${healthClass}" style="width: ${plant.health}%">
+                            ${plant.health}%
+                        </div>
+                    </div>
+                    <button class="water-btn" onclick="waterPlant(${plant.id})" 
+                            ${!canWater ? 'disabled' : ''}>
+                        ${canWater ? '💧 Regar' : '⏰ Espera 1 hora'}
+                    </button>
+                `;
+
+                grid.appendChild(card);
+            });
+
+            if (gameState.lastVisit) {
+                const lastVisitDate = new Date(gameState.lastVisit);
+                document.getElementById('lastVisit').textContent = 
+                    `Última visita: ${lastVisitDate.toLocaleString('es-MX')}`;
+            }
+        }
+
+        function showMessage(text, type) {
+            const msg = document.getElementById('message');
+            msg.textContent = text;
+            msg.className = `message ${type}`;
+            
+            setTimeout(() => {
+                msg.className = 'message';
+            }, 3000);
+        }
+
+        init();
+        setInterval(updateUI, 60000);
+    </script>
+</body>
+</html>
