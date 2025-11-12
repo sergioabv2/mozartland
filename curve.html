@@ -526,6 +526,17 @@
     <script>
         let pieces = [];
 
+        function savePieces() {
+            localStorage.setItem('pianoPieces', JSON.stringify(pieces));
+        }
+
+        function loadPieces() {
+            const savedPieces = localStorage.getItem('pianoPieces');
+            if (savedPieces) {
+                pieces = JSON.parse(savedPieces);
+            }
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             loadPieces();
             renderTable();
