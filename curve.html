@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piano Mastery Tracker - Ebbinghaus Table</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .header {
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 0.95em;
+            font-weight: 400;
+        }
+
+        .add-section {
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .add-section h2 {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            letter-spacing: -0.3px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 16px 20px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            font-size: 0.95em;
+            background: rgba(255, 255, 255, 0.6);
+            transition: all 0.3s ease;
+            color: #2c3e50;
+        }
+
+        .input-group input::placeholder {
+            color: #95a5a6;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+        }
+
+        button {
+            padding: 16px 28px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.2px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-danger {
+            background: transparent;
+            color: #e74c3c;
+            padding: 8px 16px;
+            font-size: 0.85em;
+        }
+
+        .btn-danger:hover {
+            background: rgba(231, 76, 60, 0.1);
+            color: #c0392b;
+        }
+
+        .table-container {
+            border-radius: 24px;
+            padding: 32px;
+            overflow-x: auto;
+            margin-bottom: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.9em;
+        }
+
+        th {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 16px 12px;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.85em;
+            letter-spacing: 0.3px;
+        }
+
+        th:first-child {
+            border-top-left-radius: 12px;
+        }
+
+        th:last-child {
+            border-top-right-radius: 12px;
+        }
+
+        td {
+            padding: 14px 12px;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .review-clickable {
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .review-clickable:hover {
+            background: rgba(52, 152, 219, 0.1) !important;
+            transform: scale(1.05);
+        }
+
+        .review-disabled {
+            color: #bdc3c7;
+            opacity: 0.5;
+            cursor: not-allowed;
+            font-style: italic;
+        }
+
+        .review-completed {
+            color: #27ae60;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .countdown {
+            display: block;
+            font-size: 0.75em;
+            color: #e74c3c;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .time-display {
+            display: block;
+            font-size: 0.85em;
+        }
+
+        tr:last-child td:first-child {
+            border-bottom-left-radius: 12px;
+        }
+
+        tr:last-child td:last-child {
+            border-bottom-right-radius: 12px;
+        }
+
+        .review-cell {
+            font-weight: 600;
+            color: white;
+            position: relative;
+        }
+
+        .review-cell.day1 {
+            background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+        }
+
+        .review-cell.day2 {
+            background: linear-gradient(135deg, #3498db, #2980b9) !important;
+        }
+
+        .review-cell.day4 {
+            background: linear-gradient(135deg, #f39c12, #e67e22) !important;
+        }
+
+        .review-cell.day7 {
+            background: linear-gradient(135deg, #27ae60, #229954) !important;
+        }
+
+        .review-cell.day15 {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad) !important;
+        }
+
+        .review-cell.month1 {
+            background: linear-gradient(135deg, #e91e63, #c2185b) !important;
+        }
+
+        .review-cell.month3 {
+            background: linear-gradient(135deg, #ff9800, #f57c00) !important;
+        }
+
+        .review-cell.month5 {
+            background: linear-gradient(135deg, #00bcd4, #0097a7) !important;
+        }
+
+        .piece-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .date-cell {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .short-term-header {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad) !important;
+        }
+
+        .long-term-header {
+            background: linear-gradient(135deg, #27ae60, #229954) !important;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .btn-check {
+            padding: 6px 12px;
+            background: linear-gradient(135deg, #27ae60, #229954);
+            color: white;
+            font-size: 0.8em;
+            border-radius: 8px;
+        }
+
+        .btn-check:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+        }
+
+        .empty-state {
+            border-radius: 24px;
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            color: #2c3e50;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .empty-state p {
+            color: #95a5a6;
+            font-size: 0.95em;
+        }
+
+        .info-section {
+            border-radius: 24px;
+            padding: 32px;
+            margin-top: 24px;
+        }
+
+        .info-section h3 {
+            color: #2c3e50;
+            margin-bottom: 16px;
+            font-size: 1.2em;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .info-section p {
+            color: #7f8c8d;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            padding: 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .legend-text {
+            font-size: 0.85em;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .table-container {
+            animation: fadeIn 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header glass">
+            <h1>🎹 Piano Mastery Tracker</h1>
+            <p>Ebbinghaus Forgetting Curve - Review Schedule Table</p>
+        </div>
+
+        <!-- Add New Piece Section -->
+        <div class="add-section glass">
+            <h2>Add New Piano Piece</h2>
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="pieceName" 
+                    placeholder="Enter piece name (e.g., Für Elise, Moonlight Sonata)"
+                    onkeypress="if(event.key === 'Enter') addPiece()"
+                >
+                <button class="btn-primary" onclick="addPiece()">Add Piece</button>
+            </div>
+        </div>
+
+        <!-- Table Container -->
+        <div id="tableContainer" class="table-container glass hidden">
+            <table>
+                <thead>
+                    <tr>
+                        <th rowspan="2">#</th>
+                        <th rowspan="2">Learning Date</th>
+                        <th rowspan="2">Piano Piece</th>
+                        <th colspan="3" class="short-term-header">Short-term Memory Cycle</th>
+                        <th colspan="8" class="long-term-header">Long-term Memory Cycle</th>
+                        <th rowspan="2">Actions</th>
+                    </tr>
+                    <tr>
+                        <th class="short-term-header">5 min</th>
+                        <th class="short-term-header">30 min</th>
+                        <th class="short-term-header">12 hour</th>
+                        <th class="long-term-header">1 Day</th>
+                        <th class="long-term-header">2 Day</th>
+                        <th class="long-term-header">4 Day</th>
+                        <th class="long-term-header">7 Day</th>
+                        <th class="long-term-header">15 Day</th>
+                        <th class="long-term-header">1 month</th>
+                        <th class="long-term-header">3 month</th>
+                        <th class="long-term-header">5 month</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state glass">
+            <div class="empty-icon">🎹</div>
+            <h3>No pieces yet</h3>
+            <p>Add your first piano piece to start tracking your review schedule</p>
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-section glass">
+            <h3>How the Review Schedule Works</h3>
+            <p>
+                Based on the Ebbinghaus Forgetting Curve, each piece should be reviewed at specific intervals:
+                <strong>5 minutes, 30 minutes, 12 hours</strong> (short-term), then 
+                <strong>1, 2, 4, 7, 15 days, 1, 3, and 5 months</strong> (long-term) after learning.
+                The colored cells show which pieces to review each day.
+            </p>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(135deg, #e74c3c, #c0392b);"></div>
+                    <div class="legend-text">1 Day Review</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(135deg, #3498db, #2980b9);"></div>
+                    <div class="legend-text">2 Day Review</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(135deg, #f39c12, #e67e22);"></div>
+                    <div class="legend-text">4 Day Review</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(135deg, #27ae60, #229954);"></div>
+                    <div class="legend-text">7 Day Review</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);"></div>
+                    <div class="legend-text">15 Day Review</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(135deg, #e91e63, #c2185b);"></div>
+                    <div class="legend-text">1 Month Review</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let pieces = [];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderTable();
+        });
+
+        function addPiece() {
+            const input = document.getElementById('pieceName');
+            const name = input.value.trim();
+            
+            if (name) {
+                const newPiece = {
+                    id: Date.now(),
+                    name: name,
+                    learningDate: new Date(),
+                    reviews: {
+                        min5: false,
+                        min30: false,
+                        hour12: false,
+                        day1: false,
+                        day2: false,
+                        day4: false,
+                        day7: false,
+                        day15: false,
+                        month1: false,
+                        month3: false,
+                        month5: false
+                    }
+                };
+                
+                pieces.push(newPiece);
+                input.value = '';
+                renderTable();
+            }
+        }
+
+        function toggleReview(pieceId, reviewType) {
+            pieces = pieces.map(piece => {
+                if (piece.id === pieceId) {
+                    if (!piece.reviews[reviewType]) {
+                        piece.reviews[reviewType] = true;
+                        piece.reviewCompletedAt = piece.reviewCompletedAt || {};
+                        piece.reviewCompletedAt[reviewType] = new Date().toISOString();
+                        
+                        // Recalculate next steps based on when this review was completed
+                        recalculateFutureReviews(piece, reviewType);
+                    }
+                }
+                return piece;
+            });
+            renderTable();
+        }
+
+        function recalculateFutureReviews(piece, completedReviewType) {
+            const reviewOrder = ['min5', 'min30', 'hour12', 'day1', 'day2', 'day4', 'day7', 'day15', 'month1', 'month3', 'month5'];
+            const currentIndex = reviewOrder.indexOf(completedReviewType);
+            
+            if (currentIndex === -1) return;
+            
+            // Get the completion time of this review
+            const completionTime = new Date(piece.reviewCompletedAt[completedReviewType]);
+            
+            // Recalculate future review dates based on the actual completion time
+            const intervals = {
+                'min5': 5 * 60000, // 5 minutes in milliseconds
+                'min30': 30 * 60000, // 30 minutes
+                'hour12': 12 * 3600000, // 12 hours
+                'day1': 1 * 86400000, // 1 day
+                'day2': 2 * 86400000, // 2 days
+                'day4': 4 * 86400000, // 4 days
+                'day7': 7 * 86400000, // 7 days
+                'day15': 15 * 86400000, // 15 days
+                'month1': 30 * 86400000, // 1 month
+                'month3': 90 * 86400000, // 3 months
+                'month5': 150 * 86400000 // 5 months
+            };
+            
+            // Store recalculated dates
+            piece.recalculatedDates = piece.recalculatedDates || {};
+            
+            // For the next review after this one, calculate from completion time
+            if (currentIndex < reviewOrder.length - 1) {
+                const nextReviewType = reviewOrder[currentIndex + 1];
+                const interval = intervals[nextReviewType];
+                piece.recalculatedDates[nextReviewType] = new Date(completionTime.getTime() + interval);
+            }
+        }
+
+        function deletePiece(pieceId) {
+            if (confirm('Are you sure you want to remove this piece?')) {
+                pieces = pieces.filter(piece => piece.id !== pieceId);
+                renderTable();
+            }
+        }
+
+        function getReviewDates(learningDate, recalculatedDates = {}) {
+            const dates = {};
+            const base = new Date(learningDate);
+            
+            // Use recalculated dates if available, otherwise use original schedule
+            dates.min5 = recalculatedDates.min5 || new Date(base.getTime() + 5 * 60000);
+            dates.min30 = recalculatedDates.min30 || new Date(base.getTime() + 30 * 60000);
+            dates.hour12 = recalculatedDates.hour12 || new Date(base.getTime() + 12 * 3600000);
+            dates.day1 = recalculatedDates.day1 || new Date(base.getTime() + 1 * 86400000);
+            dates.day2 = recalculatedDates.day2 || new Date(base.getTime() + 2 * 86400000);
+            dates.day4 = recalculatedDates.day4 || new Date(base.getTime() + 4 * 86400000);
+            dates.day7 = recalculatedDates.day7 || new Date(base.getTime() + 7 * 86400000);
+            dates.day15 = recalculatedDates.day15 || new Date(base.getTime() + 15 * 86400000);
+            dates.month1 = recalculatedDates.month1 || new Date(base.getTime() + 30 * 86400000);
+            dates.month3 = recalculatedDates.month3 || new Date(base.getTime() + 90 * 86400000);
+            dates.month5 = recalculatedDates.month5 || new Date(base.getTime() + 150 * 86400000);
+            
+            return dates;
+        }
+
+        function formatDate(date) {
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            return `${month}/${day}`;
+        }
+
+        function formatTime(date) {
+            const hours = date.getHours();
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+
+        function getCountdown(targetDate) {
+            const now = new Date();
+            const diff = targetDate - now;
+            
+            if (diff <= 0) return null;
+            
+            const days = Math.floor(diff / 86400000);
+            const hours = Math.floor((diff % 86400000) / 3600000);
+            const minutes = Math.floor((diff % 3600000) / 60000);
+            const seconds = Math.floor((diff % 60000) / 1000);
+            
+            if (days > 0) {
+                return `${days}d ${hours}h`;
+            } else if (hours > 0) {
+                return `${hours}h ${minutes}m`;
+            } else if (minutes > 0) {
+                return `${minutes}m ${seconds}s`;
+            } else {
+                return `${seconds}s`;
+            }
+        }
+
+        function findNextReview(piece) {
+            const reviewOrder = ['min5', 'min30', 'hour12', 'day1', 'day2', 'day4', 'day7', 'day15', 'month1', 'month3', 'month5'];
+            
+            for (let reviewType of reviewOrder) {
+                if (!piece.reviews[reviewType]) {
+                    return reviewType;
+                }
+            }
+            return null;
+        }
+
+        function getReviewNumber(pieceIndex, reviewDay) {
+            // Calculate which pieces should be reviewed on this day
+            let reviewPieces = [];
+            
+            for (let i = 0; i < pieces.length; i++) {
+                const piece = pieces[i];
+                const daysSince = Math.floor((reviewDay - new Date(piece.learningDate)) / 86400000);
+                
+                if (daysSince === 1) reviewPieces.push(i + 1);
+            }
+            
+            return reviewPieces.find(p => p === pieceIndex + 1) || '-';
+        }
+
+        function renderTable() {
+            const container = document.getElementById('tableContainer');
+            const emptyState = document.getElementById('emptyState');
+            const tbody = document.getElementById('tableBody');
+            
+            if (pieces.length === 0) {
+                emptyState.classList.remove('hidden');
+                container.classList.add('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+                container.classList.remove('hidden');
+            }
+            
+            const now = new Date();
+            
+            tbody.innerHTML = pieces.map((piece, index) => {
+                const dates = getReviewDates(piece.learningDate, piece.recalculatedDates || {});
+                const daysSinceLearning = Math.floor((now - new Date(piece.learningDate)) / 86400000);
+                const nextReview = findNextReview(piece);
+                
+                // Check if each review is available (time has passed)
+                const isAvailable = {
+                    min5: now >= dates.min5,
+                    min30: now >= dates.min30,
+                    hour12: now >= dates.hour12,
+                    day1: now >= dates.day1,
+                    day2: now >= dates.day2,
+                    day4: now >= dates.day4,
+                    day7: now >= dates.day7,
+                    day15: now >= dates.day15,
+                    month1: now >= dates.month1,
+                    month3: now >= dates.month3,
+                    month5: now >= dates.month5
+                };
+                
+                const renderCell = (reviewType, displayText, className = '') => {
+                    if (piece.reviews[reviewType]) {
+                        return `<td class="review-completed ${className}">✓</td>`;
+                    } else if (isAvailable[reviewType]) {
+                        return `<td class="review-clickable ${className}" onclick="toggleReview(${piece.id}, '${reviewType}')">${displayText}</td>`;
+                    } else {
+                        const countdown = getCountdown(dates[reviewType]);
+                        const isNext = reviewType === nextReview;
+                        
+                        return `<td class="review-disabled ${className}">
+                            <span class="time-display">${displayText}</span>
+                            ${isNext && countdown ? `<span class="countdown">⏱️ ${countdown}</span>` : ''}
+                        </td>`;
+                    }
+                };
+                
+                return `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td class="date-cell">${formatDate(new Date(piece.learningDate))}</td>
+                        <td class="piece-name">${piece.name}</td>
+                        
+                        <!-- Short-term reviews -->
+                        ${renderCell('min5', formatTime(dates.min5))}
+                        ${renderCell('min30', formatTime(dates.min30))}
+                        ${renderCell('hour12', formatTime(dates.hour12))}
+                        
+                        <!-- Long-term reviews -->
+                        ${renderCell('day1', index + 1, daysSinceLearning >= 1 ? 'review-cell day1' : '')}
+                        ${renderCell('day2', index + 1, daysSinceLearning >= 2 ? 'review-cell day2' : '')}
+                        ${renderCell('day4', index + 1, daysSinceLearning >= 4 ? 'review-cell day4' : '')}
+                        ${renderCell('day7', index + 1, daysSinceLearning >= 7 ? 'review-cell day7' : '')}
+                        ${renderCell('day15', index + 1, daysSinceLearning >= 15 ? 'review-cell day15' : '')}
+                        ${renderCell('month1', index + 1, daysSinceLearning >= 30 ? 'review-cell month1' : '')}
+                        ${renderCell('month3', index + 1, daysSinceLearning >= 90 ? 'review-cell month3' : '')}
+                        ${renderCell('month5', index + 1, daysSinceLearning >= 150 ? 'review-cell month5' : '')}
+                        
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn-danger" onclick="deletePiece(${piece.id})">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Update countdown every second
+        setInterval(() => {
+            if (pieces.length > 0) {
+                renderTable();
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
