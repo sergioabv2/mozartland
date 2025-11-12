@@ -636,20 +636,19 @@
 
         function getReviewDates(learningDate, recalculatedDates = {}) {
             const dates = {};
-            const base = new Date(learningDate);
+            const base = new Date(learningDate); 
             
-            // Use recalculated dates if available, otherwise use original schedule
-            dates.min5 = recalculatedDates.min5 || new Date(base.getTime() + 5 * 60000);
-            dates.min30 = recalculatedDates.min30 || new Date(base.getTime() + 30 * 60000);
-            dates.hour12 = recalculatedDates.hour12 || new Date(base.getTime() + 12 * 3600000);
-            dates.day1 = recalculatedDates.day1 || new Date(base.getTime() + 1 * 86400000);
-            dates.day2 = recalculatedDates.day2 || new Date(base.getTime() + 2 * 86400000);
-            dates.day4 = recalculatedDates.day4 || new Date(base.getTime() + 4 * 86400000);
-            dates.day7 = recalculatedDates.day7 || new Date(base.getTime() + 7 * 86400000);
-            dates.day15 = recalculatedDates.day15 || new Date(base.getTime() + 15 * 86400000);
-            dates.month1 = recalculatedDates.month1 || new Date(base.getTime() + 30 * 86400000);
-            dates.month3 = recalculatedDates.month3 || new Date(base.getTime() + 90 * 86400000);
-            dates.month5 = recalculatedDates.month5 || new Date(base.getTime() + 150 * 86400000);
+            dates.min5 = new Date(recalculatedDates.min5 || base.getTime() + 5 * 60000);
+            dates.min30 = new Date(recalculatedDates.min30 || base.getTime() + 30 * 60000);
+            dates.hour12 = new Date(recalculatedDates.hour12 || base.getTime() + 12 * 3600000);
+            dates.day1 = new Date(recalculatedDates.day1 || base.getTime() + 1 * 86400000);
+            dates.day2 = new Date(recalculatedDates.day2 || base.getTime() + 2 * 86400000);
+            dates.day4 = new Date(recalculatedDates.day4 || base.getTime() + 4 * 86400000);
+            dates.day7 = new Date(recalculatedDates.day7 || base.getTime() + 7 * 86400000);
+            dates.day15 = new Date(recalculatedDates.day15 || base.getTime() + 15 * 86400000);
+            dates.month1 = new Date(recalculatedDates.month1 || base.getTime() + 30 * 86400000);
+            dates.month3 = new Date(recalculatedDates.month3 || base.getTime() + 90 * 86400000);
+            dates.month5 = new Date(recalculatedDates.month5 || base.getTime() + 150 * 86400000);
             
             return dates;
         }
