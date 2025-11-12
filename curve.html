@@ -337,6 +337,38 @@
             font-size: 0.95em;
         }
 
+        .storage-info {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .storage-info-icon {
+            font-size: 1.5em;
+        }
+
+        .storage-info-text {
+            flex: 1;
+            font-size: 0.9em;
+            color: #2c3e50;
+        }
+
+        .btn-clear-data {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 10px 20px;
+            font-size: 0.85em;
+        }
+
+        .btn-clear-data:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+        }
+
         .legend {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -447,6 +479,14 @@
 
         <!-- Info Section -->
         <div class="info-section glass">
+            <div class="storage-info">
+                <div class="storage-info-icon">💾</div>
+                <div class="storage-info-text">
+                    Your data is automatically saved to your browser's local storage. It will persist even after closing the page.
+                </div>
+                <button class="btn-clear-data" onclick="clearAllData()">Clear All Data</button>
+            </div>
+            
             <h3>How the Review Schedule Works</h3>
             <p>
                 Based on the Ebbinghaus Forgetting Curve, each piece should be reviewed at specific intervals:
@@ -487,6 +527,7 @@
         let pieces = [];
 
         window.addEventListener('DOMContentLoaded', () => {
+            loadPieces();
             renderTable();
         });
 
@@ -498,7 +539,7 @@
                 const newPiece = {
                     id: Date.now(),
                     name: name,
-                    learningDate: new Date(),
+                    learningDate: new Date().toISOString(),
                     reviews: {
                         min5: false,
                         min30: false,
@@ -516,6 +557,7 @@
                 
                 pieces.push(newPiece);
                 input.value = '';
+                savePieces();
                 renderTable();
             }
         }
@@ -534,6 +576,7 @@
                 }
                 return piece;
             });
+            savePieces();
             renderTable();
         }
 
@@ -575,6 +618,7 @@
         function deletePiece(pieceId) {
             if (confirm('Are you sure you want to remove this piece?')) {
                 pieces = pieces.filter(piece => piece.id !== pieceId);
+                savePieces();
                 renderTable();
             }
         }
@@ -642,6 +686,15 @@
                 }
             }
             return null;
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to delete all your piano pieces and progress? This action cannot be undone.')) {
+                localStorage.removeItem('pianoPieces');
+                pieces = [];
+                renderTable();
+                alert('All data has been cleared successfully.');
+            }
         }
 
         function getReviewNumber(pieceIndex, reviewDay) {
