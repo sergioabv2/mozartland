@@ -2,327 +2,1370 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NotaFlow | Domina la lectura musical</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, maximum-scale=1.0, user-scalable=no">
+    <title>Mozart Academy</title>
     
+    <!-- Fuentes y Librerías Originales -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- NUEVAS Librerías para el Hero Elegante -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: #111827;
-            overflow-x: hidden;
+        :root {
+            --white: hsl(0, 0%, 100%);
+            --cultured: hsl(210, 12%, 97%);
+            --light-gray: hsl(0, 0%, 80%);
+            --silver-chalice: hsl(0, 0%, 66%);
+            --sonic-silver: hsl(208, 7%, 46%);
+            --granite-gray: hsl(0, 0%, 40%);
+            --charcoal: hsl(210, 29%, 24%);
+            --gunmetal: hsl(216, 14%, 21%);
+            --oxford-blue: hsl(219, 37%, 18%);
+            --dodger-blue: hsl(205, 100%, 50%);
+            --dodger-blue-dark: hsl(205, 100%, 40%);
+            --jet: hsl(0, 0%, 20%);
+            
+
+            --ff-dm-sans: "DM Sans", sans-serif; /* Nueva fuente para el hero */
+            
+            --fs-1: 28px;
+            --fs-2: 26px;
+            --fs-3: 24px;
+            --fs-4: 20px;
+            --fs-5: 18px;
+            --fs-6: 17px;
+            --fs-7: 15px;
+            --fs-8: 13px;
+            
+            --fw-300: 300;
+            --fw-400: 400;
+            --fw-500: 500;
+            --fw-600: 600;
+            --fw-700: 700;
+            
+            --transition: 0.25s ease-in-out;
+            --section-padding: 80px 0;
         }
 
-        /* Transiciones suaves para el slider */
-        .slide {
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        li { list-style: none; }
+        a { text-decoration: none; }
+        input { font: inherit; background: none; width: 100%; }
+        button { background: none; border: none; font: inherit; cursor: pointer; }
+        a, img, span, input, button, ion-icon { display: block; }
+        ion-icon { --ionicon-stroke-width: 25px; }
+        :focus { outline-offset: 4px; }
+        
+        html { font-family: var(--ff-dm-sans); scroll-behavior: smooth; }
+        body { background: var(--white); color: var(--sonic-silver); line-height: 1.6; overflow-x: hidden; }
+        
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background-color: hsl(0, 0%, 90%); }
+        ::-webkit-scrollbar-thumb { background-color: hsl(0, 0%, 80%); }
+        ::-webkit-scrollbar-thumb:hover { background-color: hsl(0, 0%, 70%); }
+
+        .container { padding: 0 15px; max-width: 1200px; margin: 0 auto; }
+
+        /* Estilos generales de botones para el resto del sitio */
+        .btn {
+            font-size: var(--fs-7);
+            font-weight: var(--fw-500);
+            text-transform: capitalize;
+            padding: 14px 32px;
+            border-radius: 6px;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-primary { 
+            background: var(--dodger-blue); 
+            color: var(--white); 
+            border: 1px solid var(--dodger-blue); 
+            box-shadow: 0 4px 15px hsla(205, 100%, 50%, 0.3);
+        }
+
+        .h1, .h2, .h3, .h4 { 
+            color: var(--gunmetal); 
+            font-weight: var(--fw-600); 
+            line-height: 1.2;
+        }
+        .h1 { font-size: var(--fs-1); }
+        .h2 { font-size: var(--fs-2); }
+
+        .section-text { color: var(--sonic-silver); line-height: 1.6; }
+        .section-subtitle { 
+            color: var(--dodger-blue); 
+            font-size: var(--fs-8); 
+            font-weight: var(--fw-600); 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            display: inline-block;
+            background: hsla(205, 100%, 50%, 0.1);
+            padding: 5px 12px;
+            border-radius: 50px;
+        }
+
+        /* HEADER */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { 
+            color: var(--oxford-blue); 
+            font-size: 24px; 
+            font-weight: var(--fw-700); 
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .logo span { color: var(--dodger-blue); }
+
+        /* ============ NUEVO HERO: Full Page Slider (Estilo Elegante) ================= */
+        .creative-bg--slider {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Altura completa */
+            display: block;
+            font-family: var(--ff-dm-sans); /* Fuente específica del hero */
+        }
+        .creative-bg--slider .creative-slider--wrap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: stretch;
+            width: 100%;
+            height: 100%;
+        }
+        .creative-slider--wrap .swiper {
+            width: 100%;
+            height: 100%;
+        }
+        .creative-slider--wrap .swiper-slide .slide-bg {
+            background-position: center;
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+        }
+        /* Overlay oscuro para mejorar legibilidad */
+        .creative-bg--slider .creative-slider--wrap .slide-bg:before {
+            content: " ";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.5); /* Ligeramente blanco para mantener la limpieza */
+            backdrop-filter: blur(1px);
+        }
+        .creative-bg--slider .slider-content {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-            transform: scale(0.95);
-            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            pointer-events: none; /* Permite clicks en elementos hijos */
         }
-        
-        .slide.active {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: all;
-        }
-
-        /* Animaciones dentro de los SVGs */
-        @keyframes dash {
-            to { stroke-dashoffset: 0; }
-        }
-        @keyframes pulse-green {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .animate-float { animation: float 6s ease-in-out infinite; }
-
-        /* Cursor de reproducción */
-        .playhead {
+        .slider-content .content-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            text-align: center;
             height: 100%;
-            width: 2px;
-            background: #10b981;
+        }
+        .content-row .content-column {
+            max-width: 70%;
+            margin: 0 auto;
+            pointer-events: auto;
+        }
+        .content-column .slide-subheading {
+            margin-top: 0;
+            font-size: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            line-height: 1.2;
+            color: var(--dodger-blue); /* Color de marca */
+            transition: opacity 0.5s ease, filter 0.5s ease;
+            animation: fadeInUp 1s ease forwards;
+            opacity: 0;
+            filter: blur(4px);
+            animation-delay: 0.3s; 
+        }
+        .content-column .slide-heading{
+            font-size: 86px;
+            font-weight: 500;
+            line-height: 1.085;
+            letter-spacing: -0.035em;
+            margin-top: 10px;
+            margin-bottom: 50px;
+            color: var(--oxford-blue);
+            opacity: 0;
+            filter: blur(4px); 
+            transition: opacity 0.5s ease, filter 0.5s ease; 
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.5s; 
+        }
+        .content-column .creative-btns--wrap {
+            margin-top: 20px;
+            display: inline-flex;
+            transition: opacity 0.5s ease, filter 0.5s ease;
+            animation: fadeInUp 1s ease forwards;
+            opacity: 0;
+            filter: blur(4px);
+            animation-delay: 0.7s; 
+        }
+        .creative-btns--wrap .creative-btn, .creative-btns--wrap .creative-btn.btn-fill {
+            margin: 0 10px;
+            padding: 16px 38px;
+            font-size: 14px;
+            letter-spacing: 0.085em;
+            color: var(--oxford-blue);
+            border: 1px solid var(--oxford-blue);
+            background: transparent;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .creative-btns--wrap .creative-btn.btn-fill {
+            background-color: var(--oxford-blue);
+            color: #fff;
+        }
+        .creative-btns--wrap .creative-btn .btn-animate-y {
+            position: relative;
+            display: block;
+            overflow: hidden;
+        }
+        .creative-btns--wrap .creative-btn .btn-animate-y-1 {
+            display: block;
+            transition: all .37s cubic-bezier(.15,.7,.78,1), opacity .37s linear;
+        }
+        .creative-btns--wrap .creative-btn .btn-animate-y-2 {
+            display: block;
             position: absolute;
             top: 0;
             left: 0;
-            animation: movePlayhead 4s linear infinite;
+            width: 100%;
+            opacity: 0;
+            transform: translate(0, 100%);
+            transition: all .37s cubic-bezier(.15,.7,.78,1), opacity .37s linear;
         }
-        @keyframes movePlayhead {
-            0% { left: 10%; }
-            100% { left: 90%; }
+        .creative-btns--wrap .creative-btn:hover .btn-animate-y-1{
+            opacity: 0;
+            transform: translate(0, -100%);
+        }
+        .creative-btns--wrap .creative-btn:hover .btn-animate-y-2 {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+        .creative-status{
+            position: absolute;
+            bottom: 30px;
+            width: 200px;
+            font-size: 16px;
+            line-height: 1.375;
+            padding-left: 15px;
+            color: var(--oxford-blue);
+            border-left: 2px solid var(--dodger-blue);
+            left: 30px;
+            opacity: 0;
+            filter: blur(4px);
+            transition: opacity 0.5s ease, filter 0.5s ease;
+            animation: fadeInRight 1s ease forwards;
+            animation-delay: 0.5s;
+            font-weight: 500;
         }
 
-        /* Nota golpeada */
-        .note-hit {
-            animation: hitEffect 4s linear infinite;
+        /* Animaciones del Hero */
+        @keyframes fadeInUp {
+          0% { opacity: 0; transform: translate3d(0, 37px, 0); }
+          100% { opacity:1; transform: translate3d(0, 0, 0); filter: blur(0); }
         }
-        @keyframes hitEffect {
-            0%, 30% { fill: #1f2937; r: 6; }
-            35% { fill: #10b981; r: 8; filter: drop-shadow(0 0 4px #10b981); }
-            40%, 100% { fill: #1f2937; r: 6; }
+        @keyframes fadeInRight {
+          0% { opacity: 0; transform: translateX(50px); }
+          100% { opacity:1; filter: blur(0); transform: translateX(0px); }
+        }
+
+        /* Responsive del Hero */
+        @media only screen and (max-width: 1366px) {
+           .content-row .content-column { max-width: 100%; padding: 0px 30px; }
+           .creative-status{ display: none; }
+        }
+        @media only screen and (max-width: 981px) {
+           .content-column .slide-heading { font-size: 60px; }
+        }
+        @media only screen and (max-width: 575px) {
+          .content-row .content-column{ padding: 0px 15px; }
+          .content-column .slide-heading { font-size: 42px; margin-bottom: 25px; }
+          .content-column .creative-btns--wrap{ flex-direction: column; }
+          .creative-btns--wrap .creative-btn, .creative-btns--wrap .creative-btn.btn-fill{ margin-bottom: 15px; }
+          .content-column .slide-subheading{ font-size: 14px; }
+        }
+
+        /* ============ 3D TABLET SECTION ================= */
+        .tablet-section {
+            background-color: var(--cultured);
+            padding: 100px 0 120px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         
-        /* Gráfica de progreso */
-        .graph-path {
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-            animation: dash 2s ease-out forwards;
+        .tablet-header {
+            text-align: center;
+            margin-bottom: 60px;
+           color: var(--oxford-blue);
+       
+        }
+        .tablet-header h2 { font-size: 32px; margin-bottom: 10px; }
+        .tablet-header p { opacity: 0.9; font-size: 18px; }
+
+        .surface-container {
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            width: 500px;
+            height: 337px;
+            transform: scale(1.6); /* SCALED UP to cover more screen */
+            transform-origin: center top;
+            margin-bottom: 200px;
+        }
+        
+        @media (max-width: 850px) {
+            .surface-container { transform: scale(1.2); }
+        }
+        @media (max-width: 600px) {
+            .surface-container { transform: scale(0.7); margin-bottom: -80px; }
+        }
+
+        .surface, .shine {
+            background-color: #111;
+            position: absolute;
+            left: 0; top: 0;
+            pointer-events: none;
+            transition: transform 0.9s;
+            border-radius: 10px;
+            width: 500px; height: 337px;
+        }
+        .surface {
+            border: 2px solid #E6E6E6;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .display {
+            transition: opacity 0.9s;
+            position: absolute;
+            left: 30px; right: 30px; top: 25px; bottom: 25px;
+            background-color: #1a1a1a;
+            z-index: 1;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Content inside Tablet */
+       /* ACTUALIZA ESTA CLASE */
+.tablet-content {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+   color: white;
+    padding: 0; /* Importante: quitar padding del contenedor principal */
+    overflow: hidden; /* Para ocultar el slide que no se ve */
+    position: relative;
+    border-radius: 2px; /* Ajuste visual */
+}
+
+/* AGREGA ESTAS NUEVAS CLASES */
+.tablet-slider-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1); /* Suavizado elegante */
+}
+
+.t-slide {
+    min-width: 100%; /* Cada slide ocupa el 100% del ancho */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px; /* El padding que antes tenía el contenedor */
+    box-sizing: border-box;
+}
+
+/* Estilo para la imagen dentro del slide */
+.t-slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cubre todo el espacio disponible */
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+        
+        .tablet-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .t-item {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        .t-item ion-icon { font-size: 24px; color: #ffd700; }
+
+        .shine {
+            width: 900px; height: 537px;
+            margin: 0; margin-left: -200px; margin-top: -100px;
+            transition: left 0.9s, top 0.9s, opacity 0.9s;
+            background-color: transparent;
+            background-image: linear-gradient(115deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 60%, #ffffff 60%, rgba(255, 255, 255, 0.8) 100%);
+            z-index: 2; opacity: 0.3;
+        }
+        .sense {
+            width: 100px; height: 84.25px; float: left;
+            /* border: 1px solid red; debug */
+        }
+        
+        /* HOVER LOGIC FOR 3D EFFECT */
+        .sense:hover + .surface, .sense.hover + .surface { transform: perspective(50em) rotateX(-10deg) rotateY(10deg); }
+        .sense:hover + .surface .shine, .sense.hover + .surface .shine { top: 100px; left: 200px; opacity: -0.1; }
+        .sense:hover + .surface .display, .sense.hover + .surface .display { opacity: 0.8; }
+        
+        .sense:hover + .sense + .surface, .sense.hover + .sense + .surface { transform: perspective(50em) rotateX(-10deg) rotateY(5deg); }
+        .sense:hover + .sense + .surface .shine, .sense.hover + .sense + .surface .shine { top: 100px; left: 100px; opacity: 0; }
+        .sense:hover + .sense + .surface .display, .sense.hover + .sense + .surface .display { opacity: 0.9; }
+        
+        .sense:hover + .sense + .sense + .surface, .sense.hover + .sense + .sense + .surface { transform: perspective(50em) rotateX(-10deg) rotateY(0deg); }
+        .sense:hover + .sense + .sense + .surface .shine, .sense.hover + .sense + .sense + .surface .shine { top: 100px; left: 0; opacity: 0.1; }
+        
+        .sense:hover + .sense + .sense + .sense + .surface, .sense.hover + .sense + .sense + .sense + .surface { transform: perspective(50em) rotateX(-10deg) rotateY(-5deg); }
+        .sense:hover + .sense + .sense + .sense + .surface .shine, .sense.hover + .sense + .sense + .surface .shine { top: 100px; left: -100px; opacity: 0.4; }
+        
+        .sense:hover + .sense + .sense + .sense + .sense + .surface, .sense.hover + .sense + .sense + .sense + .sense + .surface { transform: perspective(50em) rotateX(-10deg) rotateY(-10deg); }
+        .sense:hover + .sense + .sense + .sense + .sense + .surface .shine, .sense.hover + .sense + .sense + .sense + .sense + .surface .shine { top: 100px; left: -200px; opacity: 0.3; }
+        
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .surface, .sense.hover + .sense + .sense + .sense + .sense + .sense + .surface { transform: perspective(50em) rotateX(-5deg) rotateY(10deg); }
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .surface .shine, .sense.hover + .sense + .sense + .sense + .sense + .sense + .surface .shine { top: 50px; left: 200px; opacity: 0; }
+        
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .surface, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .surface { transform: perspective(50em) rotateX(-5deg) rotateY(5deg); }
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine { top: 50px; left: 100px; opacity: 0.1; }
+        
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface { transform: perspective(50em) rotateX(-5deg) rotateY(0deg); }
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine { top: 50px; left: 0; opacity: 0.3; }
+        
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface { transform: perspective(50em) rotateX(-5deg) rotateY(-5deg); }
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine { top: 50px; left: -100px; opacity: 0.3; }
+        
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface { transform: perspective(50em) rotateX(-5deg) rotateY(-10deg); }
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine { top: 50px; left: -200px; opacity: 0.4; }
+        
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface { transform: perspective(50em) rotateX(5deg) rotateY(10deg); }
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine { top: -50px; left: 200px; opacity: 0.2; }
+
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface { transform: perspective(50em) rotateX(5deg) rotateY(5deg); }
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine { top: -50px; left: 100px; opacity: 0.3; }
+
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface { transform: perspective(50em) rotateX(5deg) rotateY(0deg); }
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine { top: -50px; left: 0; opacity: 0.4; }
+
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface { transform: perspective(50em) rotateX(5deg) rotateY(-5deg); }
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine { top: -50px; left: -100px; opacity: 0.5; }
+
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface { transform: perspective(50em) rotateX(5deg) rotateY(-10deg); }
+        .sense:hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine, .sense.hover + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .sense + .surface .shine { top: -50px; left: -200px; opacity: 0.6; }
+
+        /* --- REST OF THE STYLES (PRESERVED) --- */
+        .input-field {
+            background: var(--white);
+            color: var(--jet);
+            font-weight: var(--fw-300);
+            padding: 14px 18px;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+        .input-field:focus { border-color: var(--dodger-blue); outline: none; }
+        
+        /* FEATURES GRID */
+        .features-grid { padding: var(--section-padding); }
+
+        /* HOW IT WORKS */
+        .how-it-works { background: var(--cultured); padding: var(--section-padding); }
+        .how-it-works .section-title { text-align: center; margin-bottom: 15px; }
+        .how-it-works .section-text { text-align: center; max-width: 600px; margin: 0 auto 50px; }
+        .steps-container { display: grid; gap: 40px; }
+        .step-item { display: flex; align-items: flex-start; gap: 20px; }
+        .step-number {
+            flex-shrink: 0; width: 50px; height: 50px;
+            background: var(--dodger-blue); color: var(--white);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 20px; font-weight: var(--fw-600);
+            box-shadow: 0 4px 10px hsla(205, 100%, 50%, 0.3);
+        }
+        .step-content h3 { margin-bottom: 10px; }
+        
+        .video-trigger {
+            position: relative; cursor: pointer;
+            border-radius: 12px; overflow: hidden;
+            box-shadow: 0 10px 30px hsla(0, 0%, 0%, 0.1);
+            transition: var(--transition);
+        }
+        .video-trigger:hover { transform: translateY(-5px); }
+        .video-trigger img { width: 100%; display: block; }
+        .video-overlay {
+            position: absolute; inset: 0;
+            background: hsla(0, 0%, 0%, .3); display: flex; align-items: center; justify-content: center;
+            transition: var(--transition);
+        }
+        .video-trigger:hover .video-overlay { background: hsla(0, 0%, 0%, .2); }
+        .play-button {
+            width: 70px; height: 70px; background: var(--white);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            transition: var(--transition); animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+        .play-button ion-icon { font-size: 30px; color: var(--dodger-blue); margin-left: 5px; }
+
+        /* COMPOSERS GRID */
+        .composers-section { padding: var(--section-padding); }
+        .composers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 40px; }
+        .composer-card {
+            position: relative;  height: 140px; width: 120px; border-radius: 6px; overflow: hidden;
+            box-shadow: 0 4px 15px hsla(0, 0%, 0%, .1); transition: var(--transition); cursor: pointer;
+        }
+        .composer-card:hover { transform: scale(1.03); }
+        .composer-card img { width: 100%; height: 100%; object-fit: cover; }
+        .composer-overlay { position: absolute; inset: 0; background: linear-gradient(to top, hsla(0, 0%, 0%, .8), transparent); }
+        .composer-name { position: absolute; bottom: 15px; left: 15px; color: var(--white); font-weight: var(--fw-600); font-size: var(--fs-7); }
+        .composers-content ul { margin: 20px 0 30px 20px; }
+        .composers-content li {
+            list-style: none; color: var(--sonic-silver); margin-bottom: 10px;
+            position: relative; padding-left: 20px;
+        }
+        .composers-content li::before { content: '•'; color: var(--dodger-blue); font-weight: bold; position: absolute; left: 0; }
+
+      
+
+        /* CATEGORIES & TABS */
+        .categories { padding: var(--section-padding); }
+        .tabs-container {
+            background: var(--white); border-radius: 16px; box-shadow: 0 10px 40px hsla(0, 0%, 0%, .08);
+            overflow: hidden; border: 1px solid rgba(0,0,0,0.05);
+        }
+        .tabs-nav {
+            display: flex; justify-content: center; background: hsla(210, 20%, 98%, 1);
+            border-bottom: 1px solid var(--light-gray); flex-wrap: wrap; padding: 5px;
+        }
+        .tab-btn {
+            padding: 16px 24px; font-size: var(--fs-7); font-weight: var(--fw-500); color: var(--sonic-silver);
+            display: flex; align-items: center; gap: 8px; border-radius: 8px; transition: var(--transition); border: none;
+        }
+        .tab-btn:hover { background: rgba(0,0,0,0.03); color: var(--gunmetal); }
+        .tab-btn.active { background: var(--white); color: var(--dodger-blue); box-shadow: 0 2px 5px rgba(0,0,0,0.05); font-weight: var(--fw-600); }
+        .tabs-content { padding: 40px; }
+        .tab-pane { display: none; animation: fadeIn 0.4s ease; }
+        .tab-pane.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .level-preview-card {
+            display: flex; align-items: center; gap: 20px; background: var(--white);
+            border: 1px solid var(--light-gray); border-radius: 12px; padding: 20px; margin-bottom: 15px; transition: var(--transition);
+        }
+        .level-preview-card:hover:not(.is-locked) { border-color: var(--dodger-blue); transform: translateY(-2px); }
+        .level-preview-card.is-locked { background: var(--cultured); opacity: 0.7; }
+        .level-icon {
+            flex-shrink: 0; width: 55px; height: 55px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; font-weight: var(--fw-600); background: var(--light-gray); color: var(--sonic-silver);
+        }
+        .level-info { flex-grow: 1; }
+        .level-info h3 { font-size: var(--fs-5); margin-bottom: 5px; }
+        .level-info p { font-size: var(--fs-7); color: var(--sonic-silver); }
+        .level-time { display: flex; align-items: center; gap: 5px; font-size: var(--fs-8); color: var(--granite-gray); margin-top: 8px; font-weight: 500; }
+        .progress-bar { width: 100%; height: 6px; background: #edf2f7; border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--dodger-blue); border-radius: 10px; }
+        .feature-preview-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; align-items: flex-start; }
+        .feature-player-preview {
+            border: 1px solid var(--light-gray); border-radius: 12px; background-size: cover; background-position: center;
+            aspect-ratio: 16 / 9; box-shadow: 0 10px 30px hsla(0, 0%, 0%, .1); position: relative; overflow: hidden;
+        }
+        .player-overlay-text {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, hsla(0, 0%, 0%, 0.9), transparent); padding: 50px 25px 25px; color: var(--white);
+        }
+        .player-overlay-text.is-video {
+            background: hsla(0, 0%, 0%, 0.6); inset: 0; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .feature-sidebar-preview { background: var(--white); border: 1px solid var(--light-gray); border-radius: 12px; padding: 25px; }
+        .lesson-list li {
+            display: flex; align-items: center; gap: 10px; padding: 12px 0;
+            font-size: var(--fs-7); color: var(--sonic-silver); border-bottom: 1px solid #f0f0f0;
+        }
+        .lesson-list li:last-child { border-bottom: none; }
+        .lesson-list li.completed ion-icon { color: hsl(145, 63%, 42%); }
+        .lesson-list li.active { color: var(--oxford-blue); font-weight: var(--fw-500); }
+        .lesson-list li.active ion-icon { color: var(--dodger-blue); }
+
+        /* TESTIMONIALS */
+        .testimonials { background: var(--cultured); padding: var(--section-padding); }
+        .testimonials .section-title { text-align: center; margin-bottom: 50px; }
+        .testimonials-grid { display: grid; gap: 30px; }
+        .testimonial-card {
+            background: var(--white); border-radius: 12px; padding: 35px;
+            box-shadow: 0 5px 20px hsla(0, 0%, 0%, .05); border: 1px solid rgba(0,0,0,0.03);
+        }
+        .stars { display: flex; gap: 5px; margin-bottom: 15px; }
+        .stars ion-icon { color: #FFD700; font-size: 18px; }
+        .testimonial-text { font-style: italic; color: var(--sonic-silver); margin-bottom: 20px; }
+        .author-img {
+            width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(45deg, #ddd, #eee); margin-bottom: 0;
+        }
+        .testimonial-author { display: flex; align-items: center; gap: 15px; }
+
+        /* FOOTER */
+        .footer-top { padding: 60px 0; background: var(--oxford-blue); border-top: 1px solid #eaeaea; }
+        .footer-logo { font-size: 22px; font-weight: var(--fw-700); color: white; margin-bottom: 15px; }
+        .footer-link-box { display: grid; gap: 40px; }
+        .footer-list li { margin-bottom: 12px; }
+        .footer-list h4 { margin-bottom: 20px; color: white; font-weight: 700; }
+        .footer-link { color: var(--sonic-silver); font-size: 15px; }
+        .footer-link:hover { color: var(--dodger-blue); }
+        .footer-bottom { padding: 25px 0; background: var(--oxford-blue); border-top: 1px solid #eaeaea; }
+        .social-list { display: flex; justify-content: center; gap: 25px; }
+        .social-link {color: white; font-size: 20px}
+
+        /* MODAL & UTILS */
+        .go-top-btn {
+            position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px;
+            background: var(--dodger-blue); color: var(--white); border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-size: 25px; box-shadow: 0 5px 15px hsla(0, 0%, 0%, .2);
+            opacity: 0; visibility: hidden; transition: var(--transition); z-index: 999;
+        }
+        .go-top-btn.active { opacity: 1; visibility: visible; }
+        .video-modal {
+            position: fixed; inset: 0; background: hsla(0, 0%, 0%, .85); backdrop-filter: blur(5px);
+            z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px;
+        }
+        .video-modal.active { display: flex; }
+        .video-modal-content {
+            background: #000; width: 100%; max-width: 900px; border-radius: 12px; overflow: hidden;
+            position: relative; aspect-ratio: 16/9;
+        }
+        .video-close-btn { position: absolute; top: -40px; right: 0; color: white; font-size: 30px; cursor: pointer; }
+        .video-container { width: 100%; height: 100%; }
+        .video-container iframe { width: 100%; height: 100%; }
+        .composers-grid-wrapper { position: relative; overflow: hidden; margin-bottom: 40px; }
+        @keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+        @keyframes slideInFromLeft { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .slide-out-right { animation: slideOutRight 0.5s ease-out forwards; }
+        .slide-in-from-left { animation: slideInFromLeft 0.5s ease-in forwards; }
+
+        /* RESPONSIVE */
+        @media (min-width: 500px) {
+            :root { --fs-1: 36px; --fs-2: 32px; }
+            .container { max-width: 480px; }
+            .categories-grid { grid-template-columns: repeat(2, 1fr); }
+            .composers-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        @media (min-width: 768px) {
+            :root { --fs-1: 48px; --fs-2: 40px; }
+            .container { max-width: 820px; }
+            .steps-container { grid-template-columns: 1fr 1fr; align-items: center; }
+            .composers-content { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+            .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+            .footer-link-box { grid-template-columns: repeat(4, 1fr); }
+            .footer-bottom .container { display: flex; justify-content: space-between; align-items: center; }
+            .level-preview-card { gap: 25px; }
+            .level-progress { width: 150px; flex-shrink: 0; }
+        }
+        @media (min-width: 1024px) { .container { max-width: 990px; } }
+        @media (min-width: 1200px) { .container { max-width: 1140px; } }
+        @media (max-width: 768px) {
+            .tabs-nav { justify-content: flex-start; overflow-x: auto; padding-bottom: 0; }
+            .feature-preview-grid { grid-template-columns: 1fr; }
+            .feature-player-preview { order: 2; }
+            .feature-sidebar-preview { order: 1; }
+            .level-preview-card { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .level-progress, .level-lock { width: 100%; }
         }
     </style>
 </head>
-<body class="antialiased selection:bg-green-100 selection:text-green-900">
+<body>
 
-    <!-- Hero Section Full Screen -->
-    <section class="relative min-h-screen flex flex-col justify-center items-center overflow-hidden">
-        
-        <!-- Video Background con Overlay Claro -->
-        <div class="absolute inset-0 z-0">
-            <!-- Imagen estática de alta calidad como poster/fallback -->
-            <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover" alt="Background">
-            <!-- Overlay blanco para Tema Claro -->
-            <div class="absolute inset-0 bg-white/85 backdrop-blur-[2px]"></div>
-        </div>
+   
 
-        <!-- Main Content Container -->
-        <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 text-center">
-            
-            <!-- Headers -->
-            <div class="mb-12 space-y-6 animate-fade-in-up">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 border border-green-100 text-green-700 text-xs font-bold tracking-widest uppercase shadow-sm">
-                    <i data-lucide="sparkles" class="w-4 h-4"></i> Nueva Versión 2.0
-                </div>
-                <h1 class="text-5xl md:text-7xl font-black tracking-tight text-gray-900 leading-tight">
-                    La forma divertida de <br/>
-                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-teal-600">aprender a leer música.</span>
-                </h1>
-                <p class="text-xl text-gray-500 max-w-2xl mx-auto font-medium">
-                    Conecta tu teclado MIDI o usa el micrófono para tu piano, guitarra o voz. 
-                    Feedback instantáneo, sin cables y a tu ritmo.
-                </p>
-                
-                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-                    <button class="bg-gray-900 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-black transition transform hover:scale-105 shadow-xl flex items-center gap-2">
-                        Comenzar Prueba Gratis
-                    </button>
-                    <p class="text-xs text-gray-400 font-medium uppercase tracking-wide mt-4 sm:mt-0">
-                        Compatible con <span class="text-gray-600"><i data-lucide="monitor" class="inline w-3 h-3"></i> Mac & Win</span>
-                    </p>
-                </div>
-            </div>
-
-            <!-- Tablet Container Simulator -->
-            <div class="relative mx-auto w-full max-w-4xl animate-float">
-                <!-- Marco de la Tablet -->
-                <div class="relative bg-gray-900 rounded-[2.5rem] p-3 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.25)] ring-1 ring-white/10 border-4 border-gray-800">
-                    <!-- Cámara -->
-                    <div class="absolute top-1/2 left-3 transform -translate-y-1/2 w-1.5 h-16 bg-gray-800 rounded-full hidden md:block"></div>
-                    <div class="absolute top-3 left-1/2 transform -translate-x-1/2 w-16 h-1.5 bg-gray-800 rounded-full md:hidden"></div>
-
-                    <!-- Pantalla Interna -->
-                    <div class="aspect-[16/10] bg-white rounded-[2rem] overflow-hidden relative shadow-inner">
-                        
-                        <!-- Slide 1: Gameplay (Lectura de Partitura) -->
-                        <div class="slide active flex flex-col h-full" id="slide-1">
-                            <!-- Header App -->
-                            <div class="h-14 border-b border-gray-100 flex justify-between items-center px-8 bg-white/90 backdrop-blur z-10">
-                                <div class="flex gap-4 items-center">
-                                    <div class="w-8 h-8 bg-green-100 text-green-600 rounded-lg flex items-center justify-center font-bold"><i data-lucide="pause" class="w-4 h-4"></i></div>
-                                    <div>
-                                        <h4 class="font-bold text-gray-900 text-sm leading-none">Turkish March</h4>
-                                        <span class="text-xs text-gray-400">Mozart • Rondo Alla Turca</span>
-                                    </div>
-                                </div>
-                                <div class="flex gap-2">
-                                    <div class="px-3 py-1 bg-gray-100 rounded-full text-xs font-bold text-gray-500 flex items-center gap-1">
-                                        <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div> REC
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Partitura Visual -->
-                            <div class="flex-1 relative flex items-center justify-center bg-gray-50 overflow-hidden">
-                                <div class="playhead z-20 shadow-[0_0_15px_rgba(16,185,129,0.4)]"></div>
-                                <svg viewBox="0 0 800 300" class="w-full h-full opacity-90">
-                                    <!-- Pentagrama -->
-                                    <g stroke="#e5e7eb" stroke-width="2">
-                                        <line x1="0" y1="100" x2="800" y2="100"></line>
-                                        <line x1="0" y1="120" x2="800" y2="120"></line>
-                                        <line x1="0" y1="140" x2="800" y2="140"></line>
-                                        <line x1="0" y1="160" x2="800" y2="160"></line>
-                                        <line x1="0" y1="180" x2="800" y2="180"></line>
-                                    </g>
-                                    <!-- Clave de Sol -->
-                                    <path d="M60 200 C 40 200 40 160 70 150 C 85 140 85 100 70 90 C 60 85 60 110 60 220" stroke="#1f2937" stroke-width="3" fill="none"/>
-                                    
-                                    <!-- Notas (Secuencia) -->
-                                    <g class="fill-gray-800">
-                                        <circle cx="180" cy="180" r="6" class="note-hit" style="animation-delay: 0.5s"/>
-                                        <line x1="186" y1="180" x2="186" y2="140" stroke="#1f2937" stroke-width="2"/>
-                                        
-                                        <circle cx="260" cy="160" r="6" class="note-hit" style="animation-delay: 1.2s"/>
-                                        <line x1="266" y1="160" x2="266" y2="120" stroke="#1f2937" stroke-width="2"/>
-
-                                        <circle cx="340" cy="140" r="6" class="note-hit" style="animation-delay: 1.9s"/>
-                                        <line x1="346" y1="140" x2="346" y2="100" stroke="#1f2937" stroke-width="2"/>
-
-                                        <!-- Acorde -->
-                                        <circle cx="420" cy="160" r="6" class="note-hit" style="animation-delay: 2.6s"/>
-                                        <circle cx="420" cy="120" r="6" class="note-hit" style="animation-delay: 2.6s"/>
-                                        <line x1="426" y1="160" x2="426" y2="80" stroke="#1f2937" stroke-width="2"/>
-                                        
-                                        <circle cx="500" cy="180" r="6" class="note-hit" style="animation-delay: 3.3s"/>
-                                        <line x1="506" y1="180" x2="506" y2="140" stroke="#1f2937" stroke-width="2"/>
-                                    </g>
-                                </svg>
-                                <!-- Feedback visual flotante -->
-                                <div class="absolute bottom-10 right-10 bg-white px-4 py-2 rounded-lg shadow-lg border border-gray-100 flex flex-col items-center animate-bounce">
-                                    <span class="text-xs text-gray-400 font-bold tracking-widest">COMBO</span>
-                                    <span class="text-2xl font-black text-green-500">x12</span>
-                                </div>
-                            </div>
+    <main>
+        <!-- NUEVO HERO SECTION (Creative Slider) -->
+        <section class="creative-bg--slider" id="home">
+            <div class="creative-slider--wrap">
+                <div class="swiper creative-slider">
+                    <div class="swiper-wrapper">
+                          <div class="swiper-slide">
+                            <div class="slide-bg" style="background-image: url('https://lh3.googleusercontent.com/d/1574yKLK-x78N7AYfRtLRpUVv7ihC3dui=s1000');"></div>
+                            <!--  https://lh3.googleusercontent.com/d/1w7PsXn3oHFRUCnxGqUtp9BznS628dvl7-->
                         </div>
-
-                        <!-- Slide 2: Resultados (Graph) -->
-                        <div class="slide flex items-center justify-center bg-white" id="slide-2">
-                            <div class="text-center w-3/4">
-                                <div class="mb-6">
-                                    <div class="inline-block p-4 rounded-full bg-yellow-100 mb-4">
-                                        <i data-lucide="star" class="w-12 h-12 text-yellow-500 fill-current"></i>
-                                    </div>
-                                    <h2 class="text-3xl font-black text-gray-900">¡Lección Completada!</h2>
-                                    <p class="text-gray-500">Increíble precisión rítmica.</p>
-                                </div>
-                                
-                                <!-- Gráfico SVG -->
-                                <div class="bg-gray-50 rounded-xl p-6 border border-gray-100 mb-8 relative h-48 flex items-end justify-between px-8 gap-2">
-                                    <div class="w-full h-full absolute inset-0 flex items-center justify-center opacity-10">
-                                        <svg viewBox="0 0 200 100" class="w-full h-full">
-                                            <path d="M0 80 Q 50 90 100 40 T 200 20" fill="none" stroke="currentColor" stroke-width="2" class="text-green-500 graph-path"/>
-                                        </svg>
-                                    </div>
-                                    <!-- Barras -->
-                                    <div class="w-8 bg-gray-200 rounded-t-md h-[40%]"></div>
-                                    <div class="w-8 bg-gray-200 rounded-t-md h-[60%]"></div>
-                                    <div class="w-8 bg-gray-200 rounded-t-md h-[50%]"></div>
-                                    <div class="w-8 bg-gray-200 rounded-t-md h-[75%]"></div>
-                                    <div class="w-8 bg-green-500 rounded-t-md h-[90%] shadow-[0_0_15px_rgba(16,185,129,0.5)] relative group">
-                                        <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">98%</div>
-                                    </div>
-                                </div>
-                                <button class="bg-green-500 text-white px-8 py-3 rounded-full font-bold hover:bg-green-600 transition w-full">Siguiente Lección</button>
-                            </div>
+                     
+                        <div class="swiper-slide">
+                            <div class="slide-bg" style="background-image: url('https://lh3.googleusercontent.com/d/1grPlEbmSnlBWve6kI3MHyV-RGXN2s6Hs');"></div>
                         </div>
-
-                        <!-- Slide 3: Selección de Canciones -->
-                        <div class="slide bg-gray-50 p-8 flex flex-col" id="slide-3">
-                            <h3 class="text-xl font-bold text-gray-900 mb-6">Biblioteca de Cursos</h3>
-                            <div class="grid grid-cols-3 gap-4 h-full">
-                                <!-- Card 1 -->
-                                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex flex-col gap-3 hover:shadow-md transition cursor-pointer">
-                                    <div class="aspect-square rounded-lg bg-blue-100 flex items-center justify-center text-blue-500">
-                                        <i data-lucide="music-2" class="w-8 h-8"></i>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold text-gray-800 text-sm">Fundamentos</div>
-                                        <div class="text-xs text-gray-400">Nivel 1</div>
-                                    </div>
-                                </div>
-                                <!-- Card 2 -->
-                                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex flex-col gap-3 hover:shadow-md transition cursor-pointer ring-2 ring-green-500 ring-offset-2">
-                                    <div class="aspect-square rounded-lg bg-green-100 flex items-center justify-center text-green-500 relative">
-                                        <i data-lucide="mic" class="w-8 h-8"></i>
-                                        <span class="absolute top-2 right-2 w-2 h-2 bg-green-500 rounded-full"></span>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold text-gray-800 text-sm">Solfeo Pop</div>
-                                        <div class="text-xs text-gray-400">En curso</div>
-                                    </div>
-                                </div>
-                                <!-- Card 3 -->
-                                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex flex-col gap-3 hover:shadow-md transition cursor-pointer opacity-70">
-                                    <div class="aspect-square rounded-lg bg-purple-100 flex items-center justify-center text-purple-500">
-                                        <i data-lucide="lock" class="w-8 h-8"></i>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold text-gray-800 text-sm">Jazz Avanzado</div>
-                                        <div class="text-xs text-gray-400">Bloqueado</div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="swiper-slide">
+                            <div class="slide-bg" style="background-image: url('https://lh3.googleusercontent.com/d/1soZvlRRxoYu1eESw0CC3qSdaaG7FYI57');"></div>
+                        </div>
+                           <div class="swiper-slide">
+                            <!-- Usando la imagen del ejemplo por elegancia -->
+                            <div class="slide-bg" style="background-image: url('https://lh3.googleusercontent.com/d/1PoQXBg8DCvKCAXx0l-kwciDR_XMyyytg');"></div>
                         </div>
 
                     </div>
-                    
-                    <!-- Botón Home Tablet -->
-                    <div class="absolute right-[-12px] top-1/2 transform -translate-y-1/2 w-1 h-12 bg-gray-800 rounded-r-md hidden md:block"></div>
                 </div>
+            </div>
+            <div class="slider-content">
+                <div class="content-row">
+                    <div class="content-column">
+                        <h2 class="slide-subheading">Mozart Academy | Aprende Piano</h2>
+                        <h1 class="slide-heading">Tu profesor de piano inteligente e interactivo.</h1>
+                        <div class="creative-btns--wrap">
+                            <a href="#" class="creative-btn btn-fill">
+                                <span class="btn-animate-y"><span class="btn-animate-y-1">Comenzar Gratis</span><span class="btn-animate-y-2" aria-hidden="true">Comenzar Gratis</span></span>
+                            </a>
+                            <a href="#como-funciona" class="creative-btn">
+                                <span class="btn-animate-y"><span class="btn-animate-y-1">Ver Demo</span><span class="btn-animate-y-2" aria-hidden="true">Ver Demo</span></span>
+                            </a>
+                        </div> 
+                    </div>
+                </div>
+                <div class="creative-status">
+                    Disponible en Web, iOS y Android
+                </div>
+            </div>
+        </section>
 
-                <!-- Puntos de navegación del slider -->
-                <div class="flex justify-center gap-2 mt-8">
-                    <button onclick="setSlide(0)" class="nav-dot w-3 h-3 rounded-full bg-gray-800 transition-all duration-300 hover:bg-green-500"></button>
-                    <button onclick="setSlide(1)" class="nav-dot w-3 h-3 rounded-full bg-gray-300 transition-all duration-300 hover:bg-green-500"></button>
-                    <button onclick="setSlide(2)" class="nav-dot w-3 h-3 rounded-full bg-gray-300 transition-all duration-300 hover:bg-green-500"></button>
+        <!-- NUEVA SECCIÓN: 3D TABLET SERVICES -->
+        <section class="tablet-section">
+            <div class="tablet-header">
+                <h2>Todo lo que necesitas para aprender</h2>
+                <p>Tecnología interactiva al alcance de tu mano</p>
+            </div>
+            <div class="surface-container">
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="sense"></div>
+              <div class="surface">
+                <div class="display">
+                    <div class="tablet-content">
+                        <div class="tablet-slider-wrapper" id="tabletSlider">
+                         
+
+                            <div class="t-slide" style="padding: 0;">
+                                <img src="https://lh3.googleusercontent.com/d/1EeBcTI_lVPOQT69EJc9376whHtV0nsaO=s1000" class="t-slide-img" alt="Plataforma Demo">
+                            </div>
+
+                             <div class="t-slide" style="padding: 0;">
+                                <img src="https://lh3.googleusercontent.com/d/1y4JvjneUAhhPmjKrpM3N-PJBFtGJe5nA=s1000" class="t-slide-img" alt="Plataforma Demo">
+                            </div>
+
+                             <div class="t-slide" style="padding: 0;">
+                                <img src="https://lh3.googleusercontent.com/d/14Z2nzr2OrqWXu_CtVEc203hy7_eJfwSP=s1000" class="t-slide-img" alt="Plataforma Demo">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="shine"></div>
+              </div>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section class="how-it-works" id="como-funciona">
+            <div class="container">
+                <p class="section-subtitle">Proceso Simple</p>
+                <h2 class="h2 section-title">Aprende de Forma Interactiva</h2>
+                <p class="section-text">Te escuchamos tocar y te guiamos nota por nota en tu camino hacia la maestría musical</p>
+
+                <div class="steps-container">
+                    <div>
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3 class="h4">Conecta tu Piano</h3>
+                                <p class="section-text">Usa un cable MIDI-USB para conectar tu teclado o piano digital a tu computadora. Es rápido y sencillo.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-item" style="margin-top: 30px; margin-bottom: 30px;">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3 class="h4">Elige una Canción</h3>
+                                <p class="section-text">Explora nuestro amplio repertorio y selecciona la pieza que deseas aprender, desde clásicos hasta éxitos modernos.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3 class="h4">Toca y Recibe Feedback</h3>
+                                <p class="section-text">La partitura cobra vida. Toca las notas y nuestra plataforma te guía en tiempo real, esperando si es necesario.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="video-trigger" id="video-trigger">
+                        <img src="https://lh3.googleusercontent.com/d/1B7QZC0XYRiAE6uHJhFneMo3uzQYNcJww" alt="Video Demo">
+                        <div class="video-overlay">
+                            <div class="play-button">
+                                <ion-icon name="play"></ion-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+     
+
+      
+
+        <!-- CATEGORIES -->
+        <section class="categories" id="lecciones">
+            <div class="container">
+                <h2 class="h2 section-title" style="text-align: center;">Un Vistazo a Tus Lecciones</h2>
+                <p class="section-text" style="text-align: center; max-width: 600px; margin: 0 auto 50px;">
+                    No solo te damos canciones, te ofrecemos una ruta de aprendizaje completa con videos, teoría y ejercicios interactivos.
+                </p>
+
+                <div class="tabs-container">
+                    <div class="tabs-nav">
+                        <button class="tab-btn active" data-tab="tab-1">
+                            <ion-icon name="list-outline"></ion-icon> Lecciones Progresivas
+                        </button>
+                        <button class="tab-btn" data-tab="tab-2">
+                            <ion-icon name="musical-notes-outline"></ion-icon> Lectura Interactiva
+                        </button>
+                        <button class="tab-btn" data-tab="tab-3">
+                            <ion-icon name="videocam-outline"></ion-icon> Clases en Vivo
+                        </button>
+                    </div>
+
+                    <div class="tabs-content">
+                        <!-- TAB 1 -->
+                        <div class="tab-pane active" id="tab-1">
+                            <div class="level-preview-card">
+                                <div class="level-icon" style="background-color: #e0d6ff; color: #8a63f6;">P</div>
+                                <div class="level-info">
+                                    <h3 class="h4">Nivel Preparatorio</h3>
+                                    <p>Empieza desde cero. Aprenderás la postura, las notas y tus primeras melodías simples.</p>
+                               
+                                </div>
+                                <div class="level-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 75%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="level-preview-card">
+                                <div class="level-icon" style="background-color: #d6eaff; color: #3a86f6;">1</div>
+                                <div class="level-info">
+                                    <h3 class="h4">Nivel 1</h3>
+                                    <p>Construye sobre lo básico con escalas, acordes simples y lectura de partituras inicial.</p>
+                                
+                                </div>
+                                <div class="level-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 30%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="level-preview-card is-locked">
+                                <div class="level-icon">2</div>
+                                <div class="level-info">
+                                    <h3 class="h4">Nivel 2</h3>
+                                    <p>Profundiza en técnica, nuevos acordes y piezas más complejas.</p>
+                                </div>
+                                <div class="level-lock" style="text-align: right; color: var(--silver-chalice);">
+                                    <ion-icon name="lock-closed"></ion-icon>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAB 2 -->
+                      <div class="tab-pane" id="tab-2">
+    <div class="feature-preview-grid">
+        <div class="feature-player-preview" style="background-image: url('https://lh3.googleusercontent.com/d/1EeBcTI_lVPOQT69EJc9376whHtV0nsaO=s1000');">
+            <div class="player-overlay-text">
+                <h4>Lector Interactivo</h4>
+                <p>Conecta tu piano por MIDI y recibe retroalimentación en tiempo real mientras lees la partitura.</p>
+            </div>
+        </div>
+        
+        <div class="feature-sidebar-preview">
+            <h4 class="sidebar-title">Herramientas de Práctica</h4>
+            <p class="sidebar-subtitle">FUNCIONES PRINCIPALES</p>
+            <ul class="lesson-list">
+                <li>
+                    <ion-icon name="musical-notes"></ion-icon> Lectura nota por nota
+                </li>
+                <li>
+                    <ion-icon name="hand-left"></ion-icon> Práctica manos separadas
+                </li>
+                <li>
+                    <ion-icon name="repeat"></ion-icon> Modo Loop (Bucle)
+                </li>
+                <li style="opacity: 0.7;">
+                    <ion-icon name="sparkles"></ion-icon> Generador de Digitación por IA (Próximamente)
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="tab-pane" id="tab-3">
+    <div class="feature-preview-grid">
+        <div class="feature-player-preview" style="background-image: url('https://lh3.googleusercontent.com/d/14Z2nzr2OrqWXu_CtVEc203hy7_eJfwSP=s1000');">
+            <div class="player-overlay-text">
+                <h4>Aula Virtual Integrada</h4>
+                <p>Olvídate de Zoom y de tener mil pestañas abiertas. Nuestro motor integra video y herramientas musicales en un solo lugar.</p>
+            </div>
+        </div>
+
+        <div class="feature-sidebar-preview">
+            <h4 class="sidebar-title">Motor de Videollamada</h4>
+            <p class="sidebar-subtitle">OPTIMIZADO PARA MÚSICA</p>
+            <ul class="lesson-list tasks">
+                <li>
+                    <ion-icon name="people" class="task-icon"></ion-icon> Selección de Profesor
+                </li>
+                <li>
+                    <ion-icon name="stopwatch" class="task-icon"></ion-icon> Metrónomo Integrado
+                </li>
+                <li>
+                    <ion-icon name="mic" class="task-icon"></ion-icon> Audio Real (Sin cancelación)
+                </li>
+                <li>
+                    <ion-icon name="flash" class="task-icon"></ion-icon> Conexión Instantánea
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+                </div>
+            </div>
+        </section>
+
+
+
+           <!-- COMPOSERS SECTION -->
+        <section class="composers-section">
+            <div class="container">
+                <div class="composers-content">
+                    
+                    <div class="composers-grid-wrapper">
+                        <div class="composers-grid" id="composers-grid-dynamic">
+                            <!-- JS Injected content -->
+                        </div>
+                    </div>
+
+                    <div> 
+                        <p class="section-subtitle">Catálogo Extenso</p>
+                        <h2 class="h2">Miles de partituras con acompañamientos profesionales</h2>
+                        <p class="section-text">Disfruta de nuestro creciente catálogo de acompañamientos musicales de alta calidad para todos los niveles y géneros.</p>
+                        <ul>
+                            <li>Repertorio de todos los géneros musicales</li>
+                            <li>Clásicos adaptados para cada nivel</li>
+                            <li>Piezas educativas y de técnica</li>
+                            <li>Bandas sonoras, Pop, Jazz y más</li>
+                        </ul>
+                        <button class="btn btn-primary" style="margin-top: 25px;">Explorar el catálogo</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS -->
+        <section class="testimonials" id="testimonios">
+            <div class="container">
+                <h2 class="h2 section-title">Lo que Dicen Nuestros Alumnos</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                        </div>
+                        <p class="testimonial-text">"Nunca pensé que podría leer música... esta app hizo el proceso tan sencillo e intuitivo. Ahora puedo sentarme al piano y tocar piezas que antes solo soñaba."</p>
+                        <div class="testimonial-author">
+                            <div class="author-img"></div>
+                            <div>
+                                <div class="author-name">Laura García</div>
+                                <div class="author-role">Estudiante Adulta</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                        </div>
+                        <p class="testimonial-text">"Dejé el piano por años y me sentía estancado. Esta plataforma me ayudó a retomar mi pasión con un repertorio increíble y ejercicios de lectura."</p>
+                        <div class="testimonial-author">
+                            <div class="author-img"></div>
+                            <div>
+                                <div class="author-name">Carlos Mendoza</div>
+                                <div class="author-role">Músico Aficionado</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star-half"></ion-icon>
+                        </div>
+                        <p class="testimonial-text">"La mejor herramienta para mi hijo. Aprende a su ritmo, se divierte con las canciones populares y yo puedo ver su progreso. La interfaz es muy motivadora."</p>
+                        <div class="testimonial-author">
+                            <div class="author-img"></div>
+                            <div>
+                                <div class="author-name">Sofía Reyes</div>
+                                <div class="author-role">Madre de Familia</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-link-box">
+                    <div class="footer-brand">
+                        <a href="#" class="footer-logo">Mozart Academy</a>
+                        <p class="section-text" style="font-size: 14px;">Domina el Piano, una Nota a la Vez. Plataforma profesional con tecnología MIDI.</p>
+                    </div>
+                    
+                    <ul class="footer-list">
+                        <li><h4>Compañía</h4></li>
+                        <li><a href="#" class="footer-link">Sobre Nosotros</a></li>
+                        <li><a href="#" class="footer-link">Carreras</a></li>
+                        <li><a href="#" class="footer-link">Contacto</a></li>
+                    </ul>
+
+                    <ul class="footer-list">
+                        <li><h4>Descubre</h4></li>
+                        <li><a href="#" class="footer-link">Lecciones</a></li>
+                        <li><a href="#" class="footer-link">Precios</a></li>
+                        <li><a href="#" class="footer-link">Testimonios</a></li>
+                    </ul>
+
+                    <ul class="footer-list">
+                        <li><h4>Soporte</h4></li>
+                        <li><a href="#" class="footer-link">FAQ</a></li>
+                        <li><a href="#" class="footer-link">Ayuda</a></li>
+                        <li><a href="#" class="footer-link">Comunidad</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </section>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="copyright" style="font-size: 14px; color: var(--light-gray);">&copy; Mozart Academy. Todos los derechos reservados</p>
+                <ul class="social-list">
+                    <li><a href="#" class="social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-youtube"></ion-icon></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- UTILS -->
+    <a href="#home" class="go-top-btn" data-go-top>
+        <ion-icon name="arrow-up"></ion-icon>
+    </a>
+
+    <div id="video-modal" class="video-modal">
+        <div class="video-modal-content">
+            <div id="close-modal-btn" class="video-close-btn">
+                <ion-icon name="close-circle"></ion-icon>
+            </div>
+            <div class="video-container">
+                <iframe id="video-iframe" src="" title="Video Player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // Inicializar Iconos
-        lucide.createIcons();
+        // GO TOP BUTTON
+        const goTopBtn = document.querySelector('[data-go-top]');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY >= 800) {
+                goTopBtn.classList.add('active');
+            } else {
+                goTopBtn.classList.remove('active');
+            }
+        });
 
-        // Lógica del Slider
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.nav-dot');
-        let currentSlide = 0;
+        // VIDEO MODAL LOGIC
+        const videoTrigger = document.getElementById('video-trigger');
+        const videoModal = document.getElementById('video-modal');
+        const closeVideoBtn = document.getElementById('close-modal-btn');
+        const videoIframe = document.getElementById('video-iframe');
+        const videoSrc = "https://www.youtube.com/embed/JFJ7nHI_Gic?autoplay=1&rel=0"; 
 
-        function setSlide(index) {
-            currentSlide = index;
-            
-            // Update Slides
-            slides.forEach((slide, i) => {
-                if (i === index) {
-                    slide.classList.add('active');
-                } else {
-                    slide.classList.remove('active');
-                }
+        if (videoTrigger) {
+            videoTrigger.addEventListener('click', function() {
+                videoIframe.src = videoSrc;
+                videoModal.classList.add('active');
             });
+        }
 
-            // Update Dots
-            dots.forEach((dot, i) => {
-                if (i === index) {
-                    dot.classList.remove('bg-gray-300');
-                    dot.classList.add('bg-gray-800', 'scale-125');
-                } else {
-                    dot.classList.add('bg-gray-300');
-                    dot.classList.remove('bg-gray-800', 'scale-125');
+        const closeVideoModal = function() {
+            videoModal.classList.remove('active');
+            videoIframe.src = ""; 
+        }
+
+        if (closeVideoBtn) {
+            closeVideoBtn.addEventListener('click', closeVideoModal);
+        }
+
+        if (videoModal) {
+            videoModal.addEventListener('click', function(e) {
+                if (e.target === videoModal) {
+                    closeVideoModal();
                 }
             });
         }
 
-        // Auto-avance cada 5 segundos
-        setInterval(() => {
-            let next = (currentSlide + 1) % slides.length;
-            setSlide(next);
-        }, 5000);
+        // CAROUSEL SCROLL
+        function scrollCarousel(carouselId, direction) {
+            const carousel = document.getElementById(carouselId);
+            if (carousel) {
+                const cardWidth = carousel.querySelector('.book-card').offsetWidth + 20; 
+                const scrollAmount = cardWidth * 3 * direction; 
+                carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        }
 
-        // Inicializar estado
-        setSlide(0);
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // 3D TABLET DEMO ANIMATION
+            function demo() {
+                setTimeout(function() {
+                    $('.sense').removeClass('hover');
+                    $('.sense:nth-child(6)').addClass('hover');
+                }, 1000);
+                setTimeout(function() {
+                    $('.sense').removeClass('hover');
+                    $('.sense:nth-child(18)').addClass('hover');
+                }, 2000);
+                setTimeout(function() {
+                    $('.sense').removeClass('hover');
+                    $('.sense:nth-child(3)').addClass('hover');
+                }, 3000);
+            }
+            demo();
+
+            // SWIPER INITIALIZATION (Nuevo Hero)
+            $(document).ready(function() {
+              var swiper = new Swiper(".creative-slider", {
+                spaceBetween: 30,
+                effect: "fade",
+                speed: 1000,
+                fadeEffect: { crossFade: true },
+                autoplay: {
+                  delay: 6000,
+                  disableOnInteraction: false,
+                },
+              });
+            });
+
+            // COMPOSERS DATA
+            const composerPages = [
+                [
+                    { name: 'Mozart', img: 'https://lh3.googleusercontent.com/d/1sZfz_OVa5xVj0YBIsyjdxnsV26xu_EUd=s200' },
+                    { name: 'Haydn', img: 'https://lh3.googleusercontent.com/d/1E-lGc-7ToAoDwVLy8bDpZLg5v55m34aA=s200' },
+                    { name: 'Liszt', img: 'https://lh3.googleusercontent.com/d/1qxh2_DE11uUtB9WtxIjfmia1OmbDpKN-=s200' },
+                    { name: 'Chopin', img: 'https://lh3.googleusercontent.com/d/1ls1vcAeVC4mV24t7w7aITnOdPo2z8Hzr=s200' },
+                    { name: 'Beethoven', img: 'https://lh3.googleusercontent.com/d/1GbP8TleKL0IlxI4ee0A0pfPQX8811qAF=s200' },
+                    { name: 'Bach', img: 'https://lh3.googleusercontent.com/d/1n-lRwmouGV7HU1dMcaM1dqWd5SjWMO8U=s200' },
+                    { name: 'Debussy', img: 'https://lh3.googleusercontent.com/d/1Ad2scs9x1sxc_mx8L35NVUFk_0vj6hej=s200' }, 
+                    { name: 'Einaudi', img: 'https://lh3.googleusercontent.com/d/1JWJdVevaq7Oj2k4IxQ-2Zi7MP123vM_4=s200' }
+                ],
+                [
+                    { name: 'Tchaikovsky', img: 'https://lh3.googleusercontent.com/d/18-2Gfm_kZSGnSMe-dadCUnWlypbwxMsh=s200' },
+                    { name: 'Handel', img: 'https://lh3.googleusercontent.com/d/12In24V0ux173hjL_Q1zA6zvyUq57J38P=s200' },
+                    { name: 'Brahms', img: 'https://lh3.googleusercontent.com/d/1AIV_VAPNh_dFbsJH6VRbyx6GcDQEffSi=s200' },
+                    { name: 'Schubert', img: 'https://lh3.googleusercontent.com/d/1CR1bbjDnL3wzmeb0AM6hkt6D4G8VunTd=s200' },
+                    { name: 'Rachmaninoff', img: 'https://lh3.googleusercontent.com/d/1puzIt1Uu4OwP0WcFQYVm_z0gFfdMCQEH=s200' },
+                    { name: 'Wagner', img: 'https://lh3.googleusercontent.com/d/1atxYxPVe8Ghy2H1h07JLtH6Ym9ndk0Rb=s200' },
+                    { name: 'Verdi', img: 'https://lh3.googleusercontent.com/d/1EjDNSVQbpZg0kn9HJExu7RC2cPnCAyLd=s200' },
+                    { name: 'Strauss', img: 'https://lh3.googleusercontent.com/d/1UImeOjJkgbfZAcg4Jgeo3Glff8HYCBT4=s200' }
+                ]
+            ];
+
+            let currentPageIndex = 0;
+            const gridContainer = document.getElementById('composers-grid-dynamic');
+
+            if (gridContainer) {
+                function buildComposerPage(pageIndex) {
+                    const pageData = composerPages[pageIndex];
+                    gridContainer.innerHTML = ''; 
+                    pageData.forEach(composer => {
+                        gridContainer.innerHTML += `
+                            <div class="composer-card">
+                                <img src="${composer.img}" alt="${composer.name}">
+                                <div class="composer-overlay"></div>
+                                <span class="composer-name">${composer.name}</span>
+                            </div>
+                        `;
+                    });
+                }
+
+                function changeComposerPage() {
+                    gridContainer.classList.add('slide-out-right');
+                    setTimeout(() => {
+                        currentPageIndex = (currentPageIndex + 1) % composerPages.length;
+                        buildComposerPage(currentPageIndex);
+                        gridContainer.classList.remove('slide-out-right');
+                        gridContainer.classList.add('slide-in-from-left');
+                        setTimeout(() => {
+                            gridContainer.classList.remove('slide-in-from-left');
+                        }, 500);
+                    }, 500);
+                }
+
+                buildComposerPage(0);
+                setInterval(changeComposerPage, 5000);
+            }
+
+            // Lógica del Slider de la Tablet 3D
+// Lógica del Slider de la Tablet 3D (Dinámico)
+const tabletSlider = document.getElementById('tabletSlider');
+
+if (tabletSlider) {
+    let tabletSlideIndex = 0;
+    // Contamos cuántas slides hay automáticamente (ej: 3)
+    const totalSlides = tabletSlider.children.length; 
+    
+    setInterval(() => {
+        tabletSlideIndex++; // Aumentamos 1
+        
+        // Si llegamos al final, volvemos al principio (0)
+        if (tabletSlideIndex >= totalSlides) {
+            tabletSlideIndex = 0;
+        }
+        
+        // Mueve el slider
+        tabletSlider.style.transform = `translateX(-${tabletSlideIndex * 100}%)`;
+    }, 5000);
+}
+
+            // TABS LOGIC
+            const tabsContainer = document.querySelector('.tabs-container');
+            if (tabsContainer) {
+                const tabButtons = tabsContainer.querySelectorAll('.tab-btn');
+                const tabPanes = tabsContainer.querySelectorAll('.tab-pane');
+
+                tabButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const tabTarget = button.getAttribute('data-tab');
+                        tabButtons.forEach(btn => btn.classList.remove('active'));
+                        tabPanes.forEach(pane => pane.classList.remove('active'));
+                        button.classList.add('active');
+                        const targetPane = tabsContainer.querySelector(`#${tabTarget}`);
+                        if (targetPane) {
+                            targetPane.classList.add('active');
+                        }
+                    });
+                });
+            }
+        });
     </script>
 </body>
 </html>
